@@ -2,7 +2,7 @@
 #include <stdio.h> /*Libreria para escribir y leer, printf(); - scanf();*/
 #include <stdbool.h> /*Libreria booleano, bool*/
 
-/* Incluimos la librería "alumnos.h" */
+/* Incluimos la libreria "alumnos.h" */
 #include "alumnos.h"
 
 /* Función para añadir un alumno */
