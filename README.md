@@ -1,5 +1,5 @@
 # Practica-FP-II
 
-https://codesandbox.io/s/cool-allen-mymk0?file=/README.md
+https://codesandbox.io/s/awesome-water-t1q1i?file=/main/alumnos.c
 
 DD
