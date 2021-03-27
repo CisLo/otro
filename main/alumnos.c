@@ -5,7 +5,7 @@
 /* Incluimos la librería "alumnos.h" */
 #include "alumnos.h"
 
-/* Función para añadir un alumno */
+/* Funcion para añadir un alumno */
 int afegir_alumne (nif, alumne, data)
 {
   
