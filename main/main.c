@@ -60,7 +60,6 @@ int main() {
 				break;
 			case 1: /* Añadir alumno */
 				afegir_alumne(&lista);
-				afegir_data( );
 
 				break;
 			case 2: /* Buscar alumno por NIF */
