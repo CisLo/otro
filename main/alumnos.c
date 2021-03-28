@@ -18,7 +18,7 @@ bool abrir_fichero(nodo_t **lista, int *num_alumnes)
   bool cargado_check; /* si se ha podido cargar correctamente */
 
   /* Leemos el fichero */
-  fit_llist = fopen ("nombre_fichero", "rb"); /* Se abre el fichero en modo lectura */
+  fit_llist = fopen ("lista_alumnos.out", "rb"); /* Se abre el fichero en modo lectura */
   if (fit_llist == NULL)
   {
     printf (""); /* Si el usuario da el fichero hay que avisar y si no entonces hay que crear un nuevo fichero */
@@ -41,11 +41,11 @@ bool guardar_fichero(nodo_t *lista, int n_alumnos)
   FILE *fit_lista;
   bool guardado_check; /* Si se ha guardado correctamente el fichero*/
 
-  nodo_t *i; /* Variable de control que se desplaza por la lista a guardar */
-  alumno_t alumno; /* Variable que guarda el valor alumno_t de cada nodo */
+  nodo_t *nd; /* Variable de control que se desplaza por la lista a guardar */
+  alumno_t *alumno; /* Variable que guarda el valor alumno_t de cada nodo */
 
   /* Guardamos el fichero */
-  fit_lista = fopen ("nombre_fichero", "wb");
+  fit_lista = fopen ("lista_alumnos.out", "wb");
   if (fit_lista == NULL)
   {
     printf ("No se ha podido guardar el fichero");
@@ -54,8 +54,9 @@ bool guardar_fichero(nodo_t *lista, int n_alumnos)
   else
   {
     /* fwrite (&n_alumnos, sizeof(int), 1, fit_lista); /* Guardamos el numero de alumnos en el fichero */
-    for (i = lista, i != NULL, i = i.salto)
+    for (nd = lista, nd != NULL, nd = nd.salto)
     {
+      alumno = nd.alumne;
       fwrite(alumno, sizeof(alumne_t), 1, fit_lista); /* Guardamos los datos de los alumnos */
     }
     
@@ -102,4 +103,3 @@ int afegir_alumne (alumne_t *alumne,nodo_t *lista)
   scanf("%d ",&nodo_alumne->sexe);
 
   return 
-}
