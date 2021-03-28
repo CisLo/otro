@@ -5,28 +5,34 @@
 /* Incluimos la librería donde estan los procedimientos */
 #include "alumnos.h"
 
-/** Programa principal **/
+/* Programa principal */
 int main() {
 
-	/** Declaración de la Estructura **/
-	node_t *list;
+	/* Declaración de la Estructura */
+	node_t *lista;
 	data_t data;
 	nif_t nif;
 	alumne_t alumne;
 
-	/** Declaración de variables **/
+	/* Declaración de variables */
 	int opcion = 0;
-	bool sortir = false;
+	bool sortir = false; /* Booleano para salir del programa principal, y repetir el menu */
 	bool fit_cargado = false; /* Comprobamos que se abra bien el fichero */
+	bool fit_guardado = false; /* Por defecto el fichero no esta guardado */
 
-	/** Cargar fichero **/
+	/* Iniciamos la lista enlazada */
+	iniciar_node(&lista);
+
+	/* Cargar fichero */
 	while (!fit_cargado){
 		fit_cargado = abrir_fichero();
 	}
+	printf("\nS'ha carregat la llista d'alumnes guardada\n");
 	
 
-	/** Bucle del Menu y los procedimientos **/
-	while (!sortir) {
+	/* Bucle del Menu y los procedimientos */
+	while (!sortir) 
+	{
 		
 		do {
         /* Menú principal */
@@ -45,9 +51,17 @@ int main() {
 		{
 			case 0: /* Salimos del programa */
 				sortir = true;
+				while (!fit_guardado)
+				{
+					fit_guardado = guardar_fichero();
+				}
+				printf("S'ha guardat la llista d'alumnes\n");
+				printf("Gràcies per utilitzar el nostre programa\n");
 				break;
 			case 1: /* Añadir alumno */
-				afegir_alumne(nif, alumne, data);
+				afegir_alumne(&lista);
+				afegir_data( );
+
 				break;
 			case 2: /* Buscar alumno por NIF */
 				break;

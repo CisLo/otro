@@ -4,7 +4,7 @@
 #define MAX 100
 
 /* Definicion del tipo fecha */
-typedef struct fecha_t
+typedef struct
 {
     int dia;
     int mes;
@@ -12,14 +12,14 @@ typedef struct fecha_t
 } fecha_t;
 
 /* Definicion del tipo NIE */
-typedef struct nif_t
+typedef struct
 {
     int numeros;
     char lletra;
 } nif_t;
 
 /* Definicion del tipo alumno */
-typedef struct alumne_t
+typedef struct
 {
     char nom[MAX], cognom[MAX], email[MAX];
     nif_t nif;
@@ -36,11 +36,13 @@ typedef struct nodo
     struct nodo *salto;
 } nodo_t;
 
-/* Cabeceras de los procedimientos a usar por el programa principal */
-bool abrir_fichero( );
-bool guardar_fichero();
 
-int afegir_alumne();
+
+/* Cabeceras de los procedimientos a usar por el programa principal */
+bool abrir_fichero(int *num_alumnes);
+bool guardar_fichero(int n_alumnos);
+
+int afegir_alumne(nodo_t *lista);
 int buscar_nif();
 int buscar_nom();
 int ultim_buscado();
