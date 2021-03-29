@@ -39,8 +39,8 @@ typedef struct nodo
 
 
 /* Cabeceras de los procedimientos a usar por el programa principal */
-bool abrir_fichero(int *num_alumnes);
-bool guardar_fichero(int n_alumnos);
+bool abrir_fichero(int **lista);
+bool guardar_fichero(int *lista);
 
 int afegir_alumne(nodo_t *lista);
 int buscar_nif();

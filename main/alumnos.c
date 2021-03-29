@@ -11,17 +11,20 @@ void iniciar_node(node_t **lista) {
 }
 
 /** Funcion abrir fichero **/
-bool abrir_fichero(nodo_t **lista, int *num_alumnes)
+bool abrir_fichero(nodo_t **lista)
 {
   /* Variables locales de la funcion */
   FILE *fit_llist;
   bool cargado_check; /* si se ha podido cargar correctamente */
 
+  nodo_t *nd; /* Variable de control que se desplaza por la lista a abrir */
+  alumno_t *alumno; /* Variable que guarda el valor alumno_t de cada nodo */
+  
   /* Leemos el fichero */
   fit_llist = fopen ("lista_alumnos.out", "rb"); /* Se abre el fichero en modo lectura */
   if (fit_llist == NULL)
   {
-    printf (""); /* Si el usuario da el fichero hay que avisar y si no entonces hay que crear un nuevo fichero */
+    printf ("La lista es"); /* Si el usuario da el fichero hay que avisar y si no entonces hay que crear un nuevo fichero */
     cargado_check = false;
   }
   else
@@ -35,7 +38,7 @@ bool abrir_fichero(nodo_t **lista, int *num_alumnes)
 }
 
 /** Funcion guardar fichero **/
-bool guardar_fichero(nodo_t *lista, int n_alumnos)
+bool guardar_fichero(nodo_t *lista)
 {
   /* Variables locales de la funcion */
   FILE *fit_lista;
@@ -59,10 +62,8 @@ bool guardar_fichero(nodo_t *lista, int n_alumnos)
       alumno = nd.alumne;
       fwrite(alumno, sizeof(alumne_t), 1, fit_lista); /* Guardamos los datos de los alumnos */
     }
-    
-    
     fclose (fit_lista); /* Cerramos el fichero */
-    cargado_check = true;
+    guardado_check = true;
   }
   return guardado_check;
 }
@@ -102,4 +103,16 @@ int afegir_alumne (alumne_t *alumne,nodo_t *lista)
   printf("Sexe (home [0], dona [1] o no vull dir-ho [2]): ");
   scanf("%d ",&nodo_alumne->sexe);
 
-  return 
+  return ;
+}
+
+/** Función buscar por NIF **/
+
+
+/** Función buscar por nombre **/
+
+
+/** Función ver el último alumno buscado **/
+
+
+/** Función eliminar el último alumno buscado **/

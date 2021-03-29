@@ -53,7 +53,7 @@ int main() {
 				sortir = true;
 				while (!fit_guardado)
 				{
-					fit_guardado = guardar_fichero();
+					fit_guardado = guardar_fichero(lista);
 				}
 				printf("S'ha guardat la llista d'alumnes\n");
 				printf("Gràcies per utilitzar el nostre programa\n");
