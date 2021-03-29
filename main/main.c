@@ -19,6 +19,7 @@ int main() {
 	bool sortir = false; /* Booleano para salir del programa principal, y repetir el menu */
 	bool fit_cargado = false; /* Comprobamos que se abra bien el fichero */
 	bool fit_guardado = false; /* Por defecto el fichero no esta guardado */
+	bool alumne_guardado = false;
 
 	/* Iniciamos la lista enlazada */
 	iniciar_node(&lista);
@@ -59,7 +60,10 @@ int main() {
 				printf("Gràcies per utilitzar el nostre programa\n");
 				break;
 			case 1: /* Añadir alumno */
-				afegir_alumne(&lista);
+				while (!alumne_guardado)
+				{
+					alumne_guardado = afegir_alumne(lista);
+				}
 
 				break;
 			case 2: /* Buscar alumno por NIF */

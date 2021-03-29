@@ -24,13 +24,13 @@ bool abrir_fichero(nodo_t **lista)
   fit_llist = fopen ("lista_alumnos.out", "rb"); /* Se abre el fichero en modo lectura */
   if (fit_llist == NULL)
   {
-    printf ("La lista es"); /* Si el usuario da el fichero hay que avisar y si no entonces hay que crear un nuevo fichero */
+    printf ("La lista está vacia"); /* Si el usuario da el fichero hay que avisar y si no entonces hay que crear un nuevo fichero */
     cargado_check = false;
   }
   else
   {
-    /* fread (num_alumnes, sizeof(int), 1, fit_llist); /* Leemos el numero de alumnos */
-    fread(/*Variable donde se guardan*/, sizeof(alumne_t), *num_alumnes, fit_llist); /* Leemos los datos de los alumnos */
+    
+    fread(alumno, sizeof(alumne_t), *num_alumnes, fit_llist); /* Leemos los datos de los alumnos */
     fclose (fit_llist); /* Cerramos el fichero */
     cargado_check = true;
   }
@@ -70,7 +70,7 @@ bool guardar_fichero(nodo_t *lista)
 
 
 /** Función para añadir un alumno **/
-int afegir_alumne (alumne_t *alumne,nodo_t *lista)
+bool afegir_alumne (alumne_t *alumne,nodo_t *lista)
 {
 
   /* Creación del nodo local de la función: */
@@ -103,7 +103,7 @@ int afegir_alumne (alumne_t *alumne,nodo_t *lista)
   printf("Sexe (home [0], dona [1] o no vull dir-ho [2]): ");
   scanf("%d ",&nodo_alumne->sexe);
 
-  return ;
+  return alumne_comp;
 }
 
 /** Función buscar por NIF **/
@@ -115,4 +115,4 @@ int afegir_alumne (alumne_t *alumne,nodo_t *lista)
 /** Función ver el último alumno buscado **/
 
 
-/** Función eliminar el último alumno buscado **/
+/** Función eliminar el último alumno **/
