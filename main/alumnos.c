@@ -92,13 +92,14 @@ bool guardar_fichero(node_t *lista)
 /** Función para añadir un alumno **/
 bool afegir_alumne (alumne_t *alumne,node_t *lista)
 {
+  
+  bool alumne_validat;
 
   /* Creación del nodo local de la función: */
   node_t nodo_alumne;
   nodo_alumne = malloc(sizeof(node_t));
 
   /* Introducir datos del alumno a añadir */
-
   printf("Nom de l'alumne: ");
   scanf("%c ",&nodo_alumne->nom);
   
@@ -123,7 +124,7 @@ bool afegir_alumne (alumne_t *alumne,node_t *lista)
   printf("Sexe (home [0], dona [1] o no vull dir-ho [2]): ");
   scanf("%d ",&nodo_alumne->sexe);
 
-  return alumne_comp;
+  return alumne_validat;
 }
 
 /** Función buscar por NIF **/

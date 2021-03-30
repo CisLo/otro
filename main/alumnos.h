@@ -11,7 +11,7 @@ typedef struct
     int any;
 } data_t;
 
-/* Definicion del tipo NIE */
+/* Definicion del tipo NIF */
 typedef struct
 {
     int numeros;

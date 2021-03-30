@@ -34,18 +34,15 @@ int main() {
 	/* Bucle del Menu y los procedimientos */
 	while (!sortir) 
 	{
-		do {
-        /* Menú principal */
-        printf("\nMENU:\n");
-        printf("[1] - Afegir alumne\n");
-        printf("[2] - Buscar per NIF\n");
-        printf("[3] - Buscar per nom\n");
-				printf("[4] - Veure últim alumne bsucat\n")
-        printf("[5] - Eliminar últim alumne buscat\n");
-				printf("[0] - Sortir\n");
-        scanf("%d", &opcion);
-				 
-    } while (opcion < 6 || opcion >= 0 );
+		/* Menú principal */
+		printf("\nMENU:\n");
+		printf("[1] - Afegir alumne\n");
+		printf("[2] - Buscar per NIF\n");
+		printf("[3] - Buscar per nom\n");
+		printf("[4] - Veure últim alumne bsucat\n")
+		printf("[5] - Eliminar últim alumne buscat\n");
+		printf("[0] - Sortir\n");
+		scanf("%d", &opcion);
 		
 		switch (opcion)
 		{
@@ -59,11 +56,7 @@ int main() {
 				printf("Gràcies per utilitzar el nostre programa\n");
 				break;
 			case 1: /* Añadir alumno */
-				while (!alumne_guardado)
-				{
-					alumne_guardado = afegir_alumne(lista);
-				}
-
+				alumne_guardado = afegir_alumne(lista);
 				break;
 			case 2: /* Buscar alumno por NIF */
 				break;
@@ -75,9 +68,9 @@ int main() {
 				break;
 
 			default: /* Mensaje por defecto */
+				printf("Introdueix una opció valida [0-5]");
 				break;
 		}
 
-	}
 	return 0; /* Finaliza el programa */
 } 
