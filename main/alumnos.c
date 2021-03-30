@@ -10,15 +10,22 @@ void iniciar_node(node_t **lista) {
   *lista = NULL;
 }
 
+/** Funcion afegir_node_final **/
+bool afegir_node_final(node_t *lista, alumne_t alumno)
+{
+  /*...*/
+  return 
+}
+
 /** Funcion abrir fichero **/
-bool abrir_fichero(nodo_t **lista)
+bool abrir_fichero(node_t **lista)
 {
   /* Variables locales de la funcion */
   FILE *fit_llist;
   bool cargado_check; /* si se ha podido cargar correctamente */
 
-  nodo_t *nd; /* Variable de control que se desplaza por la lista a abrir */
-  alumno_t *alumno; /* Variable que guarda el valor alumno_t de cada nodo */
+  alumno_t alumne; /* Variable almacena alumno */
+  alumno_t alum_aux; /* Variable auxiliar del alumno */
   
   /* Leemos el fichero */
   fit_llist = fopen ("lista_alumnos.out", "rb"); /* Se abre el fichero en modo lectura */
@@ -29,8 +36,22 @@ bool abrir_fichero(nodo_t **lista)
   }
   else
   {
-    
-    fread(alumno, sizeof(alumne_t), *num_alumnes, fit_llist); /* Leemos los datos de los alumnos */
+    fread(&alumne, sizeof(alumne_t), 1, fit_llist); /* Leemos los datos de los alumnos */
+    while (!feof(fit_llist))
+    {
+      /* Pasamos los valores a la variable auxiliar */
+      alum_aux.nom = alumne.nom;
+      alum_aux.cognom = alumne.cognom;
+      alum_aux.email = alumne.email;
+      alum_aux.nif = alumne.nif;
+      alum_aux.nota = alumne.nota;
+      alum_aux.data_naixement = alumne.data_naixement;
+      alum_aux.sexe = alumne.sexe;
+
+      afegir_node_final(lista, alum_aux);
+      
+      fread (&alumne, sizeof(data_t), 1, fit_llist); /* Leemos los datos de los alumnos */
+    }
     fclose (fit_llist); /* Cerramos el fichero */
     cargado_check = true;
   }
@@ -38,31 +59,30 @@ bool abrir_fichero(nodo_t **lista)
 }
 
 /** Funcion guardar fichero **/
-bool guardar_fichero(nodo_t *lista)
+bool guardar_fichero(node_t *lista)
 {
   /* Variables locales de la funcion */
-  FILE *fit_lista;
+  FILE *fit_llist;
   bool guardado_check; /* Si se ha guardado correctamente el fichero*/
 
-  nodo_t *nd; /* Variable de control que se desplaza por la lista a guardar */
+  node_t *nd; /* Variable de control que se desplaza por la lista a guardar */
   alumno_t *alumno; /* Variable que guarda el valor alumno_t de cada nodo */
 
   /* Guardamos el fichero */
-  fit_lista = fopen ("lista_alumnos.out", "wb");
-  if (fit_lista == NULL)
+  fit_llist = fopen ("lista_alumnos.out", "wb");
+  if (fit_llist == NULL)
   {
     printf ("No se ha podido guardar el fichero");
     guardado_check = false;
   }
   else
   {
-    /* fwrite (&n_alumnos, sizeof(int), 1, fit_lista); /* Guardamos el numero de alumnos en el fichero */
     for (nd = lista, nd != NULL, nd = nd.salto)
     {
-      alumno = nd.alumne;
-      fwrite(alumno, sizeof(alumne_t), 1, fit_lista); /* Guardamos los datos de los alumnos */
+      *alumno = nd.alumne;
+      fwrite(alumno, sizeof(alumne_t), 1, fit_llist); /* Guardamos los datos de los alumnos */
     }
-    fclose (fit_lista); /* Cerramos el fichero */
+    fclose (fit_llist); /* Cerramos el fichero */
     guardado_check = true;
   }
   return guardado_check;
@@ -70,12 +90,12 @@ bool guardar_fichero(nodo_t *lista)
 
 
 /** Función para añadir un alumno **/
-bool afegir_alumne (alumne_t *alumne,nodo_t *lista)
+bool afegir_alumne (alumne_t *alumne,node_t *lista)
 {
 
   /* Creación del nodo local de la función: */
-  nodo_t nodo_alumne;
-  nodo_alumne = malloc(sizeof(nodo_t));
+  node_t nodo_alumne;
+  nodo_alumne = malloc(sizeof(node_t));
 
   /* Introducir datos del alumno a añadir */
 

@@ -9,7 +9,7 @@ typedef struct
     int dia;
     int mes;
     int any;
-} fecha_t;
+} data_t;
 
 /* Definicion del tipo NIE */
 typedef struct
@@ -24,25 +24,26 @@ typedef struct
     char nom[MAX], cognom[MAX], email[MAX];
     nif_t nif;
     float nota;
-    fecha_t data_naixement;
+    data_t data_naixement;
     int sexe;
 
 } alumne_t;
 
 /* Definicion del tipo nodo */
-typedef struct nodo
+typedef struct node
 {
     alumne_t alumne;
-    struct nodo *salto;
-} nodo_t;
+    struct node *salto;
+} node_t;
 
 
 
 /* Cabeceras de los procedimientos a usar por el programa principal */
-bool abrir_fichero(int **lista);
-bool guardar_fichero(int *lista);
+bool abrir_fichero(node_t **lista);
+bool guardar_fichero(node_t *lista);
+bool afegir_node_final(node_t *lista, alumne_t alumno);
 
-int afegir_alumne(nodo_t *lista);
+bool afegir_alumne(node_t *lista);
 int buscar_nif();
 int buscar_nom();
 int ultim_buscado();

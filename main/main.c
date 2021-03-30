@@ -10,14 +10,12 @@ int main() {
 
 	/* Declaración de la Estructura */
 	node_t *lista;
-	data_t data;
 	nif_t nif;
 	alumne_t alumne;
 
 	/* Declaración de variables */
 	int opcion = 0;
 	bool sortir = false; /* Booleano para salir del programa principal, y repetir el menu */
-	bool fit_cargado = false; /* Comprobamos que se abra bien el fichero */
 	bool fit_guardado = false; /* Por defecto el fichero no esta guardado */
 	bool alumne_guardado = false;
 
@@ -25,16 +23,17 @@ int main() {
 	iniciar_node(&lista);
 
 	/* Cargar fichero */
-	while (!fit_cargado){
-		fit_cargado = abrir_fichero();
+	fit_cargado = abrir_fichero(&lista); /* Leemos el fichero */
+	if (fit_cargado)
+	{
+		printf("\nS'ha carregat la llista d'alumnes guardada\n");
 	}
-	printf("\nS'ha carregat la llista d'alumnes guardada\n");
+	else {printf("La lista está vacia, se creará una nueva");}
 	
 
 	/* Bucle del Menu y los procedimientos */
 	while (!sortir) 
 	{
-		
 		do {
         /* Menú principal */
         printf("\nMENU:\n");
@@ -52,7 +51,7 @@ int main() {
 		{
 			case 0: /* Salimos del programa */
 				sortir = true;
-				while (!fit_guardado)
+				while (!fit_guardado) 
 				{
 					fit_guardado = guardar_fichero(lista);
 				}
