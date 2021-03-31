@@ -11,18 +11,18 @@ typedef struct
     int any;
 } data_t;
 
-/* Definicion del tipo NIF */
+/* Definicion del tipo DNI */
 typedef struct
 {
     int numeros;
     char lletra;
-} nif_t;
+} dni_t;
 
 /* Definicion del tipo alumno */
 typedef struct
 {
     char nom[MAX], cognom[MAX], email[MAX];
-    nif_t nif;
+    dni_t dni;
     float nota;
     data_t data_naixement;
     int sexe;
@@ -44,7 +44,7 @@ bool guardar_fichero(node_t *lista);
 bool afegir_node_final(node_t *lista, alumne_t alumno);
 
 bool afegir_alumne(node_t *lista);
-int buscar_nif();
+int buscar_dni();
 int buscar_nom();
 int ultim_buscado();
 void eliminar_ultim_buscado();

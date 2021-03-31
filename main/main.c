@@ -1,6 +1,7 @@
 #include <stdio.h> /*Libreria para escribir y leer, printf(); - scanf(); */
 #include <stdlib.h> /* Libreria para usar funciones generales como malloc(); */
 #include <stdbool.h> /* Libreria booleano, bool */
+#include <string.h> /* Libreria para poder usar strcpy() para el nombre y email */
 
 /* Incluimos la librería donde estan los procedimientos */
 #include "alumnos.h"
@@ -10,14 +11,15 @@ int main() {
 
 	/* Declaración de la Estructura */
 	node_t *lista;
-	nif_t nif;
+	dni_t dni;
 	alumne_t alumne;
 
 	/* Declaración de variables */
-	int opcion = 0;
+	int opcion = 0,valid_dni=0,numeros_dni=0,opcion_dni=0;
 	bool sortir = false; /* Booleano para salir del programa principal, y repetir el menu */
 	bool fit_guardado = false; /* Por defecto el fichero no esta guardado */
 	bool alumne_guardado = false;
+	char letra_dni;
 
 	/* Iniciamos la lista enlazada */
 	iniciar_node(&lista);
@@ -37,9 +39,9 @@ int main() {
 		/* Menú principal */
 		printf("\nMENU:\n");
 		printf("[1] - Afegir alumne\n");
-		printf("[2] - Buscar per NIF\n");
+		printf("[2] - Buscar per DNI\n");
 		printf("[3] - Buscar per nom\n");
-		printf("[4] - Veure últim alumne bsucat\n")
+		printf("[4] - Veure últim alumne buscat\n")
 		printf("[5] - Eliminar últim alumne buscat\n");
 		printf("[0] - Sortir\n");
 		scanf("%d", &opcion);
@@ -58,7 +60,25 @@ int main() {
 			case 1: /* Añadir alumno */
 				alumne_guardado = afegir_alumne(lista);
 				break;
-			case 2: /* Buscar alumno por NIF */
+			case 2: /* Buscar alumno por DNI */
+				while (!valid_dni) {
+					printf("Escriba el DNI que quiere buscar");
+					printf("Primero el número");
+					scanf("%d ",&numeros_dni);
+					printf("Ahora la letra (en mayúscula)");
+					scanf("%c ",&letra_dni);
+
+					valid_dni	= buscar_dni(numeros_dni,letra_dni,lista);
+
+					if ()
+					printf("Desea volver a buscar? [0(SI)/Altre(NO)]");
+					scanf("%d ",&opcion_dni);
+						if (opcion_dni != 0)
+						{
+							valid_dni=true;
+						}
+				}
+				
 				break;
 			case 3: /* Buscar por nombre */
 				break;

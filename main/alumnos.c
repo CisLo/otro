@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h> /*Libreria para escribir y leer, printf(); - scanf();*/
 #include <stdbool.h> /*Libreria booleano, bool*/
+#include <string.h> /* Libreria para poder usar strcpy() para el nombre y email */
 
 /** Incluimos la librería "alumnos.h" **/
 #include "alumnos.h"
@@ -11,14 +12,50 @@ void iniciar_node(node_t **lista) {
 }
 
 /** Funcion afegir_node_final **/
-bool afegir_node_final(node_t *lista, alumne_t alumno)
+bool afegir_node_final(node_t **lista_pp, alumne_t alumno)
 {
-  /*...*/
-  return 
+  /* Creamos variables */
+  node_t *lista_aux_p = *lista_pp; 
+  node_t *nd_p = (node_t *)malloc(sizeof(node_t)); /* Asignamos el nodo a la memoria */
+  bool nuevo_nodo_check; /* Variable para saber si se ha podido agregar el nodo al final de la lista */
+
+  /* Comprobamos que haya memoria para el nuevo nodo */
+	if (nd_p == NULL) {
+		nuevo_nodo_check = false;
+	}
+  else
+  {
+    /* Comprobamos si la lista esta vacia */
+	  if (lista_aux_p == NULL)
+    {
+		  *lista_pp = nd_p; /* La lista apunta al nuevo nodo como el primero */
+    }
+    else 
+    {
+		  node_t *last_p = lista_aux_p;
+		  while (last_p->salto != NULL)
+			  last_p = last_p->salto;
+		  last_p->salto = nd_p;
+	  }
+
+    /* Pasamos los datos */
+    strcpy(nd_p->alumne.nom, alumno.nom); /* Copiamos los datos de una cadena de caracteres al nuevo nodo del final de la lista */
+    strcpy(nd_p->alumne.cognom, alumno.cognom);
+    strcpy(nd_p->alumne.email, alumno.email);
+    nd_p->alumne.dni = alumno.dni; /* Copiamos los datos al nuevo nodo del final de la lista */
+	  nd_p->alumne.nota = alumno.nota; 
+	  nd_p->alumne.sexe = alumno.sexe;
+    nd_p->alumne.data_naixement = alumno.data_naixement;
+	  nd_p->salto = NULL; /* Asignamos al puntero del nodo "NULL", porque es el ultimo nodo */
+
+    /* Se ha agregado con exito el alumno a la lista */
+    nuevo_nodo_check = true;
+  }
+  return nuevo_nodo_check;
 }
 
 /** Funcion abrir fichero **/
-bool abrir_fichero(node_t **lista)
+bool abrir_fichero(node_t **lista_pp)
 {
   /* Variables locales de la funcion */
   FILE *fit_llist;
@@ -43,12 +80,12 @@ bool abrir_fichero(node_t **lista)
       alum_aux.nom = alumne.nom;
       alum_aux.cognom = alumne.cognom;
       alum_aux.email = alumne.email;
-      alum_aux.nif = alumne.nif;
+      alum_aux.dni = alumne.dni;
       alum_aux.nota = alumne.nota;
       alum_aux.data_naixement = alumne.data_naixement;
       alum_aux.sexe = alumne.sexe;
 
-      afegir_node_final(lista, alum_aux);
+      afegir_node_final(lista_pp, alum_aux);
       
       fread (&alumne, sizeof(data_t), 1, fit_llist); /* Leemos los datos de los alumnos */
     }
@@ -59,14 +96,14 @@ bool abrir_fichero(node_t **lista)
 }
 
 /** Funcion guardar fichero **/
-bool guardar_fichero(node_t *lista)
+bool guardar_fichero(node_t *lista_p)
 {
   /* Variables locales de la funcion */
   FILE *fit_llist;
   bool guardado_check; /* Si se ha guardado correctamente el fichero*/
 
-  node_t *nd; /* Variable de control que se desplaza por la lista a guardar */
-  alumno_t *alumno; /* Variable que guarda el valor alumno_t de cada nodo */
+  node_t *nd_p; /* Variable de control que se desplaza por la lista a guardar */
+  alumno_t *alumno_p; /* Variable que guarda el valor alumno_t de cada nodo */
 
   /* Guardamos el fichero */
   fit_llist = fopen ("lista_alumnos.out", "wb");
@@ -77,10 +114,10 @@ bool guardar_fichero(node_t *lista)
   }
   else
   {
-    for (nd = lista, nd != NULL, nd = nd.salto)
+    for (nd_p = lista_p, nd_p != NULL, nd_p = nd_p->salto)
     {
-      *alumno = nd.alumne;
-      fwrite(alumno, sizeof(alumne_t), 1, fit_llist); /* Guardamos los datos de los alumnos */
+      *alumno_p = nd_p->alumne;
+      fwrite(alumno_p, sizeof(alumne_t), 1, fit_llist); /* Guardamos los datos de los alumnos */
     }
     fclose (fit_llist); /* Cerramos el fichero */
     guardado_check = true;
@@ -92,42 +129,100 @@ bool guardar_fichero(node_t *lista)
 /** Función para añadir un alumno **/
 bool afegir_alumne (alumne_t *alumne,node_t *lista)
 {
-  
   bool alumne_validat;
 
-  /* Creación del nodo local de la función: */
+  /*
+  Creación del nodo local de la función: 
   node_t nodo_alumne;
   nodo_alumne = malloc(sizeof(node_t));
+  */
+
+  int salida_dni=0,numeros_dni_aux=0;
+  char nombre_aux,apellido_aux,letra_dni_aux;
 
   /* Introducir datos del alumno a añadir */
-  printf("Nom de l'alumne: ");
-  scanf("%c ",&nodo_alumne->nom);
   
-  printf("Cognom: ");
-  scanf("%c ",&nodo_alumne->cognom);
-  printf("NIF (numeros + lletra): ");
+  do { /* Comprovar nombre del alumno */
+    printf("Nom de l'alumne: ");
+    scanf("%c ",&nombre_aux);
+  } while (nombre_aux<65 || nombre_aux>122 || (nombre_aux>90 && nombre_aux<97));
+   
+  do { /* Comprovar apellido del alumno */
+    printf("Cognom: ");
+    scanf("%c ",&apellido_aux);
+  } while (apellido_aux<65 || apellido_aux>122 || (apellido_aux>90 && apellido_aux<97));
+
+  printf("DNI (numeros + lletra): ");
   printf("Numeros: ");
-  scanf("%d ",&nodo_alumne->numeros);
+  scanf("%d ",&numeros_dni_aux);
   printf("Lletra: ");
-  scanf("%c ",&nodo_alumne->lletra);
+  scanf("%c ",&);
+  
   printf("Correu elèctronic: ");
-  scanf("%c ",&nodo_alumne->email);
+  scanf("%c ",&lista->email);
   printf("Nota (per exemple, 6.8): ");
-  scanf("%f ",&nodo_alumne->nota);
+  scanf("%f ",&lista->nota);
   printf("Data de naixement: (dia, mes i any): ");
   printf("Dia:");
-  scanf("%d ",&nodo_alumne->dia);
+  scanf("%d ",&lista->dia);
   printf("Mes:");
-  scanf("%d ",&nodo_alumne->mes);
+  scanf("%d ",&lista->mes);
   printf("Any:");
-  scanf("%d ",&nodo_alumne->any);
+  scanf("%d ",&lista->any);
   printf("Sexe (home [0], dona [1] o no vull dir-ho [2]): ");
-  scanf("%d ",&nodo_alumne->sexe);
+  scanf("%d ",&lista->sexe);
 
   return alumne_validat;
 }
 
-/** Función buscar por NIF **/
+/** Función buscar por DNI **/
+int buscar_dni (int numeros, char lletra,node_t *lista)
+{
+  int salida;
+  int longitud=0;
+
+  if ((lletra > 65) && (lletra < 90))
+  {
+    for (int cont=0; cont<9; cont++) {
+    if (numeros == 0) {
+      longitud++;
+    } else if (numeros > 0) {
+      numeros = numeros/10;
+      longitud++;
+    }
+  }
+
+  if (longitud == 8)
+  {
+
+    if ((numeros > 0) && (numeros < 99999999))
+    {
+      node_t *p;
+
+      for (p = lista; p != NULL; p = p->next)
+      {
+          if ((&lista.numeros == numeros) && (&lista.lletra == lletra)) 
+           {
+              salida = 1;
+
+            }
+      }
+    }
+    else 
+    {
+      salida = -1;
+      printf("El DNI escrito no es válido");
+    }
+  }
+  }
+ }
+  /*
+    1: Si existe
+    0: No existe
+    -1: Esta mal escrito, u otro
+  */
+  return salida;
+}
 
 
 /** Función buscar por nombre **/
