@@ -39,12 +39,14 @@ typedef struct node
 
 
 /* Cabeceras de los procedimientos a usar por el programa principal */
+void iniciar_node(node_t **lista);
+
+void afegir_node_final(node_t **lista, alumne_t alumno);
 bool abrir_fichero(node_t **lista);
 bool guardar_fichero(node_t *lista);
-bool afegir_node_final(node_t *lista, alumne_t alumno);
 
-bool afegir_alumne(node_t *lista);
-int buscar_dni();
+bool afegir_alumne(alumne_t *alumne, node_t *lista);
+int buscar_dni(int numeros, char lletra, node_t *lista);
 int buscar_nom();
 int ultim_buscado();
 void eliminar_ultim_buscado();
