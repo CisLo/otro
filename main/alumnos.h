@@ -14,7 +14,7 @@ typedef struct
 /* Definicion del tipo DNI */
 typedef struct
 {
-    int numeros;
+    int numero;
     char letra;
 } dni_t;
 
@@ -46,7 +46,7 @@ bool abrir_fichero(nodo_t **lista);
 bool guardar_fichero(nodo_t *lista);
 
 bool agregar_alumno(alumno_t *alumno, nodo_t *lista);
-int buscar_dni(int numeros, char letra, nodo_t *lista);
+int buscar_dni(int numero, nodo_t *lista);
 int buscar_nombre();
 int ultim_buscado();
 void eliminar_ultim_buscado();

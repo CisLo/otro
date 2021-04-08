@@ -46,7 +46,7 @@ void agregar_nodo_final(nodo_t **lista_pp, alumno_t alumno)
     strcpy(nd_p->alumno.nombre, alumno.nombre); /* Copiamos los datos de una cadena de caracteres al nuevo nodo del final de la lista */
     strcpy(nd_p->alumno.apellido, alumno.apellido);
     strcpy(nd_p->alumno.email, alumno.email);
-    nd_p->alumno.dni.numeros = alumno.dni.numeros; /* Copiamos los datos al nuevo nodo del final de la lista */
+    nd_p->alumno.dni.numero = alumno.dni.numero; /* Copiamos los datos al nuevo nodo del final de la lista */
     nd_p->alumno.dni.letra = alumno.dni.letra;
 	  nd_p->alumno.nota = alumno.nota; 
 	  nd_p->alumno.sexo = alumno.sexo;
@@ -71,7 +71,6 @@ bool abrir_fichero(nodo_t **lista_pp)
   fit_lista = fopen ("lista_alumnos.out", "rb"); /* Se abre el fichero en modo lectura */
   if (fit_lista == NULL)
   {
-    printf ("La lista esta vacia"); /* Si el usuario da el fichero hay que avisar y si no entonces hay que crear un nuevo fichero */
     cargado_check = false; /* No existe fichero */
   }
   else
@@ -83,7 +82,8 @@ bool abrir_fichero(nodo_t **lista_pp)
       strcpy(alum_aux.nombre, alumno.nombre);
       strcpy(alum_aux.apellido, alumno.apellido);
       strcpy(alum_aux.email, alumno.email);
-      alum_aux.dni = alumno.dni;
+      alum_aux.dni.numero = alumno.dni.numero;
+      alum_aux.dni.letra = alumno.dni.letra;
       alum_aux.nota = alumno.nota;
       alum_aux.fecha_nacimiento.dia = alumno.fecha_nacimiento.dia;
       alum_aux.fecha_nacimiento.mes = alumno.fecha_nacimiento.mes;
@@ -216,49 +216,53 @@ bool agregar_alumno (alumno_t *alumno, nodo_t *lista)
 
 void agregar_nodo (nodo_t *lista/*,datos*/) 
 {
-  if (lista == NULL) 
+  if (lista == NULL)
   {
     printf("No hay datos del alumno");
     //exit...
   }
 
   /* Tamaño del nuevo nodo a crear: */
-  node_t *lista_agregar = (node_t *)malloc(sizeof(node_t));
+  nodo_t *nodo_agregar = (nodo_t *)malloc(sizeof(nodo_t));
 
   /*  */
-  lista_agregar->/*datos*/ = lista_agregar;
-  
+  nodo_agregar->/*datos*/ = nodo_agregar;
 
-  //node_t nodo_alumno;
-  //nodo_alumno = malloc(sizeof(node_t));
-  
+  nodo_agregar->/*salto*/ = lista->/* salto */;
+
+  lista->/*salto*/ = nodo_agregar;
+
 }
 
 /** Función buscar por DNI **/
-int buscar_dni (int numeros, char lletra,nodo_t *lista)
+int buscar_dni (nodo_t *lista)
 {
-  int salida=0, longitud=0;
+  int salida=0, longitud=0, letra_dni, numero;
+  char letra[N] = "TRWAGMYFPDXBNJZSQVHLCKE";
 
-  if ((lletra > 65) && (lletra < 90))
-  {
-    for (int cont=0; cont<9; cont++) {
-    if (numeros == 0) {
-      longitud++;
-    } else if (numeros > 0) {
-      numeros = numeros/10;
+  printf("Introduce el DNI, pero SIN la letra");
+  scanf("%d",&numero);
+
+  for (int cont=0; cont<9; cont++) {
+  if (numero == 0) {
+    longitud++;
+    } else if (numero > 0) {
+      numero = numero/10;
       longitud++;
     }
   }
 
   if (longitud == 8)
   {
-    if ((numeros > 0) && (numeros < 99999999))
+    if ((numero > 0) && (numero < 99999999))
     {
+      letra_dni = numero % 23;
+      printf("El DNI es: %ld - %c\n", numero,letra[letra_dni]);
       nodo_t *p;
 
       for (p = lista; p != NULL; p = p->salto)
       {
-        if ((&lista.numeros == numeros) && (&lista.lletra == lletra)) 
+        if (&lista.numero == numero)
         {
           salida = 1;
         }

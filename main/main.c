@@ -15,24 +15,14 @@ int main() {
 	alumno_t *alumno;
 
 	/* Declaracion de variables */
-	int opcion = 0, valido_dni = 0, numeros_dni = 0, opcion_dni = 0;
+	int opcion = 0, valido_dni = 0, opcion_dni = 0;
 	bool salir = false; /* Booleano para salir del programa principal, y repetir el menu */
 	bool fit_cargado;
 	bool fit_guardado = false; /* Por defecto el fichero no esta guardado */
 	bool alumno_guardado = false;
-	char letra_dni;
 
 	/* Iniciamos la lista enlazada */
 	iniciar_nodo(&lista);
-
-	/* Cargar fichero */
-	fit_cargado = abrir_fichero(&lista); /* Leemos el fichero */
-	if (fit_cargado)
-	{
-		printf("\nSe ha cargado la lista de alumnos\n");
-	}
-	else {printf("\nLa lista esta vacia, se creara una nueva\n");}
-
 
 	/* Bucle del Menu y los procedimientos */
 	while (!salir)
@@ -67,20 +57,14 @@ int main() {
 				break;
 
 			case 2: /* Buscar alumno por DNI */
-				while (!opcion_dni) {
-					printf("Escriba el DNI que quiere buscar");
-					printf("Primero el numero");
-					scanf("%d ",&numeros_dni);
-					printf("Ahora la letra (en mayuscula)");
-					scanf("%c ",&letra_dni);
-
-					valido_dni	= buscar_dni(numeros_dni,letra_dni,lista);
+				while (!opcion_dni) 
+				{
+					valido_dni	= buscar_dni(lista);
 
 					printf("Desea volver a buscar? [0: (SI) / Otro numero: (NO)]");
 					scanf("%d ",&opcion_dni);
-						if (opcion_dni != 0) {
+						if (opcion_dni != 0)
 							opcion_dni=true;
-						}
 				}
 				break;
 				
@@ -96,9 +80,14 @@ int main() {
 			case 6: 
 				break;
 			
-			case 7:
+			case 7: /* Cargar fichero */
+				fit_cargado = abrir_fichero(&lista); /* Leemos el fichero */
+				if (fit_cargado)
+					printf("\nSe ha cargado la lista de alumnos\n");
+				else 
+					printf("\nLa lista esta vacia, se creara una nueva\n");
 				break;
-
+				
 			case 8: /* Ver la lista completa de los alumnos */
 				break;
 
@@ -106,6 +95,6 @@ int main() {
 				printf("Introduzca una opcion valida [0-6]");
 				break;
 		}
-
+	}
 	return 0; /* Finaliza el programa */
 } 
