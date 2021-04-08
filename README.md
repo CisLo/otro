@@ -13,6 +13,8 @@ Quan s'inicia el programa, ha d’aparèixer un menú amb les següents opcions:
     3. Buscar per Nom
     4. Veure últim alumne buscat
     5. Eliminar últim alumne buscat
+    6. Guardar llista Alumnes en Fitxer
+    7. Recuperar llista Alumnes de Fitxer
     0. Sortir
 
 El programa mantindrà en tot moment un llistat a memòria amb els alumnes que s’han anat afegint.
