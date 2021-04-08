@@ -59,7 +59,7 @@ int main() {
 			case 2: /* Buscar alumno por DNI */
 				while (!opcion_dni) 
 				{
-					valido_dni	= buscar_dni(lista);
+					valido_dni	= buscar_dni(, lista);
 
 					printf("Desea volver a buscar? [0: (SI) / Otro numero: (NO)]");
 					scanf("%d ",&opcion_dni);

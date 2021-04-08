@@ -166,7 +166,7 @@ bool agregar_alumno (alumno_t *alumno, nodo_t *lista)
   printf("Lletra: ");
   scanf(" %c",&letra_dni_aux);
   
-  salida_dni = buscar_dni(numeros_dni_aux,letra_dni_aux,lista);
+  salida_dni = buscar_dni(lista);
 
   } while (salida_dni == 1 || salida_dni == -1);
 
@@ -257,7 +257,7 @@ int buscar_dni (nodo_t *lista)
     if ((numero > 0) && (numero < 99999999))
     {
       letra_dni = numero % 23;
-      printf("El DNI es: %ld - %c\n", numero,letra[letra_dni]);
+      printf("El DNI es: %d - %c\n", numero,letra[letra_dni]);
       nodo_t *p;
 
       for (p = lista; p != NULL; p = p->salto)
