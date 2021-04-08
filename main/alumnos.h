@@ -9,44 +9,44 @@ typedef struct
     int dia;
     int mes;
     int any;
-} data_t;
+} fecha_t;
 
 /* Definicion del tipo DNI */
 typedef struct
 {
     int numeros;
-    char lletra;
+    char letra;
 } dni_t;
 
 /* Definicion del tipo alumno */
 typedef struct
 {
-    char nom[MAX], cognom[MAX], email[MAX];
+    char nombre[MAX], apellido[MAX], email[MAX];
     dni_t dni;
     float nota;
-    data_t data_naixement;
-    int sexe;
+    fecha_t fecha_nacimiento;
+    int sexo;
 
-} alumne_t;
+} alumno_t;
 
 /* Definicion del tipo nodo */
-typedef struct node
+typedef struct nodo
 {
-    alumne_t alumne;
-    struct node *salto;
-} node_t;
+    alumno_t alumno; //Data--> Datos del alumno
+    struct nodo *salto; //Next--> Salto al siguiente nodo
+} nodo_t;
 
 
 
 /* Cabeceras de los procedimientos a usar por el programa principal */
-void iniciar_node(node_t **lista);
+void iniciar_nodo(nodo_t **lista);
 
-void afegir_node_final(node_t **lista, alumne_t alumno);
-bool abrir_fichero(node_t **lista);
-bool guardar_fichero(node_t *lista);
+void agregar_nodo_final(nodo_t **lista, alumno_t alumno);
+bool abrir_fichero(nodo_t **lista);
+bool guardar_fichero(nodo_t *lista);
 
-bool afegir_alumne(alumne_t *alumne, node_t *lista);
-int buscar_dni(int numeros, char lletra, node_t *lista);
-int buscar_nom();
+bool agregar_alumno(alumno_t *alumno, nodo_t *lista);
+int buscar_dni(int numeros, char letra, nodo_t *lista);
+int buscar_nombre();
 int ultim_buscado();
 void eliminar_ultim_buscado();

@@ -7,17 +7,17 @@
 #include "alumnos.h"
 
 /** Inicializar la lista enlazada **/
-void iniciar_node(node_t **lista) {
+void iniciar_node(nodo_t **lista) {
   *lista = NULL;
 }
 
 /** Funcion afegir_node_final **/
-void afegir_node_final(node_t **lista_pp, alumne_t alumno)
+void agregar_nodo_final(nodo_t **lista_pp, alumno_t alumno)
 {
   /* Creamos variables */
-  node_t *lista_p_aux = *lista_pp; 
-  node_t *nd_p = (node_t *)malloc(sizeof(node_t)); /* Asignamos el nodo a la memoria */
-  node_t *p_final /* Variable que recorre la lista hasta el ultimo nodo */
+  nodo_t *lista_p_aux = *lista_pp; 
+  nodo_t *nd_p = (nodo_t *)malloc(sizeof(nodo_t)); /* Asignamos el nodo a la memoria */
+  nodo_t *p_final; /* Variable que recorre la lista hasta el ultimo nodo */
 
   /* Comprobamos que haya memoria para el nuevo nodo */
 	if (nd_p == NULL)
@@ -43,86 +43,88 @@ void afegir_node_final(node_t **lista_pp, alumne_t alumno)
 	  }
 
     /* Pasamos los datos del alumno al nuevo nodo */
-    strcpy(nd_p->alumne.nom, alumno.nom); /* Copiamos los datos de una cadena de caracteres al nuevo nodo del final de la lista */
-    strcpy(nd_p->alumne.cognom, alumno.cognom);
-    strcpy(nd_p->alumne.email, alumno.email);
-    nd_p->alumne.dni.numeros = alumno.dni.numeros; /* Copiamos los datos al nuevo nodo del final de la lista */
-    nd_p->alumne.dni.letra = alumno.dni.letra;
-	  nd_p->alumne.nota = alumno.nota; 
-	  nd_p->alumne.sexe = alumno.sexe;
-    nd_p->alumne.data_naixement.dia = alumno.data_naixement.dia;
-    nd_p->alumne.data_naixement.mes = alumno.data_naixement.mes;
-    nd_p->alumne.data_naixement.any = alumno.data_naixement.any;
+    strcpy(nd_p->alumno.nombre, alumno.nombre); /* Copiamos los datos de una cadena de caracteres al nuevo nodo del final de la lista */
+    strcpy(nd_p->alumno.apellido, alumno.apellido);
+    strcpy(nd_p->alumno.email, alumno.email);
+    nd_p->alumno.dni.numeros = alumno.dni.numeros; /* Copiamos los datos al nuevo nodo del final de la lista */
+    nd_p->alumno.dni.letra = alumno.dni.letra;
+	  nd_p->alumno.nota = alumno.nota; 
+	  nd_p->alumno.sexo = alumno.sexo;
+    nd_p->alumno.fecha_nacimiento.dia = alumno.fecha_nacimiento.dia;
+    nd_p->alumno.fecha_nacimiento.mes = alumno.fecha_nacimiento.mes;
+    nd_p->alumno.fecha_nacimiento.any = alumno.fecha_nacimiento.any;
 	  nd_p->salto = NULL; /* Asignamos al puntero del nodo "NULL", porque es el ultimo nodo */
   }
 }
 
 /** Funcion abrir fichero **/
-bool abrir_fichero(node_t **lista_pp)
+bool abrir_fichero(nodo_t **lista_pp)
 {
   /* Variables locales de la funcion */
-  FILE *fit_llist;
+  FILE *fit_lista;
   bool cargado_check; /* si se ha podido cargar correctamente */
 
-  alumno_t alumne; /* Variable almacena alumno */
+  alumno_t alumno; /* Variable almacena alumno */
   alumno_t alum_aux; /* Variable auxiliar del alumno */
   
   /* Leemos el fichero */
-  fit_llist = fopen ("lista_alumnos.out", "rb"); /* Se abre el fichero en modo lectura */
-  if (fit_llist == NULL)
+  fit_lista = fopen ("lista_alumnos.out", "rb"); /* Se abre el fichero en modo lectura */
+  if (fit_lista == NULL)
   {
     printf ("La lista esta vacia"); /* Si el usuario da el fichero hay que avisar y si no entonces hay que crear un nuevo fichero */
     cargado_check = false; /* No existe fichero */
   }
   else
   {
-    fread(&alumne, sizeof(alumne_t), 1, fit_llist); /* Leemos los datos de los alumnos */
-    while (!feof(fit_llist))
+    fread(&alumno, sizeof(alumno_t), 1, fit_lista); /* Leemos los datos de los alumnos */
+    while (!feof(fit_lista))
     {
       /* Pasamos los valores a la variable auxiliar */
-      alum_aux.nom = alumne.nom;
-      alum_aux.cognom = alumne.cognom;
-      alum_aux.email = alumne.email;
-      alum_aux.dni = alumne.dni;
-      alum_aux.nota = alumne.nota;
-      alum_aux.data_naixement = alumne.data_naixement;
-      alum_aux.sexe = alumne.sexe;
+      strcpy(alum_aux.nombre, alumno.nombre);
+      strcpy(alum_aux.apellido, alumno.apellido);
+      strcpy(alum_aux.email, alumno.email);
+      alum_aux.dni = alumno.dni;
+      alum_aux.nota = alumno.nota;
+      alum_aux.fecha_nacimiento.dia = alumno.fecha_nacimiento.dia;
+      alum_aux.fecha_nacimiento.mes = alumno.fecha_nacimiento.mes;
+      alum_aux.fecha_nacimiento.any = alumno.fecha_nacimiento.any;
+      alum_aux.sexo = alumno.sexo;
 
-      afegir_node_final(lista_pp, alum_aux); /* Agregamos los alumnos leidos a la lista */
-      fread (&alumne, sizeof(data_t), 1, fit_llist); /* Leemos los datos de los alumnos */
+      agregar_nodo_final(lista_pp, alum_aux); /* Agregamos los alumnos leidos a la lista */
+      fread (&alumno, sizeof(fecha_t), 1, fit_lista); /* Leemos los datos de los alumnos */
     }
     cargado_check = true; /* Cargado correctamente */
-    fclose (fit_llist); /* Cerramos el fichero */
+    fclose (fit_lista); /* Cerramos el fichero */
   }
   return cargado_check;
 }
 
 /** Funcion guardar fichero **/
-bool guardar_fichero(node_t *lista_p)
+bool guardar_fichero(nodo_t *lista_p)
 {
   /* Variables locales de la funcion */
-  FILE *fit_llist;
+  FILE *fit_lista;
   bool guardado_check; /* Si se ha guardado correctamente el fichero*/
   alumno_t *alumno_p; /* Variable que guarda el valor alumno_t de cada nodo */
 
-  node_t *nd_p; /* Variable de control que se desplaza por la lista a guardar */
+  nodo_t *nd_p; /* Variable de control que se desplaza por la lista a guardar */
   alumno_t *alumno_p; /* Variable que guarda el valor alumno_t de cada nodo */
 
   /* Guardamos el fichero */
-  fit_llist = fopen ("lista_alumnos.out", "wb");
-  if (fit_llist == NULL)
+  fit_lista = fopen ("lista_alumnos.out", "wb");
+  if (fit_lista == NULL)
   {
     printf ("No se ha podido guardar el fichero");
     guardado_check = false;
   }
   else
   {
-    for (nd_p = lista_p, nd_p != NULL, nd_p = nd_p->salto)
+    for (nd_p = lista_p; nd_p != NULL; nd_p = nd_p->salto)
     {
-      *alumno_p = nd_p->alumne;
-      fwrite(alumno_p, sizeof(alumne_t), 1, fit_llist); /* Guardamos los datos de los alumnos */
+      *alumno_p = nd_p->alumno;
+      fwrite(alumno_p, sizeof(alumno_t), 1, fit_lista); /* Guardamos los datos de los alumnos */
     }
-    fclose (fit_llist); /* Cerramos el fichero */
+    fclose (fit_lista); /* Cerramos el fichero */
     guardado_check = true;
   }
   return guardado_check;
@@ -130,19 +132,19 @@ bool guardar_fichero(node_t *lista_p)
 
 
 /** Función para añadir un alumno **/
-bool afegir_alumne (alumne_t *alumne, node_t *lista)
+bool agregar_alumno (alumno_t *alumno, nodo_t *lista)
 {
-  bool alumno_valido,fecha_valido;
+  bool alumno_valido, fecha_valido;
 
   /* Pata la creaciOn del nuevo nodo:
   Creación del nodo local de la funcion: 
-  node_t nodo_alumne;
-  nodo_alumne = malloc(sizeof(node_t));
+  node_t nodo_alumno;
+  nodo_alumno = malloc(sizeof(node_t));
   */
 
-  int salida_dni=0, numeros_dni_aux=0, sexe_aux, anyo_aux, mes_aux, dia_aux;
+  int salida_dni=0,numeros_dni_aux=0,sexe_aux,anyo_aux,mes_aux,dia_aux,longitud=0;
   float nota_aux=0.0;
-  char nombre_aux, apellido_aux, letra_dni_aux, email_aux;
+  char nombre_aux,apellido_aux,letra_dni_aux,email_aux;
 
   /* Introducir datos del alumno a añadir */
   
@@ -150,7 +152,8 @@ bool afegir_alumne (alumne_t *alumne, node_t *lista)
     printf("Nombre del alumno: ");
     scanf(" %c", &nombre_aux);
   } while (nombre_aux<65 || nombre_aux>122 || (nombre_aux>90 && nombre_aux<97));
-   
+  
+  
   do { /* Comprobar apellido del alumno */
     printf("Apellido: ");
     scanf(" %c", &apellido_aux);
@@ -181,7 +184,7 @@ bool afegir_alumne (alumne_t *alumne, node_t *lista)
     scanf("%d ",&dia_aux);
     printf("Mes:");
     scanf("%d ",&mes_aux);
-    printf("Any:");
+    printf("Año:");
     scanf("%d ",&anyo_aux);
 
     if (mes_aux==2) {
@@ -194,10 +197,10 @@ bool afegir_alumne (alumne_t *alumne, node_t *lista)
   } while (!fecha_valido);
   
   do { /* Comprobar sexo del alumno */
-  printf("Sexe (home [0], dona [1] o no vull dir-ho [2]): ");
+  printf("Sexo (hombre [0], mujer [1] o no quiero decirlo [2]): ");
   scanf("%d ",&sexe_aux);
   } while (sexe_aux<0 || sexe_aux>2);
-      node_t *p;
+      nodo_t *p;
 
   /** AQUI AGREGAR NODO A LA LISTA **/
 
@@ -211,8 +214,28 @@ bool afegir_alumne (alumne_t *alumne, node_t *lista)
   */
 }
 
+void agregar_nodo (nodo_t *lista/*,datos*/) 
+{
+  if (lista == NULL) 
+  {
+    printf("No hay datos del alumno");
+    //exit...
+  }
+
+  /* Tamaño del nuevo nodo a crear: */
+  node_t *lista_agregar = (node_t *)malloc(sizeof(node_t));
+
+  /*  */
+  lista_agregar->/*datos*/ = lista_agregar;
+  
+
+  //node_t nodo_alumno;
+  //nodo_alumno = malloc(sizeof(node_t));
+  
+}
+
 /** Función buscar por DNI **/
-int buscar_dni (int numeros, char lletra,node_t *lista)
+int buscar_dni (int numeros, char lletra,nodo_t *lista)
 {
   int salida=0, longitud=0;
 
@@ -231,9 +254,9 @@ int buscar_dni (int numeros, char lletra,node_t *lista)
   {
     if ((numeros > 0) && (numeros < 99999999))
     {
-      node_t *p;
+      nodo_t *p;
 
-      for (p = lista; p != NULL; p = p->next)
+      for (p = lista; p != NULL; p = p->salto)
       {
         if ((&lista.numeros == numeros) && (&lista.lletra == lletra)) 
         {
@@ -247,8 +270,7 @@ int buscar_dni (int numeros, char lletra,node_t *lista)
       printf("El DNI escrito no es valido");
     }
   }
-  }
- }
+  
   /*
     1: Si existe
     0: No existe

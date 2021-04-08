@@ -10,9 +10,9 @@
 int main() {
 
 	/* Declaracion de la Estructura */
-	node_t *lista;
+	nodo_t *lista;
 	dni_t dni;
-	alumne_t *alumne;
+	alumno_t *alumno;
 
 	/* Declaracion de variables */
 	int opcion = 0, valido_dni = 0, numeros_dni = 0, opcion_dni = 0;
@@ -23,7 +23,7 @@ int main() {
 	char letra_dni;
 
 	/* Iniciamos la lista enlazada */
-	iniciar_node(&lista);
+	iniciar_nodo(&lista);
 
 	/* Cargar fichero */
 	fit_cargado = abrir_fichero(&lista); /* Leemos el fichero */
@@ -54,7 +54,7 @@ int main() {
 		{
 			case 0: /* Salimos del programa */
 				salir = true;
-				fit_guardado = guardar_fichero(lista);
+				fit_guardado = agregar_alumno(alumno, lista);
 				if (fit_guardado)
 				{
 					printf("Se ha guardado la lista de alumnos\n");
@@ -63,7 +63,7 @@ int main() {
 				break;
 				
 			case 1: /* Agregar alumno */
-				alumno_guardado = afegir_alumne(alumne,lista);
+				alumno_guardado = agregar_alumno(alumno, lista);
 				break;
 
 			case 2: /* Buscar alumno por DNI */
