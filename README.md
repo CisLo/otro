@@ -6,14 +6,6 @@
 
 ## Enunciado:
 
-# Practica-FP-II
-
-## Estructura principal:
-
-![estructura_principal](https://i.imgur.com/0DroeAv.png)
-
-## Enunciado:
-
 Quan s'inicia el programa, ha d’aparèixer un menú amb les següents opcions:
 
     1 Afegir alumne

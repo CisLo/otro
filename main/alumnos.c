@@ -225,7 +225,7 @@ void agregar_nodo (nodo_t *lista/*,datos*/)
   /* Tamaño del nuevo nodo a crear: */
   nodo_t *nodo_agregar = (nodo_t *)malloc(sizeof(nodo_t));
 
-  /*  */
+  /* Para  */
   nodo_agregar->/*datos*/ = nodo_agregar;
 
   nodo_agregar->/*salto*/ = lista->/* salto */;
