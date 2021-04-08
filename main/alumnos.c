@@ -20,7 +20,7 @@ void afegir_node_final(node_t **lista_pp, alumne_t alumno)
   node_t *p_final /* Variable que recorre la lista hasta el ultimo nodo */
 
   /* Comprobamos que haya memoria para el nuevo nodo */
-	if (nd_p == NULL) 
+	if (nd_p == NULL)
   {
 		printf ("No hay suficiente memoria para agregar el alumno a la lista");
     exit(-1); /* Se sale del programa */
@@ -71,7 +71,7 @@ bool abrir_fichero(node_t **lista_pp)
   fit_llist = fopen ("lista_alumnos.out", "rb"); /* Se abre el fichero en modo lectura */
   if (fit_llist == NULL)
   {
-    printf ("La lista está vacia"); /* Si el usuario da el fichero hay que avisar y si no entonces hay que crear un nuevo fichero */
+    printf ("La lista esta vacia"); /* Si el usuario da el fichero hay que avisar y si no entonces hay que crear un nuevo fichero */
     cargado_check = false; /* No existe fichero */
   }
   else
@@ -132,7 +132,7 @@ bool guardar_fichero(node_t *lista_p)
 /** Función para añadir un alumno **/
 bool afegir_alumne (alumne_t *alumne, node_t *lista)
 {
-  bool alumne_validat,fecha_valido;
+  bool alumno_valido,fecha_valido;
 
   /* Pata la creaciOn del nuevo nodo:
   Creación del nodo local de la funcion: 
@@ -147,36 +147,36 @@ bool afegir_alumne (alumne_t *alumne, node_t *lista)
   /* Introducir datos del alumno a añadir */
   
   do { /* Comprobar nombre del alumno */
-    printf("Nom de l'alumne: ");
-    scanf("%c ",&nombre_aux);
+    printf("Nombre del alumno: ");
+    scanf(" %c", &nombre_aux);
   } while (nombre_aux<65 || nombre_aux>122 || (nombre_aux>90 && nombre_aux<97));
    
   do { /* Comprobar apellido del alumno */
-    printf("Cognom: ");
-    scanf("%c ",&apellido_aux);
+    printf("Apellido: ");
+    scanf(" %c", &apellido_aux);
   } while (apellido_aux<65 || apellido_aux>122 || (apellido_aux>90 && apellido_aux<97));
 
   do { /* Comprobar DNI del alumno */
-  printf("DNI (numeros + lletra): ");
+  printf("DNI (numeros + letra): ");
   printf("Numeros: ");
-  scanf("%d ",&numeros_dni_aux);
+  scanf(" %d",&numeros_dni_aux);
   printf("Lletra: ");
-  scanf("%c ",&letra_dni_aux);
+  scanf(" %c",&letra_dni_aux);
   
   salida_dni = buscar_dni(numeros_dni_aux,letra_dni_aux,lista);
 
   } while (salida_dni == 1 || salida_dni == -1);
 
-  printf("Correu electronic: ");
-  scanf("%c ",&email_aux);
+  printf("Correo electronico: ");
+  scanf(" %c", &email_aux);
 
   do { /* Comprobar nota del alumno */
-  printf("Nota (per exemple, 6.8): ");
+  printf("Nota (por ejemplo, 6.8): ");
   scanf("%f ",&nota_aux);
   } while (nota_aux<0 || nota_aux>10);
   
   do {
-    printf("Data de naixement: (dia, mes i any): ");
+    printf("Fecha de nacimiento: (dia, mes y año): ");
     printf("Dia:");
     scanf("%d ",&dia_aux);
     printf("Mes:");
@@ -201,7 +201,7 @@ bool afegir_alumne (alumne_t *alumne, node_t *lista)
 
   /** AQUI AGREGAR NODO A LA LISTA **/
 
-  return alumne_validat;
+  return alumno_valido;
 
   /*
   while (p_final->salto != NULL) { //Recorremos la lista hasta el ultimo nodo 

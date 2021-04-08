@@ -12,7 +12,7 @@ int main() {
 	/* Declaracion de la Estructura */
 	node_t *lista;
 	dni_t dni;
-	alumne_t alumne;
+	alumne_t *alumne;
 
 	/* Declaracion de variables */
 	int opcion = 0, valido_dni = 0, numeros_dni = 0, opcion_dni = 0;
@@ -29,9 +29,9 @@ int main() {
 	fit_cargado = abrir_fichero(&lista); /* Leemos el fichero */
 	if (fit_cargado)
 	{
-		printf("\nLa llista esta buida, es creara una nova\n");
+		printf("\nSe ha cargado la lista de alumnos\n");
 	}
-	else {printf("\nS'ha carregat la llista d'alumnes guardada\n");}
+	else {printf("\nLa lista esta vacia, se creara una nueva\n");}
 
 
 	/* Bucle del Menu y los procedimientos */
@@ -39,14 +39,16 @@ int main() {
 	{
 		/* Menú principal */
 		printf("\nMENU:\n");
-		printf("[1] - Afegir alumne\n");
-		printf("[2] - Buscar per DNI\n");
-		printf("[3] - Buscar per nom\n");
-		printf("[4] - Veure ultim alumne buscat\n")
-		printf("[5] - Eliminar ultim alumne buscat\n");
-		printf("[6] - Veure el llistat\n");
-		printf("[0] - Sortir\n");
-		scanf("%d", &opcion);
+		printf("[1] - Agregar alumno\n");
+		printf("[2] - Buscar por DNI\n");
+		printf("[3] - Buscar por nombre\n");
+		printf("[4] - Ver ultimo alumno buscado\n");
+		printf("[5] - Eliminar ultimo alumno buscado\n");
+		printf("[6] - Guardar lista de alumnos en Fichero\n");
+		printf("[7] - Recuperar lista de alumnos del Fichero\n");
+		printf("[8] - Ver la lista\n");
+		printf("[0] - Salir\n");
+		scanf(" %d", &opcion);
 		
 		switch (opcion)
 		{
@@ -55,13 +57,13 @@ int main() {
 				fit_guardado = guardar_fichero(lista);
 				if (fit_guardado)
 				{
-					printf("S'ha guardat la llista d'alumnes\n");
+					printf("Se ha guardado la lista de alumnos\n");
 				}
-				printf("Gracies per utilitzar el nostre programa\n");
+				printf("Gracias por utilizar el programa\n");
 				break;
 				
-			case 1: /* Añadir alumno */
-				alumno_guardado = afegir_alumne(lista);
+			case 1: /* Agregar alumno */
+				alumno_guardado = afegir_alumne(alumne,lista);
 				break;
 
 			case 2: /* Buscar alumno por DNI */
@@ -74,7 +76,7 @@ int main() {
 
 					valido_dni	= buscar_dni(numeros_dni,letra_dni,lista);
 
-					printf("Desea volver a buscar? [0(SI)/Altre(NO)]");
+					printf("Desea volver a buscar? [0: (SI) / Otro numero: (NO)]");
 					scanf("%d ",&opcion_dni);
 						if (opcion_dni != 0) {
 							opcion_dni=true;
@@ -85,17 +87,23 @@ int main() {
 			case 3: /* Buscar por nombre */
 				break;
 
-			case 4: /* Ver el último alumno buscado */
+			case 4: /* Ver el ultimo alumno buscado */
 				break;
 				
-			case 5: /* Eliminar el último alumno buscado */
+			case 5: /* Eliminar el ultimo alumno buscado */
 				break;
 
-			case 6: /* Ver la lista completa de los alumnos */
+			case 6: 
+				break;
+			
+			case 7:
+				break;
+
+			case 8: /* Ver la lista completa de los alumnos */
 				break;
 
 			default: /* Mensaje por defecto */
-				printf("Introdueix una opcio valida [0-6]");
+				printf("Introduzca una opcion valida [0-6]");
 				break;
 		}
 
