@@ -6,7 +6,7 @@
 /* Incluimos la libreria donde estan los procedimientos */
 #include "alumnos.h"
 
-/* Programa principal */
+/** Programa principal **/
 int main() {
 
 	/* Declaracion de la Estructura */
@@ -44,11 +44,13 @@ int main() {
 		{
 			case 0: /* Salimos del programa */
 				salir = true;
-				fit_guardado = agregar_alumno(alumno, lista);
+				fit_guardado = guardar_fichero(lista);
+				
 				if (fit_guardado)
-				{
 					printf("Se ha guardado la lista de alumnos\n");
-				}
+				else
+					printf ("No se ha podido guardar el fichero");
+
 				printf("Gracias por utilizar el programa\n");
 				break;
 				

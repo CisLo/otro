@@ -6,8 +6,11 @@
 /** Incluimos la libreria "alumnos.h" **/
 #include "alumnos.h"
 
+/* Declaración de màximo de la lista de letras del DNI */
+#define N 23
+
 /** Inicializar la lista enlazada **/
-void iniciar_node(nodo_t **lista) {
+void iniciar_nodo(nodo_t **lista) {
   *lista = NULL;
 }
 
@@ -114,7 +117,6 @@ bool guardar_fichero(nodo_t *lista_p)
   fit_lista = fopen ("lista_alumnos.out", "wb");
   if (fit_lista == NULL)
   {
-    printf ("No se ha podido guardar el fichero");
     guardado_check = false;
   }
   else
@@ -150,19 +152,19 @@ bool agregar_alumno (alumno_t *alumno, nodo_t *lista)
   
   do { /* Comprobar nombre del alumno */
     printf("Nombre del alumno: ");
-    scanf(" %c", &nombre_aux);
+    scanf(" %s",nombre_aux);
   } while (nombre_aux<65 || nombre_aux>122 || (nombre_aux>90 && nombre_aux<97));
   
   
   do { /* Comprobar apellido del alumno */
     printf("Apellido: ");
-    scanf(" %c", &apellido_aux);
+    scanf(" %c",apellido_aux);
   } while (apellido_aux<65 || apellido_aux>122 || (apellido_aux>90 && apellido_aux<97));
 
   do { /* Comprobar DNI del alumno */
   printf("DNI (numeros + letra): ");
   printf("Numeros: ");
-  scanf(" %d",&numeros_dni_aux);
+  scanf(" %d",numeros_dni_aux);
   printf("Lletra: ");
   scanf(" %c",&letra_dni_aux);
   
@@ -171,7 +173,7 @@ bool agregar_alumno (alumno_t *alumno, nodo_t *lista)
   } while (salida_dni == 1 || salida_dni == -1);
 
   printf("Correo electronico: ");
-  scanf(" %c", &email_aux);
+  scanf(" %c",email_aux);
 
   do { /* Comprobar nota del alumno */
   printf("Nota (por ejemplo, 6.8): ");
@@ -235,25 +237,28 @@ void agregar_nodo (nodo_t *lista/*,datos*/)
 }
 
 /** Función buscar por DNI **/
-int buscar_dni (nodo_t *lista)
+int buscar_dni (nodo_t *lista, nodo_t **alumno_buscado)
 {
-  int salida=0, longitud=0, letra_dni, numero;
+  /* Declaracion de variables */
+  int salida=0, longitud=0, letra_dni, numero_dni,numero;
   char letra[N] = "TRWAGMYFPDXBNJZSQVHLCKE";
 
+  /* DNI a buscar en la lista*/
   printf("Introduce el DNI, pero SIN la letra");
-  scanf("%d",&numero);
+  scanf("%d",&numero_dni);
 
-  for (int cont=0; cont<9; cont++) {
-  if (numero == 0) {
-    longitud++;
-    } else if (numero > 0) {
+  numero = numero_dni;
+
+  for (int cont=0; cont<9; cont++) 
+  {
       numero = numero/10;
       longitud++;
-    }
   }
+  
 
   if (longitud == 8)
   {
+
     if ((numero > 0) && (numero < 99999999))
     {
       letra_dni = numero % 23;

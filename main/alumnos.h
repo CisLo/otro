@@ -47,6 +47,7 @@ bool guardar_fichero(nodo_t *lista);
 
 bool agregar_alumno(alumno_t *alumno, nodo_t *lista);
 int buscar_dni(int numero, nodo_t *lista);
+void agregar_nodo (nodo_t *lista/*,datos*/);
 int buscar_nombre();
-int ultim_buscado();
-void eliminar_ultim_buscado();
+int ultimo_buscado();
+void eliminar_ultimo_buscado();
