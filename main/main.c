@@ -46,6 +46,7 @@ int main() {
 				salir = true;
 				fit_guardado = guardar_fichero(lista);
 				
+				
 				if (fit_guardado)
 					printf("Se ha guardado la lista de alumnos\n");
 				else
