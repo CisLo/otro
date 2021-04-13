@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h> /*Libreria para escribir y leer, printf(); - scanf();*/
+#include <stdlib.h> /* Libreria para usar funciones generales como malloc(); y free */
 #include <stdbool.h> /*Libreria booleano, bool*/
 #include <string.h> /* Libreria para poder usar strcpy() para el nombre y email */
 
@@ -15,12 +15,15 @@ void iniciar_nodo(nodo_t **lista) {
 }
 
 /** Funcion afegir_node_final **/
-void agregar_nodo_final(nodo_t **lista_pp, alumno_t alumno)
+void agregar_nodo_final(nodo_t **lista_pp, alumno_t alumno_crg)
 {
   /* Creamos variables */
   nodo_t *lista_p_aux = *lista_pp; 
-  nodo_t *nd_p = (nodo_t *)malloc(sizeof(nodo_t)); /* Asignamos el nodo a la memoria */
+  nodo_t *nd_p;
   nodo_t *p_final; /* Variable que recorre la lista hasta el ultimo nodo */
+
+  /* Reservamos el nodo en la memoria */
+  nd_p = (nodo_t *) malloc(sizeof(nodo_t)); 
 
   /* Comprobamos que haya memoria para el nuevo nodo */
 	if (nd_p == NULL)
@@ -45,17 +48,17 @@ void agregar_nodo_final(nodo_t **lista_pp, alumno_t alumno)
 		  p_final->salto = nd_p; /* El ultimo nodo apunta al nuevo, poniendo al nuevo nodo al final de la lista */
 	  }
 
-    /* Pasamos los datos del alumno al nuevo nodo */
-    strcpy(nd_p->alumno.nombre, alumno.nombre); /* Copiamos los datos de una cadena de caracteres al nuevo nodo del final de la lista */
-    strcpy(nd_p->alumno.apellido, alumno.apellido);
-    strcpy(nd_p->alumno.email, alumno.email);
-    nd_p->alumno.dni.numero = alumno.dni.numero; /* Copiamos los datos al nuevo nodo del final de la lista */
-    nd_p->alumno.dni.letra = alumno.dni.letra;
-	  nd_p->alumno.nota = alumno.nota; 
-	  nd_p->alumno.sexo = alumno.sexo;
-    nd_p->alumno.fecha_nacimiento.dia = alumno.fecha_nacimiento.dia;
-    nd_p->alumno.fecha_nacimiento.mes = alumno.fecha_nacimiento.mes;
-    nd_p->alumno.fecha_nacimiento.any = alumno.fecha_nacimiento.any;
+    /* Pasamos los datos del alumno cargado al nuevo nodo */
+    strcpy(nd_p->alumno.nombre, alumno_crg.nombre); /* Copiamos los datos de una cadena de caracteres al nuevo nodo del final de la lista */
+    strcpy(nd_p->alumno.apellido, alumno_crg.apellido);
+    strcpy(nd_p->alumno.email, alumno_crg.email);
+    nd_p->alumno.dni.numero = alumno_crg.dni.numero; /* Copiamos los datos al nuevo nodo del final de la lista */
+    nd_p->alumno.dni.letra = alumno_crg.dni.letra;
+	  nd_p->alumno.nota = alumno_crg.nota; 
+	  nd_p->alumno.sexo = alumno_crg.sexo;
+    nd_p->alumno.fecha_nacimiento.dia = alumno_crg.fecha_nacimiento.dia;
+    nd_p->alumno.fecha_nacimiento.mes = alumno_crg.fecha_nacimiento.mes;
+    nd_p->alumno.fecha_nacimiento.any = alumno_crg.fecha_nacimiento.any;
 	  nd_p->salto = NULL; /* Asignamos al puntero del nodo "NULL", porque es el ultimo nodo */
   }
 }
