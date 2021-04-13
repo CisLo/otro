@@ -10,7 +10,8 @@
 #define N 23
 
 /** Inicializar la lista enlazada **/
-void iniciar_nodo(nodo_t **lista) {
+void iniciar_nodo(nodo_t **lista) 
+{
   *lista = NULL;
 }
 
@@ -293,39 +294,42 @@ int buscar_dni (nodo_t *lista, nodo_t **alumno_buscado)
 /** Función ver el ultimo alumno buscado **/
 int ultimo_buscado(nodo_t *p_lista, nodo_t *p_ultimo_alum);
 
-/** Eliminar ultimo alumno buscado **/
-void eliminar_ultimo_buscado(nodo_t **p_lista, nodo_t *p_ultimo_alum, nodo_t *nodo_prev)
-{
-  /* CASO 1: ultimo alumno buscado es tanto el primero como el ultimo de la lista */
-  /* CASO 2: ultimo alumno buscado es el primero de la lista                      */
-  /* CASO 3: ultimo alumno buscado es el ultimo de la lista                       */
-  /* CASO 4: ultimo alumno buscado esta entre alumnos de la lista                 */
 
-  /* CASO 1 */
-  if ((*p_lista == p_ultimo_alum) && (p_ultimo_alum->salto == NULL))
+/** Eliminar ultimo alumno  **/
+void eliminar_alumno(nodo_t **p_lista, nodo_t *p_ultimo_alum, nodo_t *nodo_prev)
+{
+  /* Declaracion variables locales*/
+  int borrar_alumno = 0;
+
+  /* CASO 1: ultimo alumno es tanto el primero como el ultimo de la lista */
+  /* CASO 2: ultimo alumno es el primero de la lista                      */
+  /* CASO 3: ultimo alumno es el ultimo de la lista                       */
+  /* CASO 4: ultimo alumno esta entre alumnos de la lista                 */
+
+  if (p_ultimo_alum == NULL)
   {
-    *p_lista = NULL;
-    free(p_ultimo_alum);
+    printf ("No se ha buscado ningun alumno o este ya ha sido borrado\n");
   }
   else
   {
-    /* CASO 2 */
-    if (*p_lista == p_ultimo_alum)
+    /* Pedimos Confirmación */
+		printf("Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
+		scanf("%d", &borrar_alumno);
+
+    if (borrar_alumno)
     {
-       *p_lista = p_ultimo_alum->salto;
-       free(p_ultimo_alum);
+      /* CASO 1 y CASO 2 */
+      if (*p_lista == p_ultimo_alum)
+      {
+        *p_lista = p_ultimo_alum->salto;
+        free(p_ultimo_alum);
+      } 
+      else /* CASO 3 y CASO 4 */
+      {
+        nodo_prev->salto = p_ultimo_alum->salto;
+        free(p_ultimo_alum);
+      }
+      printf ("Se ha borrado el alumno");
     }
-    /* CASO 3 */
-    if (p_ultimo_alum->salto == NULL)
-    {
-      nodo_prev->salto = NULL;
-      free(p_ultimo_alum);
-    }
-  }
-  /* CASO 3 y CASO 4 */
-  if (*p_lista != p_ultimo_alum)
-  {
-    nodo_prev->salto = p_ultimo_alum->salto;
-    free(p_ultimo_alum);
   }
 }

@@ -46,8 +46,10 @@ bool abrir_fichero(nodo_t **lista);
 bool guardar_fichero(nodo_t *lista);
 
 bool agregar_alumno(alumno_t *alumno, nodo_t *lista);
-int buscar_dni(int numero, nodo_t *lista);
+int buscar_dni(nodo_t *lista, nodo_t **alumno_buscado);
 void agregar_nodo (nodo_t *lista/*,datos*/);
 int buscar_nombre();
 int ultimo_buscado();
-void eliminar_ultimo_buscado();
+
+void ver_alumno();
+void eliminar_alumno(nodo_t **p_lista, nodo_t *p_ultimo_alum, nodo_t *nodo_prev);

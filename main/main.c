@@ -11,14 +11,14 @@ int main() {
 
 	/* Declaracion de la Estructura */
 	nodo_t *lista;
+	nodo_t *alumno_buscado, *nodo_prev; /* Guardan direcciones de nodos al buscar un alumno */
 	dni_t dni;
 	alumno_t *alumno;
 
 	/* Declaracion de variables */
-	int opcion = 0, valido_dni = 0, opcion_dni = 0;
+	int opcion = 0, valido_dni = 0, opcion_dni = 0, borrar_alumno = 0;
 	bool salir = false; /* Booleano para salir del programa principal, y repetir el menu */
-	bool fit_cargado;
-	bool fit_guardado = false; /* Por defecto el fichero no esta guardado */
+	bool fit_cargado = false, fit_guardado = false; /* Por defecto el fichero no esta guardado ni cargado */
 	bool alumno_guardado = false;
 
 	/* Iniciamos la lista enlazada */
@@ -62,12 +62,12 @@ int main() {
 			case 2: /* Buscar alumno por DNI */
 				while (!opcion_dni) 
 				{
-					valido_dni	= buscar_dni(lista);
+					valido_dni	= buscar_dni(lista, &alumno_buscado);
 
-					printf("Desea volver a buscar? [0: (SI) / Otro numero: (NO)]");
-					scanf("%d ",&opcion_dni);
-						if (opcion_dni != 0)
-							opcion_dni=true;
+					printf("Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
+					scanf("%d ", &opcion_dni);
+						if (opcion_dni != 1)
+							opcion_dni = true;
 				}
 				break;
 				
@@ -78,6 +78,13 @@ int main() {
 				break;
 				
 			case 5: /* Eliminar el ultimo alumno buscado */
+				ver_alumno();
+				/* Pedimos Confirmación */
+				printf("Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
+				scanf("%d", &borrar_alumno); 
+				if (borrar_alumno == 1)
+					eliminar_alumno (&lista, alumno_buscado, nodo_prev);
+					printf ("Se ha borrado el alumno");
 				break;
 
 			case 6: 
@@ -95,7 +102,7 @@ int main() {
 				break;
 
 			default: /* Mensaje por defecto */
-				printf("Introduzca una opcion valida [0-6]");
+				printf("Introduzca una opcion valida [0-8]");
 				break;
 		}
 	}
