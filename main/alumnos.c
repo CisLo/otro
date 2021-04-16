@@ -273,7 +273,34 @@ int buscar_dni (nodo_t *lista, nodo_t **alumno_buscado)
 
 
 /** Función ver el ultimo alumno buscado **/
-int ultimo_buscado(nodo_t *p_lista, nodo_t *p_ultimo_alum);
+int ultimo_buscado(nodo_t *p_lista, nodo_t *p_ultimo_alum)
+{
+  if (p_ultimo_alum == NULL) /* Comprobamos que se haya buscado un alumno */
+  {
+    printf("No se ha buscado ningun alumno o este ya ha sido borrado\n");
+  }
+  else
+  {
+    /* Imprimimos por pantalla los datos del alumno */
+    printf("\nALUMNO: %s %s\n", p_ultimo_alum->alumno.nombre, p_ultimo_alum->alumno.apellido);
+    printf("------------------------------------\n");
+    printf("eMAIL: %s\n", p_ultimo_alum->alumno.nombre);
+    printf("DNI: %d %c\n",  p_ultimo_alum->alumno.nombre, p_ultimo_alum->alumno.apellido);
+    printf("NOTA: %d\n", p_ultimo_alum->alumno.nota);
+    printf("FECHA NACIMIENTO: %d/%d/%d\n", p_ultimo_alum->alumno.fecha_nacimiento.dia, p_ultimo_alum->alumno.fecha_nacimiento.mes, p_ultimo_alum->alumno.fecha_nacimiento.dia);
+    switch (p_ultimo_alum->alumno.fecha_nacimiento.dia)
+    {
+    case 0: printf("SEXO: Hombre");
+      break;
+
+    case 1: printf("SEXO: Mujer");
+      break;
+
+    case 2: printf("SEXO: No quiero decirlo");
+      break;
+    }
+  }
+}
 
 
 /** Eliminar ultimo alumno  **/
@@ -310,6 +337,7 @@ void eliminar_alumno(nodo_t **p_lista, nodo_t *p_ultimo_alum, nodo_t *nodo_prev)
         nodo_prev->salto = p_ultimo_alum->salto;
         free(p_ultimo_alum);
       }
+      p_ultimo_alum = NULL; /* Evitamos que el puntero apunte a un nodo que ya se ha eliminado*/
       printf ("Se ha borrado el alumno");
     }
   }
