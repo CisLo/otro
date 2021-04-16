@@ -1,10 +1,10 @@
 #include <stdio.h> /*Libreria para escribir y leer, printf(); - scanf(); */
 #include <stdlib.h> /* Libreria para usar funciones generales como malloc(); y free */
 #include <stdbool.h> /* Libreria booleano, bool */
-#include <string.h> /* Libreria para poder usar strcpy() para el nombre y email */
 
 /* Incluimos la libreria donde estan los procedimientos */
 #include "alumnos.h"
+#include "fichero.h"
 
 /** Programa principal **/
 int main() {

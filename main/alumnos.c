@@ -1,7 +1,7 @@
 #include <stdio.h> /*Libreria para escribir y leer, printf(); - scanf();*/
 #include <stdlib.h> /* Libreria para usar funciones generales como malloc(); y free */
 #include <stdbool.h> /*Libreria booleano, bool*/
-#include <string.h> /* Libreria para poder usar strcpy() para el nombre y email */
+#include <string.h> /* Libreria para poder usar strcpy() */
 
 /** Incluimos la libreria "alumnos.h" **/
 #include "alumnos.h"
@@ -20,7 +20,7 @@ void agregar_nodo_final(nodo_t **lista_pp, alumno_t alumno_crg)
 {
   /* Creamos variables */
   nodo_t *lista_p_aux = *lista_pp; 
-  nodo_t* nd_p = (nodo_t *) malloc(sizeof(nodo_t)); /* Reservamos el nodo en la memoria */
+  nodo_t* nd_p = (nodo_t *) malloc(sizeof(nodo_t)); /* Reservamos el nodo en la mjeemoria */
   nodo_t *p_final; /* Variable que recorre la lista hasta el ultimo nodo */
 
   /* Comprobamos que haya memoria para el nuevo nodo */
@@ -46,17 +46,7 @@ void agregar_nodo_final(nodo_t **lista_pp, alumno_t alumno_crg)
 		  p_final->salto = nd_p; /* El ultimo nodo apunta al nuevo, poniendo al nuevo nodo al final de la lista */
 	  }
 
-    /* Pasamos los datos del alumno cargado al nuevo nodo */
-    strcpy(nd_p->alumno.nombre, alumno_crg.nombre); /* Copiamos los datos de una cadena de caracteres al nuevo nodo del final de la lista */
-    strcpy(nd_p->alumno.apellido, alumno_crg.apellido);
-    strcpy(nd_p->alumno.email, alumno_crg.email);
-    nd_p->alumno.dni.numero = alumno_crg.dni.numero; /* Copiamos los datos al nuevo nodo del final de la lista */
-    nd_p->alumno.dni.letra = alumno_crg.dni.letra;
-	  nd_p->alumno.nota = alumno_crg.nota; 
-	  nd_p->alumno.sexo = alumno_crg.sexo;
-    nd_p->alumno.fecha_nacimiento.dia = alumno_crg.fecha_nacimiento.dia;
-    nd_p->alumno.fecha_nacimiento.mes = alumno_crg.fecha_nacimiento.mes;
-    nd_p->alumno.fecha_nacimiento.any = alumno_crg.fecha_nacimiento.any;
+    nd_p->alumno = alumno_crg; /* Pasamos los datos del alumno cargado al nuevo nodo */
 	  nd_p->salto = NULL; /* Asignamos al puntero del nodo "NULL", porque es el ultimo nodo */
   }
 }
@@ -83,16 +73,7 @@ bool abrir_fichero(nodo_t **lista_pp)
     while (!feof(fit_lista))
     {
       /* Pasamos los valores a la variable auxiliar */
-      strcpy(alum_aux.nombre, alumno.nombre);
-      strcpy(alum_aux.apellido, alumno.apellido);
-      strcpy(alum_aux.email, alumno.email);
-      alum_aux.dni.numero = alumno.dni.numero;
-      alum_aux.dni.letra = alumno.dni.letra;
-      alum_aux.nota = alumno.nota;
-      alum_aux.fecha_nacimiento.dia = alumno.fecha_nacimiento.dia;
-      alum_aux.fecha_nacimiento.mes = alumno.fecha_nacimiento.mes;
-      alum_aux.fecha_nacimiento.any = alumno.fecha_nacimiento.any;
-      alum_aux.sexo = alumno.sexo;
+      alum_aux = alumno;
 
       agregar_nodo_final(lista_pp, alum_aux); /* Agregamos los alumnos leidos a la lista */
       fread (&alumno, sizeof(fecha_t), 1, fit_lista); /* Leemos los datos de los alumnos */
@@ -301,10 +282,10 @@ void eliminar_alumno(nodo_t **p_lista, nodo_t *p_ultimo_alum, nodo_t *nodo_prev)
   /* Declaracion variables locales*/
   int borrar_alumno = 0;
 
-  /* CASO 1: ultimo alumno es tanto el primero como el ultimo de la lista */
-  /* CASO 2: ultimo alumno es el primero de la lista                      */
-  /* CASO 3: ultimo alumno es el ultimo de la lista                       */
-  /* CASO 4: ultimo alumno esta entre alumnos de la lista                 */
+  /* CASO 1: ultimo alumno es tanto el primero como el ultimo de la lista:  (*p_lista == p_ultimo_alum && p_ultimo_alum->salto == NULL)*/
+  /* CASO 2: ultimo alumno es el primero de la lista                        (*p_lista == p_ultimo_alum && p_ultimo_alum->salto != NULL)*/
+  /* CASO 3: ultimo alumno es el ultimo de la lista                         (*p_lista != p_ultimo_alum && p_ultimo_alum->salto == NULL)*/
+  /* CASO 4: ultimo alumno esta entre alumnos de la lista                   (*p_lista != p_ultimo_alum && p_ultimo_alum->salto != NULL) */
 
   if (p_ultimo_alum == NULL)
   {
