@@ -32,8 +32,8 @@ typedef struct
 /* Definicion del tipo nodo */
 typedef struct nodo
 {
-    alumno_t alumno; //Data--> Datos del alumno
-    struct nodo *salto; //Next--> Salto al siguiente nodo
+    alumno_t alumno; // Datos del alumno
+    struct nodo *salto; // Salto al siguiente nodo
 } nodo_t;
 
 
@@ -57,5 +57,5 @@ bool comparar_nombre ();
 int buscar_nombre(nodo_t *lista, nodo_t **alumno_buscada, nodo_t **nodo_previo);
 
 /* Funciones Ultimo Alumno Buscado */
-bool ver_alumno(nodo_t *p_lista, nodo_t *p_ultimo_alum);
+bool ver_alumno(nodo_t *p_ultimo_alum);
 void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum, nodo_t *nodo_prev);

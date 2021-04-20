@@ -19,8 +19,8 @@ void iniciar_nodo(nodo_t **lista)
 void agregar_nodo_final(nodo_t **lista_p, alumno_t alumno_crg)
 {
   /* Creamos variables */
-  nodo_t *lista_p_aux = *lista_pp; 
-  nodo_t* nd_p = (nodo_t *) malloc(sizeof(nodo_t)); /* Reservamos el nodo en la mjeemoria */
+  nodo_t *lista_p_aux = *lista_p; 
+  nodo_t* nd_p = (nodo_t *) malloc(sizeof(nodo_t)); /* Reservamos el nodo en la memoria */
   nodo_t *p_final; /* Variable que recorre la lista hasta el ultimo nodo */
 
   /* Comprobamos que haya memoria para el nuevo nodo */
@@ -34,7 +34,7 @@ void agregar_nodo_final(nodo_t **lista_p, alumno_t alumno_crg)
     /* Comprobamos si la lista esta vacia */
 	  if (lista_p_aux == NULL)
     {
-		  *lista_pp = nd_p; /* La lista apunta al nuevo nodo como el primero */
+		  *lista_p = nd_p; /* La lista apunta al nuevo nodo como el primero */
     }
     else 
     {
@@ -75,7 +75,7 @@ bool abrir_fichero(nodo_t **lista_p)
       /* Pasamos los valores a la variable auxiliar */
       alum_aux = alumno;
 
-      agregar_nodo_final(lista_pp, alum_aux); /* Agregamos los alumnos leidos a la lista */
+      agregar_nodo_final(lista_p, alum_aux); /* Agregamos los alumnos leidos a la lista */
       fread (&alumno, sizeof(fecha_t), 1, fit_lista); /* Leemos los datos de los alumnos */
     }
     cargado_check = true; /* Cargado correctamente */
@@ -221,7 +221,7 @@ void agregar_nodo (nodo_t *lista/*,datos*/)
 
 
 /** Funcion buscar por DNI **/
-int buscar_dni (nodo_t *lista, nodo_t **alumno_buscado)
+int buscar_dni (nodo_t *lista, nodo_t **p_ultimo_alum)
 {
   /* Declaracion de variables */
   int salida=0, longitud=0, letra_dni, numero_dni, numero;
@@ -301,7 +301,7 @@ int buscar_nombre (nodo_t *lista, nodo_t **alumno_buscada, nodo_t **nodo_previo)
 
 
 /** Función ver el ultimo alumno buscado **/
-bool ver_alumno(nodo_t *p_lista, nodo_t *p_ultimo_alum)
+bool ver_alumno(nodo_t *p_ultimo_alum)
 {
   /* Declaración variable */
   bool check_alumno_buscado;
@@ -316,13 +316,13 @@ bool ver_alumno(nodo_t *p_lista, nodo_t *p_ultimo_alum)
     check_alumno_buscado = true; /* Hay alumno buscado */
 
     /* Imprimimos por pantalla los datos del alumno */
-    printf("\nALUMNO: %s %s\n", p_ultimo_alum->alumno.nombre, p_ultimo_alum->alumno.apellido);
+    printf("\nALUMNO: %s %s\n", p_ultimo_alum->alumno.nombre, p_ultimo_alum->alumno.apellido); 
     printf("------------------------------------\n");
-    printf("eMAIL: %s\n", p_ultimo_alum->alumno.nombre);
-    printf("DNI: %d %c\n",  p_ultimo_alum->alumno.nombre, p_ultimo_alum->alumno.apellido);
+    printf("eMAIL: %s\n", p_ultimo_alum->alumno.email);
+    printf("DNI: %d %c\n",  p_ultimo_alum->alumno.dni.numero, p_ultimo_alum->alumno.dni.letra);
     printf("NOTA: %d\n", p_ultimo_alum->alumno.nota);
-    printf("FECHA NACIMIENTO: %d/%d/%d\n", p_ultimo_alum->alumno.fecha_nacimiento.dia, p_ultimo_alum->alumno.fecha_nacimiento.mes, p_ultimo_alum->alumno.fecha_nacimiento.dia);
-    switch (p_ultimo_alum->alumno.fecha_nacimiento.dia) /* Pasamos el sexo de un numero a su significado */
+    printf("FECHA NACIMIENTO: %d/%d/%d\n", p_ultimo_alum->alumno.fecha_nacimiento.dia, p_ultimo_alum->alumno.fecha_nacimiento.mes, p_ultimo_alum->alumno.fecha_nacimiento.any);
+    switch (p_ultimo_alum->alumno.sexo) /* Pasamos el sexo de un numero a su significado */
     {
     case 0: printf("SEXO: Hombre");
       break;
@@ -338,15 +338,15 @@ bool ver_alumno(nodo_t *p_lista, nodo_t *p_ultimo_alum)
 }
 
 /** Eliminar ultimo alumno  **/
-void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum, nodo_t *nodo_prev) /* pasamos por referencia ultimo_alum, porque lo modificamos */
+void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum, nodo_t *nodo_previo) /* pasamos por referencia ultimo_alum, porque lo modificamos */
 {
   /* Declaracion variables locales*/
   int borrar_alumno = 0;
 
-  /* CASO 1: ultimo alumno es tanto el primero como el ultimo de la lista:  (*p_lista == p_ultimo_alum && p_ultimo_alum->salto == NULL)*/
-  /* CASO 2: ultimo alumno es el primero de la lista                        (*p_lista == p_ultimo_alum && p_ultimo_alum->salto != NULL)*/
-  /* CASO 3: ultimo alumno es el ultimo de la lista                         (*p_lista != p_ultimo_alum && p_ultimo_alum->salto == NULL)*/
-  /* CASO 4: ultimo alumno esta entre alumnos de la lista                   (*p_lista != p_ultimo_alum && p_ultimo_alum->salto != NULL) */
+  /* CASO 1: alumno buscado es tanto el primero como el ultimo de la lista:  (*p_lista == p_ultimo_alum && p_ultimo_alum->salto == NULL)*/
+  /* CASO 2: alumno buscado es el primero de la lista                        (*p_lista == p_ultimo_alum && p_ultimo_alum->salto != NULL)*/
+  /* CASO 3: alumno buscado es el ultimo de la lista                         (*p_lista != p_ultimo_alum && p_ultimo_alum->salto == NULL)*/
+  /* CASO 4: alumno buscado esta entre alumnos de la lista                   (*p_lista != p_ultimo_alum && p_ultimo_alum->salto != NULL) */
 
 
     /* Pedimos Confirmación */
@@ -363,7 +363,7 @@ void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum, nodo_t *nodo_prev
     }   
     else /* CASO 3 y CASO 4 */
     {
-      nodo_prev->salto = (*p_ultimo_alum)->salto; /* El nodo apunta al siguiente despues del alumno */
+      nodo_previo->salto = (*p_ultimo_alum)->salto; /* El nodo apunta al siguiente despues del alumno */
       free(p_ultimo_alum); /* Liberamos el nodo */
     }
     p_ultimo_alum = NULL; /* Evitamos que el puntero apunte a un nodo que ya se ha eliminado*/

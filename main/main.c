@@ -85,7 +85,7 @@ int main() {
 				break;
 				
 			case 5: /* Eliminar el ultimo alumno buscado */
-				if (ver_alumno(lista, alumno_buscado))
+				if (ver_alumno(alumno_buscado))
 				{
 					/* Pedimos Confirmación */
 					printf("Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
