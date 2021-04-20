@@ -11,7 +11,7 @@ int main() {
 
 	/* Declaracion de la Estructura */
 	nodo_t *lista;
-	nodo_t *alumno_buscado, *nodo_prev; /* Guardan direcciones de nodos al buscar un alumno */
+	nodo_t *alumno_buscado = NULL, *nodo_previo = NULL; /* Guardan direcciones de nodos al buscar un alumno */
 	dni_t dni;
 	alumno_t *alumno;
 
@@ -55,10 +55,14 @@ int main() {
 				printf("Gracias por utilizar el programa\n");
 				break;
 				
+
+			/*================================*/
 			case 1: /* Agregar alumno */
 				alumno_guardado = agregar_alumno(alumno, lista);
 				break;
 
+
+			/*=== Funciones Buscar Alumno ===*/
 			case 2: /* Buscar alumno por DNI */
 				while (!opcion_dni) 
 				{
@@ -74,19 +78,26 @@ int main() {
 			case 3: /* Buscar por nombre */
 				break;
 
+
+			/*=== Funciones Ultimo Alumno Buscado ===*/
 			case 4: /* Ver el ultimo alumno buscado */
+				ver_alumno(lista, alumno_buscado);
 				break;
 				
 			case 5: /* Eliminar el ultimo alumno buscado */
-				ver_alumno();
-				/* Pedimos Confirmación */
-				printf("Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
-				scanf("%d", &borrar_alumno); 
-				if (borrar_alumno == 1)
-					eliminar_alumno (&lista, alumno_buscado, nodo_prev);
-					printf ("Se ha borrado el alumno");
+				if (ver_alumno(lista, alumno_buscado))
+				{
+					/* Pedimos Confirmación */
+					printf("Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
+					scanf("%d", &borrar_alumno); 
+					if (borrar_alumno == 1)
+						eliminar_alumno (&lista, &alumno_buscado, nodo_previo);
+						printf ("Se ha borrado el alumno");
+				}
 				break;
 
+
+			/*=== Funciones Trabajar Ficheros ===*/
 			case 6: 
 				break;
 			
@@ -98,9 +109,12 @@ int main() {
 					printf("\nLa lista esta vacia, se creara una nueva\n");
 				break;
 				
+
+
 			case 8: /* Ver la lista completa de los alumnos */
 				break;
 
+			/*===================================*/
 			default: /* Mensaje por defecto */
 				printf("Introduzca una opcion valida [0-8]");
 				break;
