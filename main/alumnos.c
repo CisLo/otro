@@ -18,17 +18,17 @@ bool comprobar_lista (nodo_t *lista) {
 }
 
 
-/** Comprobar si la letra introducid es la correcta **/ 
+/** Comprobar si la letra introducida es la correcta **/ 
 bool comprobar_letra (int numero_dni, char letra_dni)
 {
   int i;
   bool comprobacion;
-  char letra[] = "TRWAGMYFPDXBNJZSQVHLCKE";
+  char letra[] = "TRWAGMYFPDXBNJZSQVHLCKE"; /* */
 
     i = numero_dni % 23; /* Se asigna la letra del DNI */
     if (letra[i] == letra_dni)
     {
-      comprobacion = true;
+      comprobacion = true; 
     }
     else
     {
@@ -41,6 +41,7 @@ bool comprobar_letra (int numero_dni, char letra_dni)
 /** Agregar nodo al principio de la lista **/
 void agregar_nodo_principio (nodo_t **lista,alumno_t alumno)
 {
+  /* Reservamos en memoria */
   nodo_t *nodo_agregar = (nodo_t *)malloc(sizeof(nodo_t));
 
   /* Asignar los datos del alumno al nuevo nodo  */
@@ -53,8 +54,9 @@ void agregar_nodo_principio (nodo_t **lista,alumno_t alumno)
   (*lista) = nodo_agregar;
 }
 
+
 /** Agregar nodo dentro de la lista **/
-void agregar_nodo_entre (nodo_t *lista/*,datos*/) 
+void agregar_nodo_entre (nodo_t *lista, alumno_t alumno/*, nodo_anterior*/)
 {
   if (lista == NULL)
   {
@@ -75,11 +77,11 @@ void agregar_nodo_entre (nodo_t *lista/*,datos*/)
 }
 
 /** Agregar nodo al final de la lista **/
-void agregar_nodo_final(nodo_t **lista_p, alumno_t alumno_crg)
+void agregar_nodo_final(nodo_t **lista_p, alumno_t alumno_datos)
 {
   /* Creamos variables */
   nodo_t *lista_p_aux = *lista_p; 
-  nodo_t* nd_p = (nodo_t *) malloc(sizeof(nodo_t)); /* Reservamos el nodo en la memoria */
+  nodo_t *nd_p = (nodo_t *) malloc(sizeof(nodo_t)); /* Reservamos el nodo en la memoria */
   nodo_t *p_final; /* Variable que recorre la lista hasta el ultimo nodo */
 
   /* Comprobamos que haya memoria para el nuevo nodo */
@@ -104,7 +106,7 @@ void agregar_nodo_final(nodo_t **lista_p, alumno_t alumno_crg)
 		  p_final->salto = nd_p; /* El ultimo nodo apunta al nuevo, poniendo al nuevo nodo al final de la lista */
 	  }
 
-    nd_p->alumno = alumno_crg; /* Pasamos los datos del alumno cargado al nuevo nodo */
+    nd_p->alumno = alumno_datos; /* Pasamos los datos del alumno cargado al nuevo nodo */
 	  nd_p->salto = NULL; /* Asignamos al puntero del nodo "NULL", porque es el ultimo nodo */
   }
 }
@@ -177,7 +179,7 @@ bool guardar_fichero(nodo_t *lista_p)
 /*----;;AGREGAR ALUMNO;;-----------------------------------------------------------------------------*/
 
 /** Función para añadir un alumno **/
-bool agregar_alumno (alumno_t *alumno, nodo_t *lista)
+bool agregar_alumno (alumno_t *alumno, nodo_t **lista)
 {
   bool alumno_valido, fecha_valido; 
   alumno_t alumno_aux;
@@ -186,21 +188,25 @@ bool agregar_alumno (alumno_t *alumno, nodo_t *lista)
   /* Introducir datos del alumno a agregar */
   
   do { /* Comprobar nombre del alumno */
-    printf("Nombre del alumno: ");
+    printf("Nombre del alumno: "); /* Pedimos el nombre */
     scanf(" %s",alumno_aux.nombre);
   } while (alumno_aux.nombre<65 || alumno_aux.nombre>122 || (alumno_aux.nombre>90 && alumno_aux.nombre<97)); /* Comprueba si el nombre tiene numeros, mayusculas, o caracteres especiales */
-    
+  
   do { /* Comprobar apellido del alumno */
-    printf("Apellido: ");
+    printf("Apellido: "); /* Pedimos el apellido */
     scanf(" %c",alumno_aux.apellido);
   } while (alumno_aux.apellido<65 || alumno_aux.apellido>122 || (alumno_aux.apellido>90 && alumno_aux.apellido<97)); /* Comprueba si el nombre tiene numeros, mayusculas, o caracteres especiales */
 
   do { /* Comprobar DNI del alumno */
-    printf("DNI (numeros + letra): ");
+    printf("DNI (numeros + letra): "); /* Pedimos el DNI */
     printf("Numeros: ");
     scanf(" %d",alumno_aux.dni.numero);
     printf("Lletra: ");
     scanf(" %c",alumno_aux.dni.letra);
+
+    //--> bool buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultimo_alumno)
+
+    /* Comprobar si el numero corresponde a la letra introducida */
 
     //salida_dni = buscar_dni(alumno_aux.dni.letra);
     //int buscar_dni (nodo_t *lista, nodo_t **p_ultimo_alum, nodo_t **nodo_previo)
@@ -244,7 +250,7 @@ bool agregar_alumno (alumno_t *alumno, nodo_t *lista)
   } while (alumno_aux.sexo<0 || alumno_aux.sexo>2);
 
   /* Llamamos a la función "ordenar alumno", para que agrege al alumno introducido */
-  alumno_valido = ordenar_alumno(&lista,alumno_aux);    
+  alumno_valido = ordenar_alumno(lista, alumno_aux);    
 
   return alumno_valido;
   
@@ -253,27 +259,18 @@ bool agregar_alumno (alumno_t *alumno, nodo_t *lista)
 /** Función para ordenar el alumno introducido en "agregar_alumno" **/
 bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux)
 {
+  nodo_t *nodo_anterior = *p_lista;
   /* Declaración de variables locales */
   bool sortir;
   nodo_t *lista = *p_lista;
 
   /* Comprobar si la lista esta vacía, en caso afirmativo se llama a la función "..." para añadir el nodo al principio */
   if (comprobar_lista(p_lista)) {
-		agregar_nodo_principio(&p_lista,alumno_aux);
+		agregar_nodo_principio(&p_lista, alumno_aux);
 	} else {
     
     /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
     while (lista->salto != NULL && !sortir) {
-
-      
-      
-      /*
-      List is not empty, append new node
-      node_t *last = list;
-      while (last->next != NULL)
-        last = last->next;
-      last->next = new; 
-      */
       
     }
 
@@ -352,7 +349,7 @@ void agregar_nodo (nodo_t *lista/*,datos*/)
 
 
 /** Funcion buscar por DNI **/
-bool buscar_dni (nodo_t *lista, nodo_t **p_ultimo_alum)
+bool buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultimo_alumno)
 {
   /* Declaracion de variables */
   int salida=0, longitud=0, numero_dni;
@@ -368,8 +365,7 @@ bool buscar_dni (nodo_t *lista, nodo_t **p_ultimo_alum)
     scanf("%c", &letra_dni);
     check = comprobar_letra(numero_dni, letra_dni);
     if (!check)
-      printf("El DNI es incorrecto, vuelve a escribirlo");
-      
+      printf("El DNI es incorrecto, vuelve a escribirlo");  
   } while (!check);
   
   if ((numero_dni >= 0) && (numero_dni <= 99999999)) /* Comprobamos que se encuentre en el rango de un dni */
@@ -379,23 +375,22 @@ bool buscar_dni (nodo_t *lista, nodo_t **p_ultimo_alum)
       if (p->alumno.dni.numero == numero_dni) /* Si coincide el DNI */
       {
         salida = 1;
-        *p_ultimo_alum = p; /* Asignamos la dirección del nodo buscado */
+        *ultimo_alumno = p; /* Asignamos la dirección del nodo buscado */
       }
     }
   }
   
   /*
-    1: Si existe
-    0: No existe
+    1/true: Si existe
+    0/false: No existe
   */
   return salida;
 }
 
 
 /** Función comparar alumno por DNI **/
-bool comparar_dni (nodo_t *lista, int numero_dni)
+bool comparar_dni (nodo_t *lista, int numero_dni, char letra_dni, nodo_t **ultimo_alumno)
 {
-  
   bool salida;
   nodo_t *p = lista; /* Inicializamos la variable para recorrer la lista */
 
@@ -417,11 +412,11 @@ bool comparar_dni (nodo_t *lista, int numero_dni)
 /** Funcion buscar por nombre **/
 bool comparar_nombre (char nombre_buscado[], char nombre_nodo[]) /*Comparamos dos nombres */
 {
-  /* */
+  /* 
   while ()
   {
 
-  }
+  }*/
 }
 
 int buscar_nombre (nodo_t *lista, nodo_t **alumno_buscada)
@@ -498,8 +493,8 @@ void buscar_nodo (nodo_t *lista, nodo_t *nodo_buscar, nodo_t **nodo_previo)
       encontrado = true;
     }
     temp = p;
-    p = p->salto
-  } 
+    p = p->salto;
+  }
 }
 
 /** Eliminar ultimo alumno  **/
