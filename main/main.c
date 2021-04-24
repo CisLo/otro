@@ -16,7 +16,7 @@ int main() {
 	alumno_t *alumno;
 
 	/* Declaracion de variables */
-	int opcion = 0, valido_dni = 0, opcion_dni = 0, borrar_alumno = 0;
+	int opcion = 0, valido_dni = 0, opcion_aux = 0;
 	bool salir = false; /* Booleano para salir del programa principal, y repetir el menu */
 	bool fit_cargado = false, fit_guardado = false; /* Por defecto el fichero no esta guardado ni cargado */
 	bool alumno_guardado = false;
@@ -43,16 +43,16 @@ int main() {
 		switch (opcion)
 		{
 			case 0: /* Salimos del programa */
-				salir = true;
-				fit_guardado = guardar_fichero(lista);
-				
-				
-				if (fit_guardado)
-					printf("Se ha guardado la lista de alumnos\n");
+				if (!fit_guardado)
+					printf ("La lista no está guardada. Seguro que quieres salir? [1: (SI) / Otro numero: (NO)]");
+					scanf("%d ", &opcion_aux);
+						if (opcion_aux = 1)
+							salir = true;
+							printf("Gracias por utilizar el programa\n");
 				else
-					printf ("No se ha podido guardar el fichero");
-
-				printf("Gracias por utilizar el programa\n");
+					salir = true;
+					printf("Gracias por utilizar el programa\n");
+				
 				break;
 				
 
@@ -64,15 +64,12 @@ int main() {
 
 			/*=== Funciones Buscar Alumno ===*/
 			case 2: /* Buscar alumno por DNI */
-				while (!opcion_dni) 
-				{
+				do { /* Se ejecuta al menos una vez */
 					valido_dni	= buscar_dni(lista, &alumno_buscado);
 
 					printf("Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
-					scanf("%d ", &opcion_dni);
-						if (opcion_dni != 1)
-							opcion_dni = true;
-				}
+					scanf("%d ", &opcion_aux);
+				} while (opcion_aux == 1); 
 				break;
 				
 			case 3: /* Buscar por nombre */
@@ -89,8 +86,8 @@ int main() {
 				{
 					/* Pedimos Confirmación */
 					printf("Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
-					scanf("%d", &borrar_alumno); 
-					if (borrar_alumno == 1)
+					scanf("%d", &opcion_aux); 
+					if (opcion_aux == 1)
 						eliminar_alumno (&lista, &alumno_buscado, nodo_previo);
 						printf ("Se ha borrado el alumno");
 				}
@@ -99,6 +96,14 @@ int main() {
 
 			/*=== Funciones Trabajar Ficheros ===*/
 			case 6: 
+				fit_guardado = guardar_fichero(lista);
+				
+				if (fit_guardado)
+					printf("Se ha guardado la lista de alumnos\n");
+				else
+					printf ("No se ha podido guardar el fichero");
+
+				printf("Gracias por utilizar el programa\n");
 				break;
 			
 			case 7: /* Cargar fichero */

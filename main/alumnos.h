@@ -42,8 +42,10 @@ typedef struct nodo
 /*--------------------------------------------------------------------*/
 void iniciar_nodo(nodo_t **lista);
 
-/*Funciones Trabajar Ficheros*/
+/* Funciones Nodo */
 void agregar_nodo_final(nodo_t **lista, alumno_t alumno);
+
+/*Funciones Trabajar Ficheros*/
 bool abrir_fichero(nodo_t **lista);
 bool guardar_fichero(nodo_t *lista);
 
@@ -52,7 +54,8 @@ bool agregar_alumno(alumno_t *alumno, nodo_t *lista);
 void agregar_nodo (nodo_t *lista/*,datos*/);
 
 /* Funciones Buscar Alumno */
-int buscar_dni(nodo_t *lista, nodo_t **alumno_buscado);
+int buscar_dni(nodo_t *lista, nodo_t **p_ultimo_alum, nodo_t **nodo_previo);
+bool comprobar_letra();
 bool comparar_nombre ();
 int buscar_nombre(nodo_t *lista, nodo_t **alumno_buscada, nodo_t **nodo_previo);
 
