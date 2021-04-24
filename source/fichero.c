@@ -6,44 +6,9 @@
 #include "../headers/tipos.h"
 #include "../headers/funciones.h"
 
-/** Funcion agrega el nodo al final de la lista para abrir fichero **/
-void agregar_nodo_final(nodo_t **lista_pp, alumno_t alumno_crg)
-{
-  /* Creamos variables */
-  nodo_t *lista_p_aux = *lista_pp; 
-  nodo_t* nd_p = (nodo_t *) malloc(sizeof(nodo_t)); /* Reservamos el nodo en la mjeemoria */
-  nodo_t *p_final; /* Variable que recorre la lista hasta el ultimo nodo */
 
-  /* Comprobamos que haya memoria para el nuevo nodo */
-	if (nd_p == NULL)
-  {
-		printf ("No hay suficiente memoria para agregar el alumno a la lista");
-    exit(-1); /* Se sale del programa */
-	}
-  else
-  {
-    /* Comprobamos si la lista esta vacia */
-	  if (lista_p_aux == NULL)
-    {
-		  *lista_pp = nd_p; /* La lista apunta al nuevo nodo como el primero */
-    }
-    else 
-    {
-		  p_final = lista_p_aux; 
-		  while (p_final->salto != NULL) /* Recorremos la lista hasta el ultimo nodo */
-      {
-        p_final = p_final->salto; 
-      }
-		  p_final->salto = nd_p; /* El ultimo nodo apunta al nuevo, poniendo al nuevo nodo al final de la lista */
-	  }
-
-    nd_p->alumno = alumno_crg; /* Pasamos los datos del alumno cargado al nuevo nodo */
-	  nd_p->salto = NULL; /* Asignamos al puntero del nodo "NULL", porque es el ultimo nodo */
-  }
-}
-
-/** Funcion abrir fichero **/
-bool abrir_fichero(nodo_t **lista_pp)
+/** Funcion ABRIR fichero **/
+bool abrir_fichero(nodo_t **lista_p)
 {
   /* Variables locales de la funcion */
   FILE *fit_lista;
@@ -66,7 +31,7 @@ bool abrir_fichero(nodo_t **lista_pp)
       /* Pasamos los valores a la variable auxiliar */
       alum_aux = alumno;
 
-      agregar_nodo_final(lista_pp, alum_aux); /* Agregamos los alumnos leidos a la lista */
+      agregar_nodo_final(lista_p, alum_aux); /* Agregamos los alumnos leidos a la lista */
       fread (&alumno, sizeof(fecha_t), 1, fit_lista); /* Leemos los datos de los alumnos */
     }
     cargado_check = true; /* Cargado correctamente */
@@ -75,7 +40,8 @@ bool abrir_fichero(nodo_t **lista_pp)
   return cargado_check;
 }
 
-/** Funcion guardar fichero **/
+
+/** Funcion GUARDAR fichero **/
 bool guardar_fichero(nodo_t *lista_p)
 {
   /* Variables locales de la funcion */

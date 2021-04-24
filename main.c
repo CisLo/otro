@@ -22,7 +22,7 @@ int main() {
 	bool alumno_guardado = false;
 
 	/* Iniciamos la lista enlazada */
-	iniciar_nodo(&lista);
+	iniciar_lista(&lista);
 
 	/* Bucle del Menu y los procedimientos */
 	while (!salir)
@@ -66,7 +66,7 @@ int main() {
 			/*=== Funciones Buscar Alumno ===*/
 			case 2: /* Buscar alumno por DNI */
 				do { /* Se ejecuta al menos una vez */
-					valido_dni	= buscar_dni(lista, &alumno_buscado);
+					valido_dni	= buscar_dni(lista, 0 , '0', &alumno_buscado);
 
 					printf("Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
 					scanf("%d ", &opcion_aux);
