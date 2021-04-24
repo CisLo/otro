@@ -87,7 +87,10 @@ bool agregar_alumno (alumno_t *alumno, nodo_t **lista)
 /** Función para ordenar el alumno introducido en "agregar_alumno" **/
 bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux, alumno_t *alumno)
 {
-  nodo_t *lista = *p_lista;
+  nodo_t *nodo = NULL, *temp = NULL;
+  nodo = *p_lista;
+  //nodo_t *nodo_anterior = lista;
+  int tempvar;
   
   /* Declaración de variables locales */
   bool sortir;
@@ -97,60 +100,33 @@ bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux, alumno_t *alumno)
 		agregar_nodo_principio(&p_lista, alumno_aux);
 	} else {
     
-    nodo_t *nodo_anterior = lista;
-    int aux;
-
+    temp = nodo;
+    
     /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
-    while (lista->salto != NULL && !sortir) {
+    while (/*lista->salto*/nodo != NULL && !sortir) {
       
       /* Comparación del numero del DNI para ordenar la lista */
-      if (alumno_aux.dni.numero > lista->alumno.dni.numero) {
+      if (alumno_aux.dni.numero > temp->alumno.dni.numero) {
 
-        aux = alumno_aux.dni.numero;
+        tempvar = temp->alumno.dni.numero;
+        temp->alumno.dni.numero = temp->salto->alumno.dni.numero;
+        temp->salto->alumno.dni.numero = tempvar;
 
-        alumno_aux.dni.numero = lista->alumno.dni.numero;
-
-        lista->alumno.dni.numero = aux;
-        
+        /* Llamada a las funciones de agragar el nodo */
+        // ...
       }
 
-      
-      lista = lista->salto;
+      temp = temp->salto;
 
     }
 
-    //lista = lista->salto;
+    nodo = nodo->salto;
   }
 
-  /*
-  node_t *list = *p_list;	
-
-	if (list_empty(list)) {
-		printf("Attempt to remove first element from empty list.\n");
-		exit(EXIT_FAILURE);
-	}
-  */
+  /* Aliberar la variable "nodo" */
+  free(nodo);
 
 }
 
-void agregar_nodo (nodo_t *lista/*,datos*/) 
-{
-  if (lista == NULL)
-  {
-    printf("No hay datos del alumno");
-    //exit...
-  }
-
-  /* Tamaño del nuevo nodo a crear: */
-  nodo_t *nodo_agregar = (nodo_t *)malloc(sizeof(nodo_t));
-
-  /* Para  */
-  //nodo_agregar->/*datos*/ = nodo_agregar;
-
-  //nodo_agregar->/*salto*/ = lista->/* salto */;
-
-  //lista->/*salto*/ = nodo_agregar;
-
-}
 /*---------;;FIN AGREGAR ALUMNO;;-------------------------------------------------------------------------------------------*/
 
