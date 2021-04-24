@@ -262,7 +262,8 @@ bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux)
 	} else {
     
     /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
-    while (lista->salto != NULL) {
+    while (lista->salto != NULL && !sortir) {
+      
       
     }
 
@@ -341,7 +342,7 @@ void agregar_nodo (nodo_t *lista/*,datos*/)
 
 
 /** Funcion buscar por DNI **/
-int buscar_dni (nodo_t *lista, nodo_t **p_ultimo_alum, nodo_t **nodo_previo)
+bool buscar_dni (nodo_t *lista, nodo_t **p_ultimo_alum, nodo_t **nodo_previo)
 {
   /* Declaracion de variables */
   int salida=0, longitud=0, numero_dni;
@@ -384,11 +385,35 @@ int buscar_dni (nodo_t *lista, nodo_t **p_ultimo_alum, nodo_t **nodo_previo)
 }
 
 
+/** Función comparar alumno por DNI **/
+bool comparar_dni (nodo_t *lista, int numero_dni)
+{
+  
+  bool salida;
+  nodo_t *p;
+  if ((numero_dni >= 0) && (numero_dni <= 99999999)) /* Comprobamos que se encuentre en el rango de un dni */
+  {
+    for (p = lista; p != NULL; p = p->salto)
+    {
+      if (p->alumno.dni.numero == numero_dni) /*Si coincide el DNI*/
+      salida = true;
+    }
+    /*
+    1: Existe
+    0: No existe
+    */
+  }
+  return salida;
+}
+
 /** Funcion buscar por nombre **/
 bool comparar_nombre (char nombre_buscado[], char nombre_nodo[]) /*Comparamos dos nombres */
 {
   /* */
   while ()
+  {
+
+  }
 }
 
 int buscar_nombre (nodo_t *lista, nodo_t **alumno_buscada, nodo_t **nodo_previo)

@@ -43,16 +43,17 @@ int main() {
 		switch (opcion)
 		{
 			case 0: /* Salimos del programa */
-				if (!fit_guardado)
+				if (!fit_guardado) {
 					printf ("La lista no está guardada. Seguro que quieres salir? [1: (SI) / Otro numero: (NO)]");
 					scanf("%d ", &opcion_aux);
 						if (opcion_aux = 1)
 							salir = true;
 							printf("Gracias por utilizar el programa\n");
-				else
+				}
+				else {
 					salir = true;
 					printf("Gracias por utilizar el programa\n");
-				
+				}
 				break;
 				
 
@@ -65,7 +66,7 @@ int main() {
 			/*=== Funciones Buscar Alumno ===*/
 			case 2: /* Buscar alumno por DNI */
 				do { /* Se ejecuta al menos una vez */
-					valido_dni	= buscar_dni(lista, &alumno_buscado);
+					valido_dni	= buscar_dni(lista, &alumno_buscado, &nodo_previo);
 
 					printf("Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
 					scanf("%d ", &opcion_aux);

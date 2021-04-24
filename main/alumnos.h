@@ -54,7 +54,7 @@ bool agregar_alumno(alumno_t *alumno, nodo_t *lista);
 void agregar_nodo (nodo_t *lista/*,datos*/);
 
 /* Funciones Buscar Alumno */
-int buscar_dni(nodo_t *lista, nodo_t **p_ultimo_alum, nodo_t **nodo_previo);
+bool buscar_dni(nodo_t *lista, nodo_t **p_ultimo_alum, nodo_t **nodo_previo);
 bool comprobar_letra();
 bool comparar_nombre ();
 int buscar_nombre(nodo_t *lista, nodo_t **alumno_buscada, nodo_t **nodo_previo);
