@@ -259,7 +259,7 @@ bool agregar_alumno (alumno_t *alumno, nodo_t **lista)
 /** Función para ordenar el alumno introducido en "agregar_alumno" **/
 bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux)
 {
-  nodo_t *nodo_anterior = *p_lista;
+  nodo_t *nodo_anterior = (alumno_t *)malloc(sizeof(alumno_t));;
   /* Declaración de variables locales */
   bool sortir;
   nodo_t *lista = *p_lista;
@@ -272,6 +272,21 @@ bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux)
     /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
     while (lista->salto != NULL && !sortir) {
       
+      /* Comparación del numero del DNI para ordenar la lista */
+      if (alumno_aux.dni.numero < ) {
+
+        
+
+        /*
+          node_t *before_last = list;
+          while (last->next != NULL) {
+            before_last = last;
+            last = last->next;
+          }
+          before_last->next = NULL;
+        */
+      }
+
     }
 
   }

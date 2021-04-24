@@ -36,7 +36,7 @@ int main() {
 		printf("[5] - Eliminar ultimo alumno buscado\n");
 		printf("[6] - Guardar lista de alumnos en Fichero\n");
 		printf("[7] - Recuperar lista de alumnos del Fichero\n");
-		printf("[8] - Ver la lista\n");
+		printf("[8] - Ver la lista\n");	/* Extra */
 		printf("[0] - Salir\n");
 		scanf(" %d", &opcion);
 		
