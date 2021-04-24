@@ -3,7 +3,8 @@
 #include <stdbool.h> /*Libreria booleano, bool*/
 
 /** Incluimos la libreria "alumnos.h" **/
-#include "fichero.h"
+#include "../headers/tipos.h"
+#include "../headers/funciones.h"
 
 /** Funcion agrega el nodo al final de la lista para abrir fichero **/
 void agregar_nodo_final(nodo_t **lista_pp, alumno_t alumno_crg)

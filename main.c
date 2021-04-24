@@ -3,8 +3,8 @@
 #include <stdbool.h> /* Libreria booleano, bool */
 
 /* Incluimos la libreria donde estan los procedimientos */
-#include "alumnos.h"
-#include "fichero.h"
+#include "headers/tipos.h"
+#include "headers/funciones.h"
 
 /** Programa principal **/
 int main() {

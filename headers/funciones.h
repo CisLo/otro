@@ -1,43 +1,6 @@
 #pragma once 
 #include <stdbool.h>
 
-#define MAX 100
-
-/* Definicion del tipo fecha */
-typedef struct
-{
-    int dia;
-    int mes;
-    int any;
-} fecha_t;
-
-/* Definicion del tipo DNI */
-typedef struct
-{
-    int numero;
-    char letra;
-} dni_t;
-
-/* Definicion del tipo alumno */
-typedef struct
-{
-    char nombre[MAX], apellido[MAX], email[MAX];
-    dni_t dni;
-    float nota;
-    fecha_t fecha_nacimiento;
-    int sexo;
-
-} alumno_t;
-
-/* Definicion del tipo nodo */
-typedef struct nodo
-{
-    alumno_t alumno; // Datos del alumno
-    struct nodo *salto; // Salto al siguiente nodo
-} nodo_t;
-
-
-
 /** Cabeceras de los procedimientos a usar por el programa principal **/
 /*--------------------------------------------------------------------*/
 void iniciar_nodo(nodo_t **lista);

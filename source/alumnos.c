@@ -4,7 +4,8 @@
 #include <string.h> /* Libreria para poder usar strcpy() */
 
 /** Incluimos la libreria "alumnos.h" **/
-#include "alumnos.h"
+#include "../headers/tipos.h"
+#include "../headers/funciones.h"
 
 /** Inicializar la lista enlazada **/
 void iniciar_lista (nodo_t **lista) {
@@ -259,16 +260,18 @@ bool agregar_alumno (alumno_t *alumno, nodo_t **lista)
 /** Función para ordenar el alumno introducido en "agregar_alumno" **/
 bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux)
 {
-  nodo_t *nodo_anterior = (alumno_t *)malloc(sizeof(alumno_t));;
+  nodo_t *lista = *p_lista;
+  
   /* Declaración de variables locales */
   bool sortir;
-  nodo_t *lista = *p_lista;
-
+  
   /* Comprobar si la lista esta vacía, en caso afirmativo se llama a la función "..." para añadir el nodo al principio */
   if (comprobar_lista(p_lista)) {
 		agregar_nodo_principio(&p_lista, alumno_aux);
 	} else {
     
+    nodo_t *nodo_anterior = lista;
+
     /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
     while (lista->salto != NULL && !sortir) {
       
@@ -276,7 +279,6 @@ bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux)
       if (alumno_aux.dni.numero < ) {
 
         
-
         /*
           node_t *before_last = list;
           while (last->next != NULL) {
