@@ -11,7 +11,7 @@ int main() {
 
 	/* Declaracion de la Estructura */
 	nodo_t *lista;
-	nodo_t *alumno_buscado = NULL, *nodo_previo = NULL; /* Guardan direcciones de nodos al buscar un alumno */
+	nodo_t *alumno_buscado = NULL; /* Guarda direccion del nodo al buscar un alumno */
 	dni_t dni;
 	alumno_t *alumno;
 
@@ -66,7 +66,7 @@ int main() {
 			/*=== Funciones Buscar Alumno ===*/
 			case 2: /* Buscar alumno por DNI */
 				do { /* Se ejecuta al menos una vez */
-					valido_dni	= buscar_dni(lista, &alumno_buscado, &nodo_previo);
+					valido_dni	= buscar_dni(lista, &alumno_buscado);
 
 					printf("Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
 					scanf("%d ", &opcion_aux);
@@ -89,7 +89,7 @@ int main() {
 					printf("Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
 					scanf("%d", &opcion_aux); 
 					if (opcion_aux == 1)
-						eliminar_alumno (&lista, &alumno_buscado, nodo_previo);
+						eliminar_alumno (&lista, &alumno_buscado);
 						printf ("Se ha borrado el alumno");
 				}
 				break;
