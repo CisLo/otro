@@ -30,7 +30,7 @@ bool comprobar_letra (int numero_dni, char letra_dni)
 bool buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultimo_alumno)
 {
   /* Declaracion de variables */
-  int salida=0, longitud=0, numero_dni;
+  int salida=0, ultimo_alumno;
   char letra_dni;
   bool check;
   nodo_t *p;
@@ -90,11 +90,15 @@ bool comparar_dni (nodo_t *lista, int numero_dni, char letra_dni, nodo_t **ultim
 /** Funcion buscar por nombre **/
 bool comparar_nombre (char nombre_buscado[], char nombre_nodo[]) /*Comparamos dos nombres */
 {
+  /* Variables */
+
+
   /* 
   while ()
   {
 
   }*/
+  return ;
 }
 
 int buscar_nombre (nodo_t *lista, nodo_t **alumno_buscada)
@@ -114,5 +118,5 @@ int buscar_nombre (nodo_t *lista, nodo_t **alumno_buscada)
   {
     comparar_nombre(nombre[MAX], nodo_actual->alumno.nombre);
   }
-  
+  return ;
 }

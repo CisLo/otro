@@ -66,9 +66,9 @@ void agregar_nodo_final(nodo_t **lista_p, alumno_t alumno_datos)
 
   /* Comprobamos que haya memoria para el nuevo nodo */
 	if (nd_p == NULL)
-  {
+    {
 		printf ("No hay suficiente memoria para agregar el alumno a la lista");
-    exit(-1); /* Se sale del programa */
+        exit(-1); /* Se sale del programa */
 	}
   else
   {

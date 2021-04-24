@@ -59,14 +59,14 @@ int main() {
 
 			/*================================*/
 			case 1: /* Agregar alumno */
-				alumno_guardado = agregar_alumno(alumno, lista);
+				alumno_guardado = agregar_alumno(alumno, &lista);
 				break;
 
 
 			/*=== Funciones Buscar Alumno ===*/
 			case 2: /* Buscar alumno por DNI */
 				do { /* Se ejecuta al menos una vez */
-					valido_dni	= buscar_dni(lista, 0 , '0', &alumno_buscado);
+					valido_dni	= buscar_dni(lista, 0 , 0, &alumno_buscado);
 
 					printf("Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
 					scanf("%d ", &opcion_aux);
@@ -79,7 +79,7 @@ int main() {
 
 			/*=== Funciones Ultimo Alumno Buscado ===*/
 			case 4: /* Ver el ultimo alumno buscado */
-				ver_alumno(lista, alumno_buscado);
+				ver_alumno(alumno_buscado);
 				break;
 				
 			case 5: /* Eliminar el ultimo alumno buscado */
