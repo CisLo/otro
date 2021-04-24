@@ -39,9 +39,9 @@ bool agregar_alumno (alumno_t *alumno, nodo_t **lista)
     //salida_dni = buscar_dni (lista, alumno_aux.dni.numero, alumno_aux.dni.letra/*, nodo_t **ultimo_alumno*/);
 
 /*
-    1: Si existe
-    0: No existe
-    -1: Esta mal escrito o no es valido
+    1/true: Si existe
+    0/false: No existe
+    ((-1: Esta mal escrito o no es valido))
   */
 
   } while (salida_dni == 1 || salida_dni == -1);
@@ -87,19 +87,20 @@ bool agregar_alumno (alumno_t *alumno, nodo_t **lista)
 /** Función para ordenar el alumno introducido en "agregar_alumno" **/
 bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux, alumno_t *alumno)
 {
+  /* Creación de nodos, para almacenar los datos al ordenar */
   nodo_t *nodo = NULL, *temp = NULL;
   nodo = *p_lista;
-  //nodo_t *nodo_anterior = lista;
-  int tempvar;
   
   /* Declaración de variables locales */
   bool sortir;
+  int tempvar;
   
   /* Comprobar si la lista esta vacía, en caso afirmativo se llama a la función "..." para añadir el nodo al principio */
   if (comprobar_lista(p_lista)) {
 		agregar_nodo_principio(&p_lista, alumno_aux);
 	} else {
     
+    /* Asignar al nodo temporal los datos del puntero "p_lista" */
     temp = nodo;
     
     /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
@@ -108,12 +109,15 @@ bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux, alumno_t *alumno)
       /* Comparación del numero del DNI para ordenar la lista */
       if (alumno_aux.dni.numero > temp->alumno.dni.numero) {
 
+        /* Volcado del numero del DNI a la variable temporal "tempvar" */
         tempvar = temp->alumno.dni.numero;
+
+        /* Intercambiar el numero del DNI */
         temp->alumno.dni.numero = temp->salto->alumno.dni.numero;
         temp->salto->alumno.dni.numero = tempvar;
 
-        /* Llamada a las funciones de agragar el nodo */
-        // ...
+        /* Llamada a las funciones de agragar el nodo (agregar_nodo_principio, agregar_nodo_medio, agregar_nodo_final) */
+        // ...CONTINUAR
       }
 
       temp = temp->salto;
