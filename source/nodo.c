@@ -19,12 +19,12 @@ bool comprobar_lista (nodo_t *lista_p) {
 /** Creación i inicialización de un nuevo nodo a crear **/
 nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *next) {
 
-	/* Create new node */
+	/* Crea nuevo nodo */
 	nodo_t *p_nuevo_nodo = (nodo_t *)malloc(sizeof(nodo_t));
 
 	/* Initialize new node */
-	//p_nuevo_nodo->data = data;
-	//p_nuevo_nodo->next = next;
+	p_nuevo_nodo->alumno = alumno;
+	p_nuevo_nodo->salto = salto;
 
 	return p_nuevo_nodo;
 }
