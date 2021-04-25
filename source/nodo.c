@@ -17,7 +17,7 @@ bool comprobar_lista (nodo_t *lista_p) {
 }
 
 /** Creación i inicialización de un nuevo nodo a crear **/
-nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *next) {
+nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto) {
 
 	/* Crea nuevo nodo */
 	nodo_t *p_nuevo_nodo = (nodo_t *)malloc(sizeof(nodo_t));
@@ -26,7 +26,7 @@ nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *next) {
 	p_nuevo_nodo->alumno = alumno;
 	p_nuevo_nodo->salto = salto;
 
-  /* Retorna el  */
+  /* Retorna el puntero del nuevo nodo */
 	return p_nuevo_nodo;
 }
 
@@ -35,7 +35,8 @@ nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *next) {
 void agregar_nodo_principio (nodo_t **lista_p,alumno_t alumno)
 {
   /* Reservamos en memoria */
-  nodo_t *nuevo_nodo = (nodo_t *)malloc(sizeof(nodo_t));
+  nodo_t *nuevo_nodo;
+  nuevo_nodo = nuevo_nodo(alumno, *lista_p);
 
   /* Asignar los datos del alumno al nuevo nodo  */
   nuevo_nodo->alumno = alumno;
@@ -76,7 +77,7 @@ void agregar_nodo_final(nodo_t **lista_p, alumno_t alumno_datos)
   /* Comprobamos que haya memoria para el nuevo nodo */
 	if (nd_p == NULL)
     {
-		printf ("No hay suficiente memoria para agregar el alumno a la lista");
+		printf ("No hay suficiente memoria para agregar el alumno a la lista \n");
         exit(-1); /* Se sale del programa */
 	}
   else

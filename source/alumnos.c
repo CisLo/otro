@@ -17,12 +17,13 @@ bool comprobar_fecha (fecha_t fecha) {
 
   switch (fecha.mes)
   {
-  case 1,3,5,7,8,10,12: //Enero, marzo, mayo, julio, agosto, octubre y diciembre. --> 31 días
+  case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+    //Enero, marzo, mayo, julio, agosto, octubre y diciembre. --> 31 días
     if (fecha.dia > 31 || fecha.dia<0) {
       fecha_valido = true;
     }
     break;
-  case 4,6,9,11: //Abril, junio, septiembre y noviembre. --> 30 días
+  case 4: case 6: case 9: case 11: //Abril, junio, septiembre y noviembre. --> 30 días
     if (fecha.dia > 30 || fecha.dia<0) {
       fecha_valido = true;
     }
@@ -33,7 +34,7 @@ bool comprobar_fecha (fecha_t fecha) {
       } else {
         if (fecha.dia==29 && (fecha.any%400==0 ||(fecha.any%4==0 && fecha.any%100!=0))) {
         } else {
-          fecha_valida = true;
+          fecha_valido = true;
         }
       }
     break;
@@ -49,7 +50,7 @@ bool comprobar_fecha (fecha_t fecha) {
 /** Función para añadir un alumno **/
 bool agregar_alumno (nodo_t **lista)
 {
-  bool alumno_valido, fecha_valido, texto_valido; 
+  bool alumno_valido, fecha_valido; 
   alumno_t alumno_aux;
   nodo_t *alumno_dni_rep; /* Almacena el alumno con un dni igual al que se quiere agregar */
   fecha_t fecha_nacimiento_alumno;
@@ -58,26 +59,26 @@ bool agregar_alumno (nodo_t **lista)
   /* Introducir datos del alumno a agregar */
   
   printf("Nombre del alumno: "); /* Pedimos el nombre */
-  scanf(" %s", &alumno_aux.nombre);
+  scanf(" %s", alumno_aux.nombre);
 
   printf("Apellido: "); /* Pedimos el apellido */
-  scanf(" %c", &alumno_aux.apellido);
+  scanf(" %c", alumno_aux.apellido);
 
   do { /* Comprobar DNI del alumno */
     salida_dni = buscar_dni (*lista, &alumno_aux.dni.numero, &alumno_aux.dni.letra, &alumno_dni_rep);
     if (salida_dni)
     {
-      printf ("Ya existe un alumno con ese DNI en la lista: %s %s", alumno_dni_rep->alumno.nombre, alumno_dni_rep->alumno.apellido);
-      printf("Introduce un DNI distinto");
+      printf ("Ya existe un alumno con ese DNI en la lista: %s %s \n", alumno_dni_rep->alumno.nombre, alumno_dni_rep->alumno.apellido);
+      printf("Introduce un DNI distinto \n");
     }
     else
     {
-      printf("El DNI se ha guardado correctamente");
+      printf("El DNI se ha guardado correctamente \n");
     }
   } while (salida_dni);
 
   printf("Correo electronico: ");
-  scanf(" %s", &alumno_aux.email);
+  scanf(" %s", alumno_aux.email);
 
   do { /* Comprobar nota del alumno */
     printf("Nota del alumno (por ejemplo, 6.8): ");
@@ -85,7 +86,7 @@ bool agregar_alumno (nodo_t **lista)
   } while (alumno_aux.nota<0 || alumno_aux.nota>10);
   
   do {
-    printf("Fecha de nacimiento: (dia, mes y año): ");
+    printf("Fecha de nacimiento: (dia, mes y año): \n");
     printf("Dia: ");
     scanf("%d ", &fecha_nacimiento_alumno.dia);
     printf("Mes: ");
@@ -109,14 +110,14 @@ bool agregar_alumno (nodo_t **lista)
   
 }
 
-/** Función para ordenar el alumno introducido en "agregar_alumno" **/
 
-/*
+/** Función para ordenar el alumno introducido en "agregar_alumno"
+
 CASO 1: Lista vacía--> Llamar a "agregar_nodo_principio()"
 CASO 2: Si el numero del DNI es más grande al primer nodo--> Llamar a "agregar_nodo_principio()"
 CASO 3: Si el numero del DNI es más grande al nodo 'actual', se guarda el nodo 'actual' y en caso del nodo que le siga no es igual a NULL-->  Llamar a "agregar_nodo_entre()"
 CASO 4: Si el numero del DNI es más grande al nodo 'actual', se guarda el nodo 'actual' y en caso del nodo que le siga es igual a NULL-->  Llamar a "agregar_nodo_final()"
-*/
+**/
 bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
 {
   /* Creación de nodos, para almacenar los datos al ordenar */
@@ -124,12 +125,12 @@ bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
   nodo = *lista_p;
   
   /* Declaración de variables locales */
-  bool sortir;
+  bool sortir,nodo_ordenado;
   int tempvar;
   
-  /* Comprobar si la lista esta vacía, en caso afirmativo se llama a la función "..." para añadir el nodo al principio */
+  /* (CASO 1) Comprobar si la lista esta vacía, en caso afirmativo se llama a la función "..." para añadir el nodo al principio */
   if (comprobar_lista(*lista_p)) {
-		agregar_nodo_principio(&lista_p, alumno_aux);
+		agregar_nodo_principio(lista_p, alumno_aux);
 	} else {
     
     /* Asignar al nodo temporal los datos del puntero "lista_p" */
@@ -137,9 +138,11 @@ bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
     
     /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
     while (/*lista->salto*/nodo != NULL && !sortir) {
-      
-      /* Comparación del numero del DNI para ordenar la lista */
-      if (alumno_aux.dni.numero > temp->alumno.dni.numero) {
+
+      /* (CASO 2) Comparación del numero del DNI para ordenar la lista */
+      if (alumno_aux.dni.numero > temp->alumno.dni.numero) { //En caso de que el numero del DNI pasado por parametro sea mayor al actual nodo, entonces...
+
+        
 
         /* Volcado del numero del DNI a la variable temporal "tempvar" */
         tempvar = temp->alumno.dni.numero;
@@ -158,7 +161,7 @@ bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
     }
 
     nodo = nodo->salto;
-    return ;
+    return nodo_ordenado;
   }
 
 }

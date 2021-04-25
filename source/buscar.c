@@ -35,13 +35,13 @@ bool buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultim
 
   /* DNI a buscar en la lista*/
   do {
-    printf("Introduce el numero del DNI");
+    printf("Introduce el numero del DNI: ");
     scanf("%d", numero_dni);
-    printf("Introduce la letra del DNI");
+    printf("Introduce la letra del DNI: ");
     scanf("%c", letra_dni);
     check = comprobar_letra(*numero_dni, *letra_dni);
     if (!check)
-      printf("El DNI es incorrecto (no corresponde la letra con el numero), vuelve a escribirlo");  
+      printf("El DNI es incorrecto (no corresponde la letra con el numero), vuelve a escribirlo \n");  
   } while (!check);
   
   if ((*numero_dni >= 0) && (*numero_dni <= 99999999)) /* Comprobamos que se encuentre en el rango de un dni */

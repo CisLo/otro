@@ -31,13 +31,13 @@ bool ver_alumno(nodo_t *p_ultimo_alum)
     printf("FECHA NACIMIENTO: %d/%d/%d\n", p_ultimo_alum->alumno.fecha_nacimiento.dia, p_ultimo_alum->alumno.fecha_nacimiento.mes, p_ultimo_alum->alumno.fecha_nacimiento.any);
     switch (p_ultimo_alum->alumno.sexo) /* Pasamos el sexo de un numero a su significado */
     {
-    case 0: printf("SEXO: Hombre");
+    case 0: printf("SEXO: Hombre \n");
       break;
 
-    case 1: printf("SEXO: Mujer");
+    case 1: printf("SEXO: Mujer \n");
       break;
 
-    case 2: printf("SEXO: No quiero decirlo");
+    case 2: printf("SEXO: No quiero decirlo \n");
       break;
     }
   }
@@ -99,6 +99,6 @@ void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por re
       free(p_ultimo_alum); /* Liberamos el nodo */
     }
     p_ultimo_alum = NULL; /* Evitamos que el puntero apunte a un nodo que ya se ha eliminado*/
-    printf ("Se ha borrado el alumno");
+    printf ("Se ha borrado el alumno \n");
   } 
 }
