@@ -16,6 +16,19 @@ bool comprobar_lista (nodo_t *lista_p) {
 	return lista_p == NULL;
 }
 
+/** Creación i inicialización de un nuevo nodo a crear **/
+nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *next) {
+
+	/* Create new node */
+	nodo_t *p_nuevo_nodo = (nodo_t *)malloc(sizeof(nodo_t));
+
+	/* Initialize new node */
+	//p_nuevo_nodo->data = data;
+	//p_nuevo_nodo->next = next;
+
+	return p_nuevo_nodo;
+}
+
 
 /** Agregar nodo al principio de la lista **/
 void agregar_nodo_principio (nodo_t **lista_p,alumno_t alumno)

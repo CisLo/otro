@@ -30,59 +30,35 @@ bool comprobar_letra (int numero_dni, char letra_dni)
 bool buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultimo_alumno)
 {
   /* Declaracion de variables */
-  int salida=0, ultimo_alumno;
-  char letra_dni;
-  bool check;
+  bool check, salida = false;
   nodo_t *p;
 
   /* DNI a buscar en la lista*/
   do {
-    printf("Introduce el número del DNI");
-    scanf("%d", &numero_dni);
+    printf("Introduce el numero del DNI");
+    scanf("%d", numero_dni);
     printf("Introduce la letra del DNI");
-    scanf("%c", &letra_dni);
-    check = comprobar_letra(numero_dni, letra_dni);
+    scanf("%c", letra_dni);
+    check = comprobar_letra(*numero_dni, *letra_dni);
     if (!check)
-      printf("El DNI es incorrecto, vuelve a escribirlo");  
+      printf("El DNI es incorrecto (no corresponde la letra con el numero), vuelve a escribirlo");  
   } while (!check);
   
-  if ((numero_dni >= 0) && (numero_dni <= 99999999)) /* Comprobamos que se encuentre en el rango de un dni */
+  if ((*numero_dni >= 0) && (*numero_dni <= 99999999)) /* Comprobamos que se encuentre en el rango de un dni */
   {
     for (p = lista; p != NULL; p = p->salto)
     {
-      if (p->alumno.dni.numero == numero_dni) /* Si coincide el DNI */
+      if (p->alumno.dni.numero == *numero_dni) /* Si coincide el DNI */
       {
-        salida = 1;
+        salida = true;
         *ultimo_alumno = p; /* Asignamos la dirección del nodo buscado */
       }
     }
   }
-  
   /*
-    1/true: Si existe
-    0/false: No existe
+    true: Si existe
+    false: No existe
   */
-  return salida;
-}
-
-/** Función comparar alumno por DNI **/
-bool comparar_dni (nodo_t *lista, int numero_dni, char letra_dni, nodo_t **ultimo_alumno)
-{
-  bool salida;
-  nodo_t *p = lista; /* Inicializamos la variable para recorrer la lista */
-
-  if ((numero_dni >= 0) && (numero_dni <= 99999999)) /* Comprobamos que se encuentre en el rango de un dni */
-  {
-    while (p != NULL && !salida)
-    {
-      if (p->alumno.dni.numero == numero_dni) /*Si coincide el DNI*/
-        salida = true;
-    }
-    /*
-    1: Existe
-    0: No existe
-    */
-  }
   return salida;
 }
 
@@ -130,7 +106,7 @@ void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado)
   nodo_actual = lista;
   while (nodo_actual->salto != NULL) /* Recorrido lista */
   {
-    if (comparar_strings(string[MAX], nodo_actual->alumno.nombre) || comparar_strings(string[MAX], nodo_actual->alumno.apellido)) /* Comparamos todos los nombres y apellidos de la lista */
+    if (comparar_strings(string, nodo_actual->alumno.nombre) || comparar_strings(string, nodo_actual->alumno.apellido)) /* Comparamos todos los nombres y apellidos de la lista */
     {
       n++;
       *alumno_buscado = nodo_actual; /* Actualizamos el ultimo alumno buscado */

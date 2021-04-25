@@ -12,7 +12,6 @@ int main() {
 	/* Declaracion de la Estructura */
 	nodo_t *lista;
 	nodo_t *alumno_buscado = NULL; /* Guarda direccion del nodo al buscar un alumno */
-	dni_t dni;
 	alumno_t *alumno;
 
 	/* Declaracion de variables */
@@ -67,13 +66,28 @@ int main() {
 			case 2: /* Buscar alumno por DNI */
 				do { /* Se ejecuta al menos una vez */
 					valido_dni	= buscar_dni(lista, 0 , 0, &alumno_buscado);
+					if (valido_dni)
+					{
+						printf("El DNI introducido coincide con: %s %s", alumno_buscado->alumno.nombre, alumno_buscado->alumno.apellido);
+					}
+					else
+					{
+						printf("El DNI no coincide con ningun alumno en la lista");
+					}
+					printf("Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
+					scanf("%d ", &opcion_aux);
+				} while (opcion_aux == 1); 
+				
+				 
+				break;
+				
+			case 3: /* Buscar por nombre */
+				do { /* Se ejecuta al menos una vez */
+					buscar_nombre(lista, &alumno_buscado);
 
 					printf("Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
 					scanf("%d ", &opcion_aux);
 				} while (opcion_aux == 1); 
-				break;
-				
-			case 3: /* Buscar por nombre */
 				break;
 
 
@@ -96,7 +110,7 @@ int main() {
 
 
 			/*=== Funciones Trabajar Ficheros ===*/
-			case 6: 
+			case 6: /* Guardar fichero */
 				fit_guardado = guardar_fichero(lista);
 				
 				if (fit_guardado)

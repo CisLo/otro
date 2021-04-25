@@ -10,41 +10,68 @@
 
 /*----;;AGREGAR ALUMNO;;-----------------------------------------------------------------------------*/
 
+/** Función para comprobar la fecha introducido en la función "agregar_alumno()" **/
+bool comprobar_fecha (fecha_t fecha) {
+
+  bool fecha_valido;
+
+  switch (fecha.mes)
+  {
+  case 1,3,5,7,8,10,12: //Enero, marzo, mayo, julio, agosto, octubre y diciembre. --> 31 días
+    if (fecha.dia > 30 || fecha.dia<0) {
+      fecha_valido = true;
+    }
+    break;
+  case 4,6,9,11: //Abril, junio, septiembre y noviembre. --> 30 días
+
+    break;
+  case 2: //Frebrero. --> 28/29 días
+      if (((fecha.any%4==0) && (fecha.any%100==0) && (fecha.any%400==0)) && fecha.any<=28) {
+        fecha_valido = true;
+      }
+    break;
+  
+  default:
+    printf("La fecha no es valido\n");
+    break;
+  }
+
+  return fecha_valido;
+}
+
 /** Función para añadir un alumno **/
-bool agregar_alumno (alumno_t *alumno, nodo_t **lista)
+bool agregar_alumno (nodo_t **lista)
 {
   bool alumno_valido, fecha_valido; 
   alumno_t alumno_aux;
-  int salida_dni = 0, longitud = 0;
+  nodo_t *alumno_dni_rep; /* Almacena el alumno con un dni igual al que se quiere agregar */
+  fecha_t fecha_nacimiento_alumno;
+  bool salida_dni;
 
   /* Introducir datos del alumno a agregar */
   
   do { /* Comprobar nombre del alumno */
     printf("Nombre del alumno: "); /* Pedimos el nombre */
-    scanf(" %s",alumno_aux.nombre);
+    scanf(" %s", alumno_aux.nombre);
   } while (alumno_aux.nombre<65 || alumno_aux.nombre>122 || (alumno_aux.nombre>90 && alumno_aux.nombre<97)); /* Comprueba si el nombre tiene numeros, mayusculas, o caracteres especiales */
   
   do { /* Comprobar apellido del alumno */
     printf("Apellido: "); /* Pedimos el apellido */
-    scanf(" %c",alumno_aux.apellido);
+    scanf(" %c", alumno_aux.apellido);
   } while (alumno_aux.apellido<65 || alumno_aux.apellido>122 || (alumno_aux.apellido>90 && alumno_aux.apellido<97)); /* Comprueba si el nombre tiene numeros, mayusculas, o caracteres especiales */
 
   do { /* Comprobar DNI del alumno */
-    printf("DNI (numeros + letra): "); /* Pedimos el DNI */
-    printf("Numeros: ");
-    scanf(" %d",alumno_aux.dni.numero);
-    printf("Lletra: ");
-    scanf(" %c",alumno_aux.dni.letra);
-
-    //salida_dni = buscar_dni (lista, alumno_aux.dni.numero, alumno_aux.dni.letra/*, nodo_t **ultimo_alumno*/);
-
-/*
-    1/true: Si existe
-    0/false: No existe
-    ((-1: Esta mal escrito o no es valido))
-  */
-
-  } while (salida_dni == 1 || salida_dni == -1);
+    salida_dni = buscar_dni (lista, &alumno_aux.dni.numero, &alumno_aux.dni.letra, &alumno_dni_rep);
+    if (salida_dni)
+    {
+      printf ("Ya existe un alumno con ese DNI en la lista: %s %s", alumno_dni_rep->alumno.nombre, alumno_dni_rep->alumno.apellido);
+      printf("Introduce un DNI distinto");
+    }
+    else
+    {
+      printf("El DNI se ha guardado correctamente");
+    }
+  } while (salida_dni);
 
   printf("Correo electronico: ");
   scanf(" %c",alumno_aux.email);
@@ -57,18 +84,13 @@ bool agregar_alumno (alumno_t *alumno, nodo_t **lista)
   do {
     printf("Fecha de nacimiento: (dia, mes y año): ");
     printf("Dia: ");
-    scanf("%d ",alumno_aux.fecha_nacimiento.dia);
+    scanf("%d ",fecha_nacimiento_alumno.dia);
     printf("Mes: ");
-    scanf("%d ",alumno_aux.fecha_nacimiento.mes);
+    scanf("%d ",fecha_nacimiento_alumno.mes);
     printf("Año: ");
-    scanf("%d ",alumno_aux.fecha_nacimiento.any);
+    scanf("%d ",fecha_nacimiento_alumno.any);
 
-    if (alumno_aux.fecha_nacimiento.mes==2) {
-      if (((alumno_aux.fecha_nacimiento.any%4==0) && (alumno_aux.fecha_nacimiento.any%100==0) && (alumno_aux.fecha_nacimiento.any%400==0)) && alumno_aux.fecha_nacimiento.dia<=28) {
-        fecha_valido = true;
-      }
-      longitud++;
-    }
+    //fecha_valido = comprobar_fecha(fecha_nacimiento_alumno);
 
   } while (!fecha_valido);
   
@@ -78,14 +100,14 @@ bool agregar_alumno (alumno_t *alumno, nodo_t **lista)
   } while (alumno_aux.sexo<0 || alumno_aux.sexo>2);
 
   /* Llamamos a la función "ordenar alumno", para que agrege al alumno introducido */
-  alumno_valido = ordenar_alumno(lista, alumno_aux,alumno);    
+  alumno_valido = ordenar_alumno(&lista, alumno_aux);    
 
   return alumno_valido;
   
 }
 
 /** Función para ordenar el alumno introducido en "agregar_alumno" **/
-bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux, alumno_t *alumno)
+bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
 {
   /* Creación de nodos, para almacenar los datos al ordenar */
   nodo_t *nodo = NULL, *temp = NULL;
@@ -121,15 +143,13 @@ bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux, alumno_t *alumno)
 
       }
 
+
       temp = temp->salto;
 
     }
 
     nodo = nodo->salto;
   }
-
-  /* Aliberar la zona de memoria de la variable "nodo" */
-  free(nodo);
 
 }
 

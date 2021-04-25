@@ -1,5 +1,4 @@
-#pragma once 
-#include <stdbool.h>
+#pragma once
 
 /** Cabeceras de los procedimientos usados por el programa **/
 /*--------------------------------------------------------------------*/
@@ -26,7 +25,6 @@ void agregar_nodo (nodo_t *lista/*,datos*/);
 /* Funciones BUSCAR */
 bool comprobar_letra (int numero_dni, char letra_dni);
 bool buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultimo_alumno);
-bool comparar_dni (nodo_t *lista, int numero_dni, char letra_dni, nodo_t **ultimo_alumno);
 // --------------------------------------
 bool comparar_letra (char a, char b);
 bool comparar_strings (char string_buscado[], char string_nodo[]);
