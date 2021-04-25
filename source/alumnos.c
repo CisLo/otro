@@ -8,33 +8,31 @@
 #include "../headers/funciones.h"
 
 
-/*----;;AGREGAR ALUMNO;;-----------------------------------------------------------------------------*/
-
 /** Función para comprobar la fecha introducido en la función "agregar_alumno()" **/
 bool comprobar_fecha (fecha_t fecha) {
 
-  bool fecha_valido;
+  bool fecha_valido = true;
 
   switch (fecha.mes)
   {
   case 1: case 3: case 5: case 7: case 8: case 10: case 12:
     //Enero, marzo, mayo, julio, agosto, octubre y diciembre. --> 31 días
     if (fecha.dia > 31 || fecha.dia<0) {
-      fecha_valido = true;
+      fecha_valido = false;
     }
     break;
   case 4: case 6: case 9: case 11: //Abril, junio, septiembre y noviembre. --> 30 días
     if (fecha.dia > 30 || fecha.dia<0) {
-      fecha_valido = true;
+      fecha_valido = false;
     }
     break;
   case 2: //Frebrero. --> 28/29 días
       if (fecha.dia > 29 || fecha.dia<0) {
-        fecha_valido = true;
+        fecha_valido = false;
       } else {
         if (fecha.dia==29 && (fecha.any%400==0 ||(fecha.any%4==0 && fecha.any%100!=0))) {
         } else {
-          fecha_valido = true;
+          fecha_valido = false;
         }
       }
     break;
@@ -50,7 +48,7 @@ bool comprobar_fecha (fecha_t fecha) {
 /** Función para añadir un alumno **/
 bool agregar_alumno (nodo_t **lista)
 {
-  bool alumno_valido, fecha_valido; 
+  bool alumno_valido, fecha_valido;
   alumno_t alumno_aux;
   nodo_t *alumno_dni_rep; /* Almacena el alumno con un dni igual al que se quiere agregar */
   fecha_t fecha_nacimiento_alumno;
@@ -131,8 +129,7 @@ bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
 		agregar_nodo_principio(lista_p, alumno_aux);
 	}
   else 
-  { //(CASO 3) - (CASO 4)
-      
+  {
     /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
     while (nodo != NULL && !salir) 
     {
@@ -140,56 +137,17 @@ bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
       {
         if (nodo->salto == NULL)
         {
-          agregar_nodo_final(lista_p, alumno_aux);
+          agregar_nodo_final(&lista_p, alumno_aux);
           temp = nodo;
           nodo = nodo->salto;
         }
       }
       else
       { // (alumno_aux.dni.numero < nodo->alumno.dni.numero)
-        agregar_nodo_entre(temp, &alumno_aux); //(alumno_t alumno, nodo_t *nodo_anterior)
+        agregar_nodo_entre(temp, alumno_aux); //(alumno_t alumno, nodo_t *nodo_anterior)
         salir = true;
-      } 
-      /*
-      //CASO 4
-      if ((nodo->salto == NULL) && (alumno_aux.dni.numero > nodo->alumno.dni.numero)) {
-        agregar_nodo_final(&lista_p, alumno_aux); //nodo_t **lista, alumno_t alumno_datos
-      } else if (nodo->salto != NULL) {
-        if (alumno_aux.dni.numero < nodo->alumno.dni.numero) {
-
-          /* Volcado del numero del DNI a la variable temporal "tempvar" 
-          tempvar = nodo->alumno.dni.numero;
-
-          /* Intercambiar el numero del DNI 
-          nodo->alumno.dni.numero = nodo->salto->alumno.dni.numero;
-          nodo->salto->alumno.dni.numero = tempvar;
-
-          /* Llamada a las funciones de agragar el nodo (agregar_nodo_principio, agregar_nodo_entre, agregar_nodo_final) 
-        }
       }
-      /* (CASO 3) Comparación del numero del DNI para ordenar la lista 
-       //En caso de que el numero del DNI pasado por parametro sea mayor al actual nodo, entonces...
-      //CASO 4: 9 [5]  [11]  {9} [NULL]
-      //CASO 3: 9 [5]  [7]  {9} [11]
-      nodo = nodo->salto;
-    }
-*/
     return nodo_ordenado;
   }
 
 }
-
-/*---------;;FIN AGREGAR ALUMNO;;-------------------------------------------------------------------------------------------*/
-
-/* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
-    while (actual != NULL && !salir) 
-    {
-      if (nuevo.dni > actual.dni)
-        if (actual.salto == NULL)
-          agregar_nodo_final();
-        temp = actual;
-        actual = actual.salto;
-      else // (nuevo.dni < actual.dni)
-        agregar_nodo_entre(alumno, temp);
-        salir = true;
-    }

@@ -25,7 +25,7 @@ nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto) {
 	/* Inicializa el nuevo nodo */
 	p_nuevo_nodo->alumno = alumno;
 	p_nuevo_nodo->salto = salto;
-  
+
   /* Retorna el puntero del nuevo nodo */
 	return p_nuevo_nodo;
 }
@@ -52,13 +52,13 @@ void agregar_nodo_entre (nodo_t *nodo_anterior, alumno_t alumno)
 
   /* Tamaño del nuevo nodo a crear: */
   nodo_t *nuevo_nodo = (nodo_t *)malloc(sizeof(nodo_t));
-
+  
   /* Para  */
-  //nuevo_nodo->/*datos*/ = nuevo_nodo;
+  nuevo_nodo->alumno = alumno;
 
-  //nuevo_nodo->/*salto*/ = lista->/* salto */;
+  nuevo_nodo->salto = nodo_anterior->salto;
 
-  //lista->/*salto*/ = nuevo_nodo;
+  nodo_anterior->salto = nuevo_nodo;
 
 }
 
