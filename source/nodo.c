@@ -52,12 +52,14 @@ void agregar_nodo_entre (nodo_t *nodo_anterior, alumno_t alumno)
 
   /* Tamaño del nuevo nodo a crear: */
   nodo_t *nuevo_nodo = (nodo_t *)malloc(sizeof(nodo_t));
-  
-  /* Para  */
+
+  /* Asignar los datos del alumno al nuevo nodo a crear */
   nuevo_nodo->alumno = alumno;
 
+  /* Apuntar el siguiente salto al "nodo_anterior" */
   nuevo_nodo->salto = nodo_anterior->salto;
 
+  /* Apuntar al siguiente nodo del "nodo_anterior" el nuevo */
   nodo_anterior->salto = nuevo_nodo;
 
 }

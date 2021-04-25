@@ -102,7 +102,7 @@ bool agregar_alumno (nodo_t **lista)
   } while (alumno_aux.sexo<0 || alumno_aux.sexo>2);
 
   /* Llamamos a la función "ordenar alumno", para que agrege al alumno introducido */
-  alumno_valido = ordenar_alumno(lista, alumno_aux);    
+  ordenar_alumno(lista, alumno_aux);    
   
   return alumno_valido;
   
@@ -116,13 +116,12 @@ CASO 2: Si el numero del DNI es más grande al primer nodo--> Llamar a "agregar_
 CASO 3: Si el numero del DNI es más grande al nodo 'actual', se guarda el nodo 'actual' y en caso del nodo que le siga no es igual a NULL-->  Llamar a "agregar_nodo_entre()"
 CASO 4: Si el numero del DNI es más grande al nodo 'actual', se guarda el nodo 'actual' y en caso del nodo que le siga es igual a NULL-->  Llamar a "agregar_nodo_final()"
 **/
-bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
+void ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
 {
+  /* Declaración de variables locales */
   /* Creación de nodos, para almacenar los datos al ordenar */
   nodo_t *nodo = *lista_p, *temp = NULL;
-  
-  /* Declaración de variables locales */
-  bool salir, nodo_ordenado;
+  bool salir;
   
   /* CASO 1 o CASO 2 */
   if (comprobar_lista(*lista_p) || (alumno_aux.dni.numero < nodo->alumno.dni.numero)) {
@@ -137,7 +136,7 @@ bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
       {
         if (nodo->salto == NULL)
         {
-          agregar_nodo_final(&lista_p, alumno_aux);
+          agregar_nodo_final(lista_p, alumno_aux);
           temp = nodo;
           nodo = nodo->salto;
         }
@@ -147,7 +146,7 @@ bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
         agregar_nodo_entre(temp, alumno_aux); //(alumno_t alumno, nodo_t *nodo_anterior)
         salir = true;
       }
-    return nodo_ordenado;
+    
   }
 
 }
