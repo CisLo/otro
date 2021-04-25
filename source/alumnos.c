@@ -85,22 +85,22 @@ bool agregar_alumno (alumno_t *alumno, nodo_t **lista)
 }
 
 /** Función para ordenar el alumno introducido en "agregar_alumno" **/
-bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux, alumno_t *alumno)
+bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux, alumno_t *alumno)
 {
   /* Creación de nodos, para almacenar los datos al ordenar */
   nodo_t *nodo = NULL, *temp = NULL;
-  nodo = *p_lista;
+  nodo = *lista_p;
   
   /* Declaración de variables locales */
   bool sortir;
   int tempvar;
   
   /* Comprobar si la lista esta vacía, en caso afirmativo se llama a la función "..." para añadir el nodo al principio */
-  if (comprobar_lista(p_lista)) {
-		agregar_nodo_principio(&p_lista, alumno_aux);
+  if (comprobar_lista(lista_p)) {
+		agregar_nodo_principio(&lista_p, alumno_aux);
 	} else {
     
-    /* Asignar al nodo temporal los datos del puntero "p_lista" */
+    /* Asignar al nodo temporal los datos del puntero "lista_p" */
     temp = nodo;
     
     /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
@@ -118,6 +118,7 @@ bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux, alumno_t *alumno)
 
         /* Llamada a las funciones de agragar el nodo (agregar_nodo_principio, agregar_nodo_medio, agregar_nodo_final) */
         // ...CONTINUAR
+
       }
 
       temp = temp->salto;
@@ -127,7 +128,7 @@ bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux, alumno_t *alumno)
     nodo = nodo->salto;
   }
 
-  /* Aliberar la variable "nodo" */
+  /* Aliberar la zona de memoria de la variable "nodo" */
   free(nodo);
 
 }

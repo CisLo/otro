@@ -7,51 +7,46 @@
 #include "../headers/funciones.h"
 
 /** Inicializar la lista enlazada **/
-void iniciar_lista (nodo_t **lista) {
-  *lista = NULL;
+void iniciar_lista (nodo_t **lista_p) {
+  *lista_p = NULL;
 }
 
 /** Comprobar si la lista està vacía **/
-bool comprobar_lista (nodo_t *lista) {
-	return lista == NULL;
+bool comprobar_lista (nodo_t *lista_p) {
+	return lista_p == NULL;
 }
 
 
 /** Agregar nodo al principio de la lista **/
-void agregar_nodo_principio (nodo_t **lista,alumno_t alumno)
+void agregar_nodo_principio (nodo_t **lista_p,alumno_t alumno)
 {
   /* Reservamos en memoria */
-  nodo_t *nodo_agregar = (nodo_t *)malloc(sizeof(nodo_t));
+  nodo_t *nuevo_nodo = (nodo_t *)malloc(sizeof(nodo_t));
 
   /* Asignar los datos del alumno al nuevo nodo  */
-  nodo_agregar->alumno = alumno;
+  nuevo_nodo->alumno = alumno;
 
   /* Crear el salto del nuevo nodo. */
-  nodo_agregar->salto = (*lista);
+  nuevo_nodo->salto = (*lista_p);
 
   /* Asignar al puntero el nuevo nodo. */
-  (*lista) = nodo_agregar;
+  (*lista_p) = nuevo_nodo;
 }
 
 
-/** Agregar nodo dentro de la lista **/
-void agregar_nodo_entre (nodo_t *lista, alumno_t alumno/*, nodo_anterior*/)
+/** Agregar nodo dentro de la lista, no se pone un doble puntero a "lista", ya que la lista no esta vacía **/
+void agregar_nodo_entre (nodo_t *lista_p, alumno_t alumno/*, nodo_anterior*/)
 {
-  if (lista == NULL)
-  {
-    printf("No hay datos del alumno");
-    //exit...
-  }
 
   /* Tamaño del nuevo nodo a crear: */
-  nodo_t *nodo_agregar = (nodo_t *)malloc(sizeof(nodo_t));
+  nodo_t *nuevo_nodo = (nodo_t *)malloc(sizeof(nodo_t));
 
   /* Para  */
-  //nodo_agregar->/*datos*/ = nodo_agregar;
+  //nuevo_nodo->/*datos*/ = nuevo_nodo;
 
-  //nodo_agregar->/*salto*/ = lista->/* salto */;
+  //nuevo_nodo->/*salto*/ = lista->/* salto */;
 
-  //lista->/*salto*/ = nodo_agregar;
+  //lista->/*salto*/ = nuevo_nodo;
 
 }
 
