@@ -58,7 +58,7 @@ int main() {
 
 			/*================================*/
 			case 1: /* Agregar alumno */
-				alumno_guardado = agregar_alumno(alumno, &lista);
+				alumno_guardado = agregar_alumno(&lista);
 				break;
 
 

@@ -17,7 +17,7 @@ bool guardar_fichero(nodo_t *lista_p);
 
 
 /* Funcion AGREGAR_ALUMNOS */
-bool agregar_alumno (alumno_t *alumno, nodo_t **lista);
+bool agregar_alumno (nodo_t **lista);
 bool ordenar_alumno (nodo_t **p_lista, alumno_t alumno_aux, alumno_t *alumno);
 void agregar_nodo (nodo_t *lista/*,datos*/);
 

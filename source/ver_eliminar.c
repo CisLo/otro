@@ -27,7 +27,7 @@ bool ver_alumno(nodo_t *p_ultimo_alum)
     printf("------------------------------------\n");
     printf("eMAIL: %s\n", p_ultimo_alum->alumno.email);
     printf("DNI: %d %c\n",  p_ultimo_alum->alumno.dni.numero, p_ultimo_alum->alumno.dni.letra);
-    printf("NOTA: %d\n", p_ultimo_alum->alumno.nota);
+    printf("NOTA: %.2f\n", p_ultimo_alum->alumno.nota);
     printf("FECHA NACIMIENTO: %d/%d/%d\n", p_ultimo_alum->alumno.fecha_nacimiento.dia, p_ultimo_alum->alumno.fecha_nacimiento.mes, p_ultimo_alum->alumno.fecha_nacimiento.any);
     switch (p_ultimo_alum->alumno.sexo) /* Pasamos el sexo de un numero a su significado */
     {

@@ -22,10 +22,11 @@ nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *next) {
 	/* Crea nuevo nodo */
 	nodo_t *p_nuevo_nodo = (nodo_t *)malloc(sizeof(nodo_t));
 
-	/* Initialize new node */
+	/* Inicializa el nuevo nodo */
 	p_nuevo_nodo->alumno = alumno;
 	p_nuevo_nodo->salto = salto;
 
+  /* Retorna el  */
 	return p_nuevo_nodo;
 }
 
