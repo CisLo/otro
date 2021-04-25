@@ -7,16 +7,16 @@
 #include "../headers/funciones.h"
 
 /** Inicializar la lista enlazada **/
-void iniciar_lista (nodo_t **lista_p) {
-  *lista_p = NULL;
+void iniciar_lista (nodo_t **lista) {
+  *lista = NULL;
 }
 
 /** Comprobar si la lista està vacía **/
-bool comprobar_lista (nodo_t *lista_p) {
-	return lista_p == NULL;
+bool comprobar_lista (nodo_t *lista) {
+	return lista == NULL;
 }
 
-/** Creación i inicialización de un nuevo nodo a crear **/
+/** Creacion e inicialización de un nuevo nodo a crear **/
 nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto) {
 
 	/* Crea nuevo nodo */
@@ -25,32 +25,29 @@ nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto) {
 	/* Inicializa el nuevo nodo */
 	p_nuevo_nodo->alumno = alumno;
 	p_nuevo_nodo->salto = salto;
-
+  
   /* Retorna el puntero del nuevo nodo */
 	return p_nuevo_nodo;
 }
 
 
 /** Agregar nodo al principio de la lista **/
-void agregar_nodo_principio (nodo_t **lista_p,alumno_t alumno)
+void agregar_nodo_principio (nodo_t **lista_p, alumno_t alumno)
 {
   /* Reservamos en memoria */
-  nodo_t *nuevo_nodo;
-  nuevo_nodo = nuevo_nodo(alumno, *lista_p);
-
-  /* Asignar los datos del alumno al nuevo nodo  */
-  nuevo_nodo->alumno = alumno;
+  nodo_t *nodo;
+  nodo = nuevo_nodo(alumno, *lista_p);
 
   /* Crear el salto del nuevo nodo. */
-  nuevo_nodo->salto = (*lista_p);
+  nodo->salto = (*lista_p);
 
   /* Asignar al puntero el nuevo nodo. */
-  (*lista_p) = nuevo_nodo;
+  (*lista_p) = nodo;
 }
 
 
 /** Agregar nodo dentro de la lista, no se pone un doble puntero a "lista", ya que la lista no esta vacía **/
-void agregar_nodo_entre (nodo_t *lista_p, alumno_t alumno/*, nodo_anterior*/)
+void agregar_nodo_entre (nodo_t *nodo_anterior, alumno_t alumno)
 {
 
   /* Tamaño del nuevo nodo a crear: */
@@ -67,36 +64,28 @@ void agregar_nodo_entre (nodo_t *lista_p, alumno_t alumno/*, nodo_anterior*/)
 
 
 /** Agregar nodo al final de la lista **/
-void agregar_nodo_final(nodo_t **lista_p, alumno_t alumno_datos)
+void agregar_nodo_final(nodo_t **lista, alumno_t alumno_datos)
 {
   /* Creamos variables */
-  nodo_t *lista_p_aux = *lista_p; 
-  nodo_t *nd_p = (nodo_t *) malloc(sizeof(nodo_t)); /* Reservamos el nodo en la memoria */
-  nodo_t *p_final; /* Variable que recorre la lista hasta el ultimo nodo */
+  nodo_t *lista_p_aux = *lista; 
+  nodo_t *p; /* Variable que recorre la lista hasta el ultimo nodo */
 
-  /* Comprobamos que haya memoria para el nuevo nodo */
-	if (nd_p == NULL)
-    {
-		printf ("No hay suficiente memoria para agregar el alumno a la lista \n");
-        exit(-1); /* Se sale del programa */
-	}
-  else
+  /* Reservamos el nodo en la memoria, y añadimos los datos */
+  nodo_t *nd_p; 
+  nd_p = nuevo_nodo(alumno_datos, NULL); /* NULL porque el nodo estara al final de la lista */
+
+  /* Comprobamos si la lista esta vacia */
+	if (comprobar_lista(lista_p_aux)) 
   {
-	  if (comprobar_lista(lista_p_aux)) /* Comprobamos si la lista esta vacia */
-    {
-		  *lista_p = nd_p; /* La lista apunta al nuevo nodo como el primero */
-    }
-    else 
-    {
-		  p_final = lista_p_aux; 
-		  while (p_final->salto != NULL) /* Recorremos la lista hasta el ultimo nodo */
-      {
-        p_final = p_final->salto; 
-      }
-		  p_final->salto = nd_p; /* El ultimo nodo apunta al nuevo, poniendo al nuevo nodo al final de la lista */
-	  }
-
-    nd_p->alumno = alumno_datos; /* Pasamos los datos del alumno cargado al nuevo nodo */
-	  nd_p->salto = NULL; /* Asignamos al puntero del nodo "NULL", porque es el ultimo nodo */
+		*lista = nd_p; /* La lista apunta al nuevo nodo como el primero */
   }
+  else 
+  {
+		p = lista_p_aux; 
+		while (p->salto != NULL) /* Recorremos la lista hasta el ultimo nodo */
+    {
+      p = p->salto; 
+    }
+		p->salto = nd_p; /* El ultimo nodo apunta al nuevo, poniendo al nuevo nodo al final de la lista */
+	}
 }

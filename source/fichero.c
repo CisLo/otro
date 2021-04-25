@@ -8,36 +8,28 @@
 
 
 /** Funcion ABRIR fichero **/
-bool abrir_fichero(nodo_t **lista_p)
+void abrir_fichero(nodo_t **lista_p)
 {
   /* Variables locales de la funcion */
   FILE *fit_lista;
-  bool cargado_check; /* si se ha podido cargar correctamente */
-
   alumno_t alumno; /* Variable almacena alumno */
-  alumno_t alum_aux; /* Variable auxiliar del alumno */
   
   /* Leemos el fichero */
   fit_lista = fopen ("lista_alumnos.out", "rb"); /* Se abre el fichero en modo lectura */
   if (fit_lista == NULL)
   {
-    cargado_check = false; /* No existe fichero */
+    printf("\nLa lista esta vacia, se creara una nueva\n");
   }
   else
   {
-    fread(&alumno, sizeof(alumno_t), 1, fit_lista); /* Leemos los datos de los alumnos */
     while (!feof(fit_lista))
     {
-      /* Pasamos los valores a la variable auxiliar */
-      alum_aux = alumno;
-
-      agregar_nodo_final(lista_p, alum_aux); /* Agregamos los alumnos leidos a la lista */
-      fread (&alumno, sizeof(fecha_t), 1, fit_lista); /* Leemos los datos de los alumnos */
+      fread(&alumno, sizeof(alumno_t), 1, fit_lista); /* Leemos los datos de los alumnos */
+      agregar_nodo_final(lista_p, alumno); /* Agregamos los alumnos leidos a la lista */
     }
-    cargado_check = true; /* Cargado correctamente */
+    printf("\nSe ha cargado la lista de alumnos\n");
     fclose (fit_lista); /* Cerramos el fichero */
   }
-  return cargado_check;
 }
 
 
@@ -55,6 +47,7 @@ bool guardar_fichero(nodo_t *lista_p)
   if (fit_lista == NULL)
   {
     guardado_check = false;
+    printf ("No se ha podido guardar el fichero \n");
   }
   else
   {
@@ -66,6 +59,7 @@ bool guardar_fichero(nodo_t *lista_p)
     }
     fclose (fit_lista); /* Cerramos el fichero */
     guardado_check = true;
+    printf("Se ha guardado la lista de alumnos \n");
   }
   return guardado_check;
 }

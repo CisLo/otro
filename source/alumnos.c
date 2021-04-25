@@ -121,46 +121,59 @@ CASO 4: Si el numero del DNI es más grande al nodo 'actual', se guarda el nodo 
 bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
 {
   /* Creación de nodos, para almacenar los datos al ordenar */
-  nodo_t *nodo = NULL, *temp = NULL;
-  nodo = *lista_p;
+  nodo_t *nodo = *lista_p, *temp = NULL;
   
   /* Declaración de variables locales */
-  bool sortir,nodo_ordenado;
-  int tempvar;
+  bool salir, nodo_ordenado;
   
-  /* (CASO 1) Comprobar si la lista esta vacía, en caso afirmativo se llama a la función "..." para añadir el nodo al principio */
-  if (comprobar_lista(*lista_p)) {
+  /* CASO 1 o CASO 2 */
+  if (comprobar_lista(*lista_p) || (alumno_aux.dni.numero < nodo->alumno.dni.numero)) {
 		agregar_nodo_principio(lista_p, alumno_aux);
-	} else {
-    
-    /* Asignar al nodo temporal los datos del puntero "lista_p" */
-    temp = nodo;
-    
-    /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
-    while (/*lista->salto*/nodo != NULL && !sortir) {
-
-      /* (CASO 2) Comparación del numero del DNI para ordenar la lista */
-      if (alumno_aux.dni.numero > temp->alumno.dni.numero) { //En caso de que el numero del DNI pasado por parametro sea mayor al actual nodo, entonces...
-
-        
-
-        /* Volcado del numero del DNI a la variable temporal "tempvar" */
-        tempvar = temp->alumno.dni.numero;
-
-        /* Intercambiar el numero del DNI */
-        temp->alumno.dni.numero = temp->salto->alumno.dni.numero;
-        temp->salto->alumno.dni.numero = tempvar;
-
-        /* Llamada a las funciones de agragar el nodo (agregar_nodo_principio, agregar_nodo_entre, agregar_nodo_final) */
-        // ...CONTINUAR
-        
-      }
+	}
+  else 
+  { //(CASO 3) - (CASO 4)
       
-      temp = temp->salto;
+    /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
+    while (nodo != NULL && !salir) 
+    {
+      if (alumno_aux.dni.numero > nodo->alumno.dni.numero)
+      {
+        if (nodo->salto == NULL)
+        {
+          agregar_nodo_final(lista_p, alumno_aux);
+          temp = nodo;
+          nodo = nodo->salto;
+        }
+      }
+      else
+      { // (alumno_aux.dni.numero < nodo->alumno.dni.numero)
+        agregar_nodo_entre(temp, &alumno_aux); //(alumno_t alumno, nodo_t *nodo_anterior)
+        salir = true;
+      } 
+      /*
+      //CASO 4
+      if ((nodo->salto == NULL) && (alumno_aux.dni.numero > nodo->alumno.dni.numero)) {
+        agregar_nodo_final(&lista_p, alumno_aux); //nodo_t **lista, alumno_t alumno_datos
+      } else if (nodo->salto != NULL) {
+        if (alumno_aux.dni.numero < nodo->alumno.dni.numero) {
 
+          /* Volcado del numero del DNI a la variable temporal "tempvar" 
+          tempvar = nodo->alumno.dni.numero;
+
+          /* Intercambiar el numero del DNI 
+          nodo->alumno.dni.numero = nodo->salto->alumno.dni.numero;
+          nodo->salto->alumno.dni.numero = tempvar;
+
+          /* Llamada a las funciones de agragar el nodo (agregar_nodo_principio, agregar_nodo_entre, agregar_nodo_final) 
+        }
+      }
+      /* (CASO 3) Comparación del numero del DNI para ordenar la lista 
+       //En caso de que el numero del DNI pasado por parametro sea mayor al actual nodo, entonces...
+      //CASO 4: 9 [5]  [11]  {9} [NULL]
+      //CASO 3: 9 [5]  [7]  {9} [11]
+      nodo = nodo->salto;
     }
-
-    nodo = nodo->salto;
+*/
     return nodo_ordenado;
   }
 
@@ -168,3 +181,15 @@ bool ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
 
 /*---------;;FIN AGREGAR ALUMNO;;-------------------------------------------------------------------------------------------*/
 
+/* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
+    while (actual != NULL && !salir) 
+    {
+      if (nuevo.dni > actual.dni)
+        if (actual.salto == NULL)
+          agregar_nodo_final();
+        temp = actual;
+        actual = actual.salto;
+      else // (nuevo.dni < actual.dni)
+        agregar_nodo_entre(alumno, temp);
+        salir = true;
+    }

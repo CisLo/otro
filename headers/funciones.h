@@ -6,13 +6,14 @@
 /* Funciones NODO */
 void iniciar_lista(nodo_t **lista);
 bool comprobar_lista (nodo_t *lista);
+nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto);
 void agregar_nodo_principio (nodo_t **lista,alumno_t alumno);
-void agregar_nodo_entre (nodo_t *lista, alumno_t alumno/*, nodo_anterior*/);
-void agregar_nodo_final(nodo_t **lista_p, alumno_t alumno_datos);
+void agregar_nodo_entre (nodo_t *nodo_anterior, alumno_t alumno);
+void agregar_nodo_final(nodo_t **lista, alumno_t alumno_datos);
 
 
 /*Funciones FICHEROS */
-bool abrir_fichero(nodo_t **lista_p);
+void abrir_fichero(nodo_t **lista_p);
 bool guardar_fichero(nodo_t *lista_p);
 
 
