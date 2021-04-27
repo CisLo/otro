@@ -2,7 +2,7 @@
 #include <stdlib.h> /* Libreria para usar funciones generales como malloc(); y free */
 #include <stdbool.h> /*Libreria booleano, bool*/
 
-/** Incluimos la libreria "alumnos.h" **/
+/* Incluimos la libreria "alumnos.h" */
 #include "../headers/tipos.h"
 #include "../headers/funciones.h"
 

@@ -13,12 +13,11 @@ bool comprobar_fecha (fecha_t fecha) {
 
   bool fecha_invalido = false;
 
-  if (fecha.any > 0) 
+  if (fecha.any > 1900 && fecha.any < 9999) 
   {
     switch (fecha.mes)
     {
-    case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-      //Enero, marzo, mayo, julio, agosto, octubre y diciembre. --> 31 días
+    case 1: case 3: case 5: case 7: case 8: case 10: case 12: //Enero, marzo, mayo, julio, agosto, octubre y diciembre. --> 31 días
       if (fecha.dia > 31 || fecha.dia<0) {
         fecha_invalido = true;
       }
@@ -32,7 +31,7 @@ bool comprobar_fecha (fecha_t fecha) {
         if (fecha.dia > 29 || fecha.dia<0) {
           fecha_invalido = true;
         } else {
-          if (fecha.dia==29 && ((fecha.any%4==0 && fecha.any%100!=0) || fecha.any%400==0)) {
+          if (fecha.dia==29 && (fecha.any%400==0 ||(fecha.any%4==0 && fecha.any%100!=0))) {
           } else {
             fecha_invalido = true;
           }
@@ -101,7 +100,7 @@ bool agregar_alumno (nodo_t **lista)
       printf(" Nota del alumno (por ejemplo, 6.8): ");
       scanf(" %f", &alumno_aux.nota);
     } while (alumno_aux.nota<0 || alumno_aux.nota>10);
-    
+  
     do {
       printf(" Fecha de nacimiento: (dia, mes y any): \n");
       printf(" Dia: ");
@@ -169,5 +168,4 @@ void ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
       }
     }
   }
-
 }
