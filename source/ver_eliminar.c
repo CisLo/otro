@@ -104,12 +104,12 @@ void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por re
     if (*p_lista == *p_ultimo_alum)
     {
       *p_lista = (*p_ultimo_alum)->salto; /* La cabeza de la lista apunta al siguiente despues del alumno */
-      free(p_ultimo_alum); /* Liberamos el nodo */
+      free(*p_ultimo_alum); /* Liberamos el nodo */
     }   
     else /* CASO 3 y CASO 4 */
     {
       nodo_previo->salto = (*p_ultimo_alum)->salto; /* El nodo apunta al siguiente despues del alumno */
-      free(p_ultimo_alum); /* Liberamos el nodo */
+      free(*p_ultimo_alum); /* Liberamos el nodo */
     }
     p_ultimo_alum = NULL; /* Evitamos que el puntero apunte a un nodo que ya se ha eliminado*/
     printf (" Se ha borrado el alumno \n");

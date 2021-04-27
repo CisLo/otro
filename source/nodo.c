@@ -80,7 +80,6 @@ void agregar_nodo_final(nodo_t **lista, alumno_t alumno_datos)
 {
   /* Creamos variables */
   nodo_t *lista_p_aux = *lista; /* Variable que recorre la lista hasta el ultimo nodo */
-  nodo_t *p; 
 
   /* Reservamos el nodo en la memoria, y añadimos los datos */
   nodo_t *nd_p; 

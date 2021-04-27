@@ -81,10 +81,6 @@ int main()
 
 			/*=== Funcion para cargar los datos de los alumnos a la lista enlazada ===*/
 			case 2: /* Cargar fichero */
-				if (comprobar_lista(lista)) /* Eliminamos la lista que tengamos */
-				{
-					eliminar_lista(lista);
-				}
 				abrir_fichero(&lista); /* Se crea la lista */
 				printf("\n------------------------------------\n");
 				break;

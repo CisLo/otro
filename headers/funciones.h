@@ -6,7 +6,6 @@
 /* Funciones NODO */
 void iniciar_lista(nodo_t **lista);
 bool comprobar_lista (nodo_t *lista);
-void eliminar_lista(nodo_t **lista_p);
 nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto);
 void agregar_nodo_principio (nodo_t **lista,alumno_t alumno);
 void agregar_nodo_entre (nodo_t *nodo_anterior, alumno_t alumno);
