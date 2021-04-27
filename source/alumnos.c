@@ -13,33 +13,40 @@ bool comprobar_fecha (fecha_t fecha) {
 
   bool fecha_invalido = false;
 
-  switch (fecha.mes)
+  if (fecha.any > 0) 
   {
-  case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-    //Enero, marzo, mayo, julio, agosto, octubre y diciembre. --> 31 días
-    if (fecha.dia > 31 || fecha.dia<0) {
-      fecha_invalido = true;
-    }
-    break;
-  case 4: case 6: case 9: case 11: //Abril, junio, septiembre y noviembre. --> 30 días
-    if (fecha.dia > 30 || fecha.dia<0) {
-      fecha_invalido = true;
-    }
-    break;
-  case 2: //Frebrero. --> 28/29 días
-      if (fecha.dia > 29 || fecha.dia<0) {
+    switch (fecha.mes)
+    {
+    case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+      //Enero, marzo, mayo, julio, agosto, octubre y diciembre. --> 31 días
+      if (fecha.dia > 31 || fecha.dia<0) {
         fecha_invalido = true;
-      } else {
-        if (fecha.dia==29 && (fecha.any%400==0 ||(fecha.any%4==0 && fecha.any%100!=0))) {
-        } else {
-          fecha_invalido = true;
-        }
       }
-    break;
-  
-  default:
+      break;
+    case 4: case 6: case 9: case 11: //Abril, junio, septiembre y noviembre. --> 30 días
+      if (fecha.dia > 30 || fecha.dia<0) {
+        fecha_invalido = true;
+      }
+      break;
+    case 2: //Frebrero. --> 28/29 días
+        if (fecha.dia > 29 || fecha.dia<0) {
+          fecha_invalido = true;
+        } else {
+          if (fecha.dia==29 && (fecha.any%400==0 ||(fecha.any%4==0 && fecha.any%100!=0))) {
+          } else {
+            fecha_invalido = true;
+          }
+        }
+      break;
+    
+    default:
+      fecha_invalido = true;
+      break;
+    }    
+  } 
+  else 
+  {
     fecha_invalido = true;
-    break;
   }
 
   if (fecha_invalido) {
@@ -69,7 +76,7 @@ bool agregar_alumno (nodo_t **lista)
 
   do { /* Comprobar DNI del alumno */
     salida_dni = buscar_dni (*lista, &alumno_aux.dni.numero, &alumno_aux.dni.letra, &alumno_dni_rep);
-    if (salida_dni && !salir_alumno)
+    if (salida_dni)
     {
       printf (" Ya existe un alumno con ese DNI en la lista: %s %s \n", alumno_dni_rep->alumno.nombre, alumno_dni_rep->alumno.apellido);
       printf(" Introduce un DNI distinto \n");
@@ -84,7 +91,7 @@ bool agregar_alumno (nodo_t **lista)
       printf(" El DNI se ha guardado correctamente \n");
       salir_alumno = false;
     }
-  } while (salida_dni || !salir_alumno);
+  } while (salida_dni && !salir_alumno);
 
   if (!salir_alumno) 
   {
@@ -98,11 +105,11 @@ bool agregar_alumno (nodo_t **lista)
     
     do {
       printf(" Fecha de nacimiento: (dia, mes y any): \n");
-      printf(" Dia: \n");
+      printf(" Dia: ");
       scanf(" %d", &fecha_nacimiento_alumno.dia);
-      printf(" Mes: \n");
+      printf(" Mes: ");
       scanf(" %d", &fecha_nacimiento_alumno.mes);
-      printf(" Any: \n");
+      printf(" Any: ");
       scanf(" %d", &fecha_nacimiento_alumno.any);
 
       fecha_invalido = comprobar_fecha(fecha_nacimiento_alumno);

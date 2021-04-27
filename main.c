@@ -14,7 +14,7 @@ int main()
 	nodo_t *alumno_buscado = NULL; /* Guarda direccion del nodo al buscar un alumno */
 	
 	/* Declaracion de variables */
-	int opcion = 0, valido_dni = 0, opcion_aux = 0;
+	int opcion = 0, valido_dni = 0, opcion_aux;
 	bool salir; /* Booleano para salir del programa principal, y repetir el menu */
 	bool no_cambios, fit_guardado = false; /* Por defecto el fichero no esta guardado ni cargado */
 
@@ -43,6 +43,7 @@ int main()
 			printf(" [0] - Salir\n\n");
 			printf (" Escribe tu eleccion (el numero entre corchetes): ");
 			scanf("%d", &opcion);
+			printf("\n------------------------------------\n");
 		} while ((!comprobar_lista(lista) && opcion < 0 && opcion > 2) || (comprobar_lista(lista) && opcion < 0 && opcion > 8));
 		
 		switch (opcion)
@@ -50,8 +51,8 @@ int main()
 			/*=== Salir ===*/
 			case 0: /* Salimos del programa */
 				if (!fit_guardado) {
-					printf (" La lista no esta guardada. Seguro que quieres salir? [1: (SI) / Otro numero: (NO)]");
-					scanf("%d ", &opcion_aux);
+					printf (" La lista no esta guardada. Seguro que quieres salir? [1: (SI) / Otro numero: (NO)]: ");
+					scanf("%d", &opcion_aux);
 						if (opcion_aux == 1) 
 						{
 							salir = true;
@@ -91,8 +92,8 @@ int main()
 					{
 						printf(" El DNI no coincide con ningun alumno en la lista \n");
 					}
-					printf(" Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
-					scanf("%d ", &opcion_aux);
+					printf(" Desea volver a buscar? [1: (SI) / Otro numero: (NO)]: ");
+					scanf("%d", &opcion_aux);
 				} while (opcion_aux == 1); 
 				break;
 
@@ -102,8 +103,8 @@ int main()
 				do { /* Se ejecuta al menos una vez */
 					buscar_nombre(lista, &alumno_buscado);
 
-					printf(" Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
-					scanf("%d ", &opcion_aux);
+					printf(" Desea volver a buscar? [1: (SI) / Otro numero: (NO)]: ");
+					scanf("%d", &opcion_aux);
 				} while (opcion_aux == 1); 
 				break;
 			
@@ -118,7 +119,7 @@ int main()
 				if (ver_alumno(alumno_buscado))
 				{
 					/* Pedimos Confirmación */
-					printf(" Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
+					printf(" Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]: ");
 					scanf("%d", &opcion_aux); 
 					if (opcion_aux == 1) 
 					{
