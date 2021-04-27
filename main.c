@@ -14,7 +14,8 @@ int main()
 	nodo_t *alumno_buscado = NULL; /* Guarda direccion del nodo al buscar un alumno */
 	
 	/* Declaracion de variables */
-	int opcion = 0, valido_dni = 0, opcion_aux;
+	int numero, opcion = 0, valido_dni = 0, opcion_aux;
+	char letra;
 	bool salir; /* Booleano para salir del programa principal, y repetir el menu */
 	bool no_cambios, fit_guardado = false; /* Por defecto el fichero no esta guardado ni cargado */
 
@@ -63,6 +64,7 @@ int main()
 					salir = true;
 					printf(" Gracias por utilizar el programa\n");
 				}
+				printf("\n------------------------------------\n");
 				break;
 				
 
@@ -73,17 +75,19 @@ int main()
 				{
 					fit_guardado = no_cambios;
 				}
+				printf("\n------------------------------------\n");
 				break;
 
 
 			/*=== Funcion para cargar los datos de los alumnos a la lista enlazada ===*/
 			case 2: /* Cargar fichero */
 				abrir_fichero(&lista); /* Se crea la lista */
+				printf("\n------------------------------------\n");
 				break;
 				
 			case 3: /* Buscar alumno por DNI */
 				do { /* Se ejecuta al menos una vez */
-					valido_dni	= buscar_dni(lista, 0 , 0, &alumno_buscado);
+					valido_dni	= buscar_dni(lista, &numero, &letra, &alumno_buscado); /* Comprobamos DNI */
 					if (valido_dni)
 					{
 						printf(" El DNI introducido coincide con: %s %s \n", alumno_buscado->alumno.nombre, alumno_buscado->alumno.apellido);
@@ -95,6 +99,7 @@ int main()
 					printf(" Desea volver a buscar? [1: (SI) / Otro numero: (NO)]: ");
 					scanf("%d", &opcion_aux);
 				} while (opcion_aux == 1); 
+				printf("\n------------------------------------\n");
 				break;
 
 
@@ -106,11 +111,13 @@ int main()
 					printf(" Desea volver a buscar? [1: (SI) / Otro numero: (NO)]: ");
 					scanf("%d", &opcion_aux);
 				} while (opcion_aux == 1); 
+				printf("\n------------------------------------\n");
 				break;
 			
 			/*=== Función para ver el ultimo alumno buscado ===*/
 			case 5:  /* Ver el ultimo alumno buscado */
 				ver_alumno(alumno_buscado);
+				printf("\n------------------------------------\n");
 				break;
 
 
@@ -126,17 +133,19 @@ int main()
 						eliminar_alumno (&lista, &alumno_buscado);
 						printf (" Se ha borrado el alumno \n");
 					}
+					printf("\n------------------------------------\n");
 				}
 				break;
 			
 			/*=== Guardar/añadir la lista enlazada con los datos de los alumnos al fichero ===*/
 			case 7:/* Guardar fichero */
 				fit_guardado = guardar_fichero(lista);
+				printf("\n------------------------------------\n");
 				break;
 			
 			/*=== Printar la lista enlazada con los datos de los alumnos añadidos ===*/
 			case 8: /* Ver la lista completa de los alumnos */
-
+				ver_lista(&lista);
 				break;
 		}
 	}

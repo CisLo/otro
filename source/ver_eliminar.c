@@ -24,13 +24,12 @@ bool ver_alumno(nodo_t *p_ultimo_alum)
 
     /* Imprimimos por pantalla los datos del alumno */
     printf("\n ALUMNO: %s %s\n", p_ultimo_alum->alumno.nombre, p_ultimo_alum->alumno.apellido); 
-    printf("------------------------------------\n");
-    printf(" eMAIL: %s\n", p_ultimo_alum->alumno.email);
+    printf(" E-MAIL: %s\n", p_ultimo_alum->alumno.email);
     printf(" DNI: %d %c\n",  p_ultimo_alum->alumno.dni.numero, p_ultimo_alum->alumno.dni.letra);
     printf(" NOTA: %.2f\n", p_ultimo_alum->alumno.nota);
     printf(" FECHA NACIMIENTO: %d/%d/%d\n", p_ultimo_alum->alumno.fecha_nacimiento.dia, p_ultimo_alum->alumno.fecha_nacimiento.mes, p_ultimo_alum->alumno.fecha_nacimiento.any);
     /* Pasamos el sexo de un numero a su significado */
-    switch (p_ultimo_alum->alumno.sexo) 
+    switch (p_ultimo_alum->alumno.sexo)
     {
     case 0: printf(" SEXO: Hombre \n");
       break;
@@ -43,6 +42,19 @@ bool ver_alumno(nodo_t *p_ultimo_alum)
     }
   }
   return check_alumno_buscado;
+}
+
+
+/* Mostrar la lista de alumnos */
+void ver_lista (nodo_t **lista) {
+  nodo_t *p_lista;
+  int contador = 1;
+
+  /* Bucle para hacer el salto de un nodo a otro, para mostrar los datos de los alumnos */
+  for (p_lista = lista; p_lista != NULL; p_lista = p_lista->salto)
+  {
+    printf(" Alumno n.%d) %d-%c, %s %s\n", contador++, p_lista->alumno.dni.numero, p_lista->alumno.dni.letra, p_lista->alumno.nombre, p_lista->alumno.apellido);
+  }
 }
 
 

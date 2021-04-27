@@ -63,7 +63,6 @@ bool agregar_alumno (nodo_t **lista)
   int intentos = 0;
   alumno_t alumno_aux;
   nodo_t *alumno_dni_rep; /* Almacena el alumno con un dni igual al que se quiere agregar */
-  fecha_t fecha_nacimiento_alumno;
   bool salida_dni;
 
   /* Introducir datos del alumno a agregar */
@@ -106,19 +105,19 @@ bool agregar_alumno (nodo_t **lista)
     do {
       printf(" Fecha de nacimiento: (dia, mes y any): \n");
       printf(" Dia: ");
-      scanf(" %d", &fecha_nacimiento_alumno.dia);
+      scanf(" %d", &alumno_aux.fecha_nacimiento.dia);
       printf(" Mes: ");
-      scanf(" %d", &fecha_nacimiento_alumno.mes);
+      scanf(" %d", &alumno_aux.fecha_nacimiento.mes);
       printf(" Any: ");
-      scanf(" %d", &fecha_nacimiento_alumno.any);
+      scanf(" %d", &alumno_aux.fecha_nacimiento.any);
 
-      fecha_invalido = comprobar_fecha(fecha_nacimiento_alumno);
+      fecha_invalido = comprobar_fecha(alumno_aux.fecha_nacimiento);
 
     } while (fecha_invalido);
       
     do { /* Comprobar sexo del alumno */
       printf(" Sexo (hombre [0], mujer [1] o no quiero decirlo [2]): ");
-      scanf(" %d", &alumno_aux.sexo);
+      scanf("%d", &alumno_aux.sexo);
     } while (alumno_aux.sexo<0 || alumno_aux.sexo>2);
 
     /* Llamamos a la función "ordenar alumno", para que agrege al alumno introducido */
