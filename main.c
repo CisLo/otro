@@ -16,7 +16,7 @@ int main()
 	/* Declaracion de variables */
 	int opcion = 0, valido_dni = 0, opcion_aux = 0;
 	bool salir; /* Booleano para salir del programa principal, y repetir el menu */
-	bool fit_guardado = false; /* Por defecto el fichero no esta guardado ni cargado */
+	bool no_cambios, fit_guardado = false; /* Por defecto el fichero no esta guardado ni cargado */
 
 	/* Iniciamos la lista enlazada */
 	iniciar_lista(&lista);
@@ -27,22 +27,22 @@ int main()
 		/* Menú principal */
 		do
 		{
-			printf("\nMENU:\n");
-			printf("[1] - Agregar alumno\n");
-			printf("[2] - Recuperar lista de alumnos del Fichero\n");
+			printf("\n MENU:\n");
+			printf(" [1] - Agregar alumno\n");
+			printf(" [2] - Recuperar lista de alumnos del Fichero\n");
 			/* Comprobar si la lista no es nula, muestra las siguientes opciones: */
 			if (!comprobar_lista(lista))
 			{
-				printf("[3] - Buscar por DNI\n");
-				printf("[4] - Buscar por nombre\n");
-				printf("[5] - Ver ultimo alumno buscado\n");
-				printf("[6] - Eliminar ultimo alumno buscado\n");
-				printf("[7] - Guardar lista de alumnos en Fichero\n");
-				printf("[8] - Ver la lista\n");	/* Extra */
+				printf(" [3] - Buscar por DNI\n");
+				printf(" [4] - Buscar por nombre\n");
+				printf(" [5] - Ver ultimo alumno buscado\n");
+				printf(" [6] - Eliminar ultimo alumno buscado\n");
+				printf(" [7] - Guardar lista de alumnos en Fichero\n");
+				printf(" [8] - Ver la lista\n");	/* Extra */
 			}
-			printf("[0] - Salir\n\n");
-			printf ("Escribe tu eleccion (el numero entre corchetes[]): ");
-			scanf(" %d", &opcion);
+			printf(" [0] - Salir\n\n");
+			printf (" Escribe tu eleccion (el numero entre corchetes): ");
+			scanf("%d", &opcion);
 		} while ((!comprobar_lista(lista) && opcion < 0 && opcion > 2) || (comprobar_lista(lista) && opcion < 0 && opcion > 8));
 		
 		switch (opcion)
@@ -50,24 +50,28 @@ int main()
 			/*=== Salir ===*/
 			case 0: /* Salimos del programa */
 				if (!fit_guardado) {
-					printf ("La lista no esta guardada. Seguro que quieres salir? [1: (SI) / Otro numero: (NO)]");
+					printf (" La lista no esta guardada. Seguro que quieres salir? [1: (SI) / Otro numero: (NO)]");
 					scanf("%d ", &opcion_aux);
 						if (opcion_aux == 1) 
 						{
 							salir = true;
-							printf("Gracias por utilizar el programa\n");
+							printf(" Gracias por utilizar el programa\n");
 						}
 				}
 				else {
 					salir = true;
-					printf("Gracias por utilizar el programa\n");
+					printf(" Gracias por utilizar el programa\n");
 				}
 				break;
 				
 
 			/*=== Función para añadir alumno ===*/
 			case 1: /* Agregar alumno */
-				agregar_alumno(&lista);
+				no_cambios = agregar_alumno(&lista);
+				if (fit_guardado) /* Actualizamos si se ha guardado los cambios en caso de que se */
+				{
+					fit_guardado = no_cambios;
+				}
 				break;
 
 
@@ -81,13 +85,13 @@ int main()
 					valido_dni	= buscar_dni(lista, 0 , 0, &alumno_buscado);
 					if (valido_dni)
 					{
-						printf("El DNI introducido coincide con: %s %s \n", alumno_buscado->alumno.nombre, alumno_buscado->alumno.apellido);
+						printf(" El DNI introducido coincide con: %s %s \n", alumno_buscado->alumno.nombre, alumno_buscado->alumno.apellido);
 					}
 					else
 					{
-						printf("El DNI no coincide con ningun alumno en la lista \n");
+						printf(" El DNI no coincide con ningun alumno en la lista \n");
 					}
-					printf("Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
+					printf(" Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
 					scanf("%d ", &opcion_aux);
 				} while (opcion_aux == 1); 
 				break;
@@ -98,7 +102,7 @@ int main()
 				do { /* Se ejecuta al menos una vez */
 					buscar_nombre(lista, &alumno_buscado);
 
-					printf("Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
+					printf(" Desea volver a buscar? [1: (SI) / Otro numero: (NO)]");
 					scanf("%d ", &opcion_aux);
 				} while (opcion_aux == 1); 
 				break;
@@ -114,12 +118,12 @@ int main()
 				if (ver_alumno(alumno_buscado))
 				{
 					/* Pedimos Confirmación */
-					printf("Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
+					printf(" Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
 					scanf("%d", &opcion_aux); 
 					if (opcion_aux == 1) 
 					{
 						eliminar_alumno (&lista, &alumno_buscado);
-						printf ("Se ha borrado el alumno \n");
+						printf (" Se ha borrado el alumno \n");
 					}
 				}
 				break;
@@ -131,6 +135,7 @@ int main()
 			
 			/*=== Printar la lista enlazada con los datos de los alumnos añadidos ===*/
 			case 8: /* Ver la lista completa de los alumnos */
+
 				break;
 		}
 	}

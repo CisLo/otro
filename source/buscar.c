@@ -35,13 +35,13 @@ bool buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultim
 
   /* DNI a buscar en la lista*/
   do {
-    printf("Introduce el numero del DNI: ");
+    printf(" Introduce el numero del DNI: ");
     scanf(" %d", numero_dni);
-    printf("Introduce la letra del DNI: ");
+    printf(" Introduce la letra del DNI: ");
     scanf(" %c", letra_dni);
     check = comprobar_letra(*numero_dni, *letra_dni);
     if (!check)
-      printf("El DNI es incorrecto (no corresponde la letra con el numero), vuelve a escribirlo \n");  
+      printf(" El DNI es incorrecto (no corresponde la letra con el numero), vuelve a escribirlo \n");  
   } while (!check);
   
   if ((*numero_dni >= 0) && (*numero_dni <= 99999999)) /* Comprobamos que se encuentre en el rango de un dni */
@@ -98,11 +98,11 @@ void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado)
   int n = 0; /* Cuenta el numero de coincidencias */
 
   /* Preguntamos Nombre */
-  printf("Introduce el nombre o apellido a buscar: ");
+  printf(" Introduce el nombre o apellido a buscar: ");
   scanf("%s", string); /* Guardamos el nombre */
 
   /* Comprobar el nombre del alumno en toda la lista */
-  printf("\nCoincidencias: \n");
+  printf("\n Coincidencias: \n");
   nodo_actual = lista;
   while (nodo_actual->salto != NULL) /* Recorrido lista */
   {
@@ -110,8 +110,8 @@ void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado)
     {
       n++;
       *alumno_buscado = nodo_actual; /* Actualizamos el ultimo alumno buscado */
-      printf("%d) %s %s\n", n , nodo_actual->alumno.nombre, nodo_actual->alumno.apellido); /* Se imprime por pantalla la coincidencia */
-      printf("   %d-%c\n\n", nodo_actual->alumno.dni.numero, nodo_actual->alumno.dni.letra);
+      printf(" %d) %s %s\n", n , nodo_actual->alumno.nombre, nodo_actual->alumno.apellido); /* Se imprime por pantalla la coincidencia */
+      printf("    %d-%c\n\n", nodo_actual->alumno.dni.numero, nodo_actual->alumno.dni.letra);
     }
     nodo_actual = nodo_actual->salto; /* Siguiente nodo */
   }

@@ -15,7 +15,7 @@ bool ver_alumno(nodo_t *p_ultimo_alum)
 
   if (p_ultimo_alum == NULL) /* Comprobamos que se haya buscado un alumno */
   {
-    printf("No se ha buscado ningun alumno o este ya ha sido borrado\n");
+    printf(" No se ha buscado ningun alumno o este ya ha sido borrado\n");
     check_alumno_buscado = false; /* No hay alumno buscado */
   }
   else
@@ -23,22 +23,22 @@ bool ver_alumno(nodo_t *p_ultimo_alum)
     check_alumno_buscado = true; /* Hay alumno buscado */
 
     /* Imprimimos por pantalla los datos del alumno */
-    printf("\nALUMNO: %s %s\n", p_ultimo_alum->alumno.nombre, p_ultimo_alum->alumno.apellido); 
+    printf("\n ALUMNO: %s %s\n", p_ultimo_alum->alumno.nombre, p_ultimo_alum->alumno.apellido); 
     printf("------------------------------------\n");
-    printf("eMAIL: %s\n", p_ultimo_alum->alumno.email);
-    printf("DNI: %d %c\n",  p_ultimo_alum->alumno.dni.numero, p_ultimo_alum->alumno.dni.letra);
-    printf("NOTA: %.2f\n", p_ultimo_alum->alumno.nota);
-    printf("FECHA NACIMIENTO: %d/%d/%d\n", p_ultimo_alum->alumno.fecha_nacimiento.dia, p_ultimo_alum->alumno.fecha_nacimiento.mes, p_ultimo_alum->alumno.fecha_nacimiento.any);
+    printf(" eMAIL: %s\n", p_ultimo_alum->alumno.email);
+    printf(" DNI: %d %c\n",  p_ultimo_alum->alumno.dni.numero, p_ultimo_alum->alumno.dni.letra);
+    printf(" NOTA: %.2f\n", p_ultimo_alum->alumno.nota);
+    printf(" FECHA NACIMIENTO: %d/%d/%d\n", p_ultimo_alum->alumno.fecha_nacimiento.dia, p_ultimo_alum->alumno.fecha_nacimiento.mes, p_ultimo_alum->alumno.fecha_nacimiento.any);
     /* Pasamos el sexo de un numero a su significado */
     switch (p_ultimo_alum->alumno.sexo) 
     {
-    case 0: printf("SEXO: Hombre \n");
+    case 0: printf(" SEXO: Hombre \n");
       break;
 
-    case 1: printf("SEXO: Mujer \n");
+    case 1: printf(" SEXO: Mujer \n");
       break;
 
-    case 2: printf("SEXO: No quiero decirlo \n");
+    case 2: printf(" SEXO: No quiero decirlo \n");
       break;
     }
   }
@@ -80,7 +80,7 @@ void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por re
   /* CASO 4: alumno buscado esta entre alumnos de la lista                   (*p_lista != p_ultimo_alum && p_ultimo_alum->salto != NULL) */
 
   /* Pedimos Confirmación */
-	printf("Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
+	printf(" Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
 	scanf("%d", &borrar_alumno);
 
   if (borrar_alumno)
@@ -100,6 +100,6 @@ void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por re
       free(p_ultimo_alum); /* Liberamos el nodo */
     }
     p_ultimo_alum = NULL; /* Evitamos que el puntero apunte a un nodo que ya se ha eliminado*/
-    printf ("Se ha borrado el alumno \n");
+    printf (" Se ha borrado el alumno \n");
   } 
 }
