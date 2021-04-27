@@ -7,8 +7,8 @@
 #include "headers/funciones.h"
 
 /** Programa principal **/
-int main() {
-
+int main() 
+{
 	/* Declaracion de la Estructura */
 	nodo_t *lista;
 	nodo_t *alumno_buscado = NULL; /* Guarda direccion del nodo al buscar un alumno */
@@ -41,6 +41,7 @@ int main() {
 				printf("[8] - Ver la lista\n");	/* Extra */
 			}
 			printf("[0] - Salir\n\n");
+			printf ("Escribe tu eleccion (el numero entre corchetes[]): ");
 			scanf(" %d", &opcion);
 		} while ((!comprobar_lista(lista) && opcion < 0 && opcion > 2) || (comprobar_lista(lista) && opcion < 0 && opcion > 8));
 		

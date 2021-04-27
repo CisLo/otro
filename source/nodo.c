@@ -7,17 +7,20 @@
 #include "../headers/funciones.h"
 
 /** Inicializar la lista enlazada **/
-void iniciar_lista (nodo_t **lista) {
+void iniciar_lista (nodo_t **lista) 
+{
   *lista = NULL;
 }
 
 /** Comprobar si la lista està vacía **/
-bool comprobar_lista (nodo_t *lista) {
+bool comprobar_lista (nodo_t *lista) 
+{
 	return lista == NULL;
 }
 
 /** Creacion e inicialización de un nuevo nodo a crear **/
-nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto) {
+nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto) 
+{
 
 	/* Crea nuevo nodo */
 	nodo_t *p_nuevo_nodo = (nodo_t *)malloc(sizeof(nodo_t));

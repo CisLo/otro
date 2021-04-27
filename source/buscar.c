@@ -36,9 +36,9 @@ bool buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultim
   /* DNI a buscar en la lista*/
   do {
     printf("Introduce el numero del DNI: ");
-    scanf("%d", numero_dni);
+    scanf(" %d", numero_dni);
     printf("Introduce la letra del DNI: ");
-    scanf("%c", letra_dni);
+    scanf(" %c", letra_dni);
     check = comprobar_letra(*numero_dni, *letra_dni);
     if (!check)
       printf("El DNI es incorrecto (no corresponde la letra con el numero), vuelve a escribirlo \n");  
@@ -70,7 +70,7 @@ bool comparar_letra (char a, char b)
   int dif = 'a'-'A'; 
 
   /* Comparación */
-  return (a == b || a == (b+dif) || (a+dif) == b);
+  return (a == b || a == (b + dif) || a == (b - dif));
 }
 
 bool comparar_strings (char string_buscado[], char string_nodo[]) /*Comparamos dos strings */
