@@ -25,7 +25,7 @@ void abrir_fichero(nodo_t **lista_p)
     while (!feof(fit_lista))
     {
       fread(&alumno, sizeof(alumno_t), 1, fit_lista); /* Leemos los datos de los alumnos */
-      agregar_nodo_final(lista_p, alumno); /* Agregamos los alumnos leidos a la lista */
+      agregar_nodo_final(lista_p, alumno); /* Agregamos los alumnos leídos a la lista */
     }
     printf("\n Se ha cargado la lista de alumnos\n");
     fclose (fit_lista); /* Cerramos el fichero */

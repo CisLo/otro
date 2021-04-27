@@ -18,6 +18,13 @@ bool comprobar_lista (nodo_t *lista)
 	return lista == NULL;
 }
 
+/** Liberamos el espacio de la memoria reservado **/
+void eliminar_lista(nodo_t **lista_p)
+{
+  free(lista_p);
+  *lista_p = NULL;
+}
+
 /** Creacion e inicialización de un nuevo nodo a crear **/
 nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto) 
 {
@@ -72,25 +79,24 @@ void agregar_nodo_entre (nodo_t *nodo_anterior, alumno_t alumno)
 void agregar_nodo_final(nodo_t **lista, alumno_t alumno_datos)
 {
   /* Creamos variables */
-  nodo_t *lista_p_aux = *lista; 
-  nodo_t *p; /* Variable que recorre la lista hasta el ultimo nodo */
+  nodo_t *lista_p_aux = *lista; /* Variable que recorre la lista hasta el ultimo nodo */
+  nodo_t *p; 
 
   /* Reservamos el nodo en la memoria, y añadimos los datos */
   nodo_t *nd_p; 
   nd_p = nuevo_nodo(alumno_datos, NULL); /* NULL porque el nodo estara al final de la lista */
 
   /* Comprobamos si la lista esta vacia */
-	if (comprobar_lista(lista_p_aux)) 
+	if (comprobar_lista(lista_p_aux))
   {
 		*lista = nd_p; /* La lista apunta al nuevo nodo como el primero */
   }
   else 
   {
-		p = lista_p_aux; 
-		while (p->salto != NULL) /* Recorremos la lista hasta el ultimo nodo */
+		while (lista_p_aux->salto != NULL) /* Recorremos la lista hasta el ultimo nodo */
     {
-      p = p->salto; 
+      lista_p_aux = lista_p_aux->salto;
     }
-		p->salto = nd_p; /* El ultimo nodo apunta al nuevo, poniendo al nuevo nodo al final de la lista */
+		lista_p_aux->salto = nd_p; /* El ultimo nodo apunta al nuevo, poniendo al nuevo nodo al final de la lista */
 	}
 }

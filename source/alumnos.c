@@ -3,7 +3,7 @@
 #include <stdbool.h> /*Libreria booleano, bool*/
 #include <string.h> /* Libreria para poder usar strcpy() */
 
-/** Incluimos la libreria "alumnos.h" **/
+/* Incluímos la libreria "alumnos.h" */
 #include "../headers/tipos.h"
 #include "../headers/funciones.h"
 
@@ -32,7 +32,7 @@ bool comprobar_fecha (fecha_t fecha) {
         if (fecha.dia > 29 || fecha.dia<0) {
           fecha_invalido = true;
         } else {
-          if (fecha.dia==29 && (fecha.any%400==0 ||(fecha.any%4==0 && fecha.any%100!=0))) {
+          if (fecha.dia==29 && ((fecha.any%4==0 && fecha.any%100!=0) || fecha.any%400==0)) {
           } else {
             fecha_invalido = true;
           }
@@ -139,9 +139,9 @@ CASO 4: Si el numero del DNI es más grande al nodo 'actual', se guarda el nodo 
 void ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
 {
   /* Declaración de variables locales */
+  bool salir = false;
   /* Creación de nodos, para almacenar los datos al ordenar */
   nodo_t *nodo = *lista_p, *temp = NULL;
-  bool salir;
   
   /* CASO 1 o CASO 2 */
   if (comprobar_lista(*lista_p) || (alumno_aux.dni.numero < nodo->alumno.dni.numero)) {
@@ -154,16 +154,17 @@ void ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
     {
       if (alumno_aux.dni.numero > nodo->alumno.dni.numero)
       {
-        if (nodo->salto == NULL)
+        if (nodo->salto == NULL) /* Si estamos en el ultimo nodo */
         {
           agregar_nodo_final(lista_p, alumno_aux);
-          temp = nodo;
-          nodo = nodo->salto;
+          salir = true;
         }
+        temp = nodo;
+        nodo = nodo->salto;
       }
       else
-      { // (alumno_aux.dni.numero < nodo->alumno.dni.numero)
-        agregar_nodo_entre(temp, alumno_aux); //(alumno_t alumno, nodo_t *nodo_anterior)
+      {
+        agregar_nodo_entre(temp, alumno_aux);
         salir = true;
       }
     }

@@ -6,6 +6,7 @@
 /* Funciones NODO */
 void iniciar_lista(nodo_t **lista);
 bool comprobar_lista (nodo_t *lista);
+void eliminar_lista(nodo_t **lista_p);
 nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto);
 void agregar_nodo_principio (nodo_t **lista,alumno_t alumno);
 void agregar_nodo_entre (nodo_t *nodo_anterior, alumno_t alumno);
@@ -33,6 +34,6 @@ void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado);
 
 /* Funciones VER_ELIMINAR */
 bool ver_alumno(nodo_t *p_ultimo_alum);
-void ver_lista (nodo_t **lista);
+void ver_lista (nodo_t *lista);
 void buscar_nodo (nodo_t *lista, nodo_t *nodo_buscar, nodo_t **nodo_previo);
 void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum);

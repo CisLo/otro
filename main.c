@@ -81,6 +81,10 @@ int main()
 
 			/*=== Funcion para cargar los datos de los alumnos a la lista enlazada ===*/
 			case 2: /* Cargar fichero */
+				if (comprobar_lista(lista)) /* Eliminamos la lista que tengamos */
+				{
+					eliminar_lista(lista);
+				}
 				abrir_fichero(&lista); /* Se crea la lista */
 				printf("\n------------------------------------\n");
 				break;
@@ -145,7 +149,7 @@ int main()
 			
 			/*=== Printar la lista enlazada con los datos de los alumnos añadidos ===*/
 			case 8: /* Ver la lista completa de los alumnos */
-				ver_lista(&lista);
+				ver_lista(lista);
 				break;
 		}
 	}

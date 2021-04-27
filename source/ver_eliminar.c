@@ -45,8 +45,8 @@ bool ver_alumno(nodo_t *p_ultimo_alum)
 }
 
 
-/* Mostrar la lista de alumnos */
-void ver_lista (nodo_t **lista) {
+/** Mostrar la lista de alumnos **/
+void ver_lista (nodo_t *lista) {
   nodo_t *p_lista;
   int contador = 1;
 
@@ -58,7 +58,7 @@ void ver_lista (nodo_t **lista) {
 }
 
 
-/* Función buscar nodo */
+/** Función buscar nodo **/
 void buscar_nodo (nodo_t *lista, nodo_t *nodo_buscar, nodo_t **nodo_previo)
 {
   /* Variables */

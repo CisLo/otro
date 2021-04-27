@@ -39,6 +39,7 @@ bool buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultim
     scanf(" %d", numero_dni);
     printf(" Introduce la letra del DNI: ");
     scanf(" %c", letra_dni);
+    printf("\n");
     check = comprobar_letra(*numero_dni, *letra_dni);
     if (!check)
       printf(" El DNI es incorrecto (no corresponde la letra con el numero), vuelve a escribirlo \n");  
@@ -63,7 +64,7 @@ bool buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultim
 }
 
 
-/** Funcion buscar por nombre **/
+/** Función para ignorar en la busqueda del alumno, si es mayuscula o minuscula **/
 bool comparar_letra (char a, char b)
 {
   /* Variable de cambio mayuscula a minuscula  */
@@ -90,6 +91,8 @@ bool comparar_strings (char string_buscado[], char string_nodo[]) /*Comparamos d
   return coincide;
 }
 
+
+/** Función para buscar por nombre **/
 void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado)
 {
   /* Declaración de variables locales */
