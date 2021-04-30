@@ -18,13 +18,6 @@ bool comprobar_lista (nodo_t *lista)
 	return lista == NULL;
 }
 
-/** Liberamos el espacio de la memoria reservado **/
-void eliminar_lista(nodo_t **lista_p)
-{
-  free(lista_p);
-  *lista_p = NULL;
-}
-
 /** Creacion e inicialización de un nuevo nodo a crear **/
 nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto) 
 {

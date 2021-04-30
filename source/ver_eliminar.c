@@ -57,7 +57,49 @@ void ver_lista (nodo_t *lista) {
     printf("  Alumno n.%d) %d-%c, %s %s\n", contador++, p_lista->alumno.dni.numero, p_lista->alumno.dni.letra, p_lista->alumno.nombre, p_lista->alumno.apellido);
   }
 
-  printf(" Numero total de alumnos: %d",contador-1);
+  printf("\n Numero total de alumnos: %d",contador-1);
+}
+
+
+/** Mostrar estadisticas **/
+void mostrar_estadisticas (nodo_t *lista) {
+  nodo_t *p_lista;
+  int contador = 0, contador_aprobado = 0;
+  float media, nota_alta = 0.0, porcentaje;
+
+  /* Bucle para hacer el salto de un nodo a otro, para mostrar los datos de los alumnos */
+  for (p_lista = lista; p_lista != NULL; p_lista = p_lista->salto)
+  {
+    /* Guardar la nota más alta de la lista de alumnos */
+    if (nota_alta < p_lista->alumno.nota) {
+      nota_alta = p_lista->alumno.nota;
+    }
+
+    /*Contamos los aprobados */
+    if (p_lista->alumno.nota >= 5.0) {
+      contador_aprobado++;
+    }
+
+    /* Guarda la suma total */
+    media += p_lista->alumno.nota;
+    contador++;
+  }
+
+  /* Ponemos la nota más alta*/
+  printf("\n La nota mas alta es: %.2f\n", nota_alta);
+
+  /* Imprimimos la nota media*/
+  if (contador != 0) {
+    media /= contador;
+    printf(" La nota media de todos los alumnos es: %.2f\n", media);
+  }
+
+  /* Calculamos porcentaje aprobados */
+  porcentaje = (contador_aprobado/contador) * 100;
+  printf(" Porcentaje de alumnos aprobados: %.2f%%\n", porcentaje);
+  /* Calculamos porcentaje suspensos */
+  porcentaje = (contador-contador_aprobado)/contador *100;
+  printf(" Porcentaje de alumnos suspensos: %.2f%%\n", porcentaje);
 }
 
 
@@ -80,7 +122,6 @@ void buscar_nodo (nodo_t *lista, nodo_t *nodo_buscar, nodo_t **nodo_previo)
     p = p->salto;
   }
 }
-
 
 /** Eliminar ultimo alumno  **/
 void eliminar_alumno (nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por referencia ultimo_alum, porque lo modificamos */
@@ -109,4 +150,36 @@ void eliminar_alumno (nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por r
   }
   *p_ultimo_alum = NULL; /* Evitamos que el puntero apunte a un nodo que ya se ha eliminado*/
   printf (" Se ha borrado el alumno \n");
+}
+
+
+/** Función Eliminar la lista **/
+void buscar_nodo_ult (nodo_t *lista, nodo_t **nodo_eliminar, nodo_t **nodo_previo)
+{
+    /* Variables */
+    nodo_t *temp = NULL, *p = lista; /* Inicializamos la variable para recorrer la lista */
+
+    /* Recorrido lista */
+    while (p->salto != NULL)
+    {
+        temp = p;
+        p = p->salto;
+    }
+    *nodo_previo = temp;
+    *nodo_eliminar = p;
+}
+void eliminar_lista (nodo_t **lista)
+{
+    nodo_t *nodo_eliminar, *nodo_previo;
+
+    while (*lista != nodo_previo)
+    {
+        buscar_nodo_ult (*lista, &nodo_eliminar, &nodo_previo); /* Buscamos ultimo nodo */
+
+        nodo_previo->salto = NULL; /* El nodo previo apunta al final */
+        free(nodo_eliminar); /* Liberamos el ultimo nodo */
+    }
+    free(nodo_previo); /* Liberamos el ultimo nodo */
+    *lista = NULL;
+    printf (" Se ha borrado la lista\n");
 }

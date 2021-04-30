@@ -40,13 +40,14 @@ int main()
 				printf(" [6] - Eliminar ultimo alumno buscado\n");
 				printf(" [7] - Guardar lista de alumnos en Fichero\n");
 				printf(" [8] - Ver la lista\n");	/* Extra 1 */
-				printf(" [10]- Estadisticas de los alumnos\n");	/* Extra 2 */
+				printf(" [9] - Eliminar la lista\n");	/* Extra 2 */
+				printf(" [10]- Estadisticas de los alumnos\n");	/* Extra 3 */
 			}
 			printf(" [0] - Salir\n\n");
 			printf (" Escribe tu eleccion (el numero entre corchetes): ");
 			scanf("%d", &opcion);
 			printf("\n------------------------------------\n");
-		} while ((!comprobar_lista(lista) && opcion < 0 && opcion > 2) || (comprobar_lista(lista) && opcion < 0 && opcion > 8));
+		} while ((comprobar_lista(lista) && (opcion < 0 || opcion > 2)) || (!comprobar_lista(lista) && (opcion < 0 || opcion > 10)));
 		
 		switch (opcion)
 		{
@@ -82,6 +83,11 @@ int main()
 
 			/*=== Funcion para cargar los datos de los alumnos a la lista enlazada ===*/
 			case 2: /* Cargar fichero */
+				if (lista != NULL)
+				{
+					printf(" Hay una lista abierta, se perderan los datos no guardados.\n Quieres continuar? [1: (SI) / Otro numero: (NO)]: ");
+					eliminar_lista(&lista);
+				}
 				abrir_fichero(&lista); /* Se crea la lista */
 				printf("\n------------------------------------\n");
 				break;
@@ -133,7 +139,6 @@ int main()
 					{
 						eliminar_alumno (&lista, &alumno_buscado);
 					}
-					
 				}
 				printf("\n------------------------------------\n");
 				break;
@@ -150,9 +155,21 @@ int main()
 				printf("\n------------------------------------\n");
 				break;
 			
-			/*=== Printar la lista enlazada con los datos de los alumnos añadidos ===*/
-			case 10: /* Ver la lista completa de los alumnos */
-				ver_lista(lista);
+			case 9:
+                /* Pedimos Confirmación */
+                printf(" Quieres eliminar la lista? [1: (SI) / Otro numero: (NO)]: ");
+                scanf("%d", &opcion_aux);
+                if (opcion_aux == 1)
+                {
+                    eliminar_lista(&lista);
+                }
+				printf("\n------------------------------------\n");
+                break;
+			
+			/*=== Ver estadisticas de la lista de alumnos ===*/
+			case 10: /* Mostrar estadisticas de los alumnos */
+				mostrar_estadisticas(lista);
+				printf("\n------------------------------------\n");
 				break;
 		}
 	}

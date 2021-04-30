@@ -7,7 +7,7 @@
 #-------------------------------------------------------------------------------
 CFLAGS	:= -Wall -g
 DIRECTORI_MAIN := ./
-DIRECTORI_MAIN := ./
+DIRECTORI_H := ./headers
 DATA := `date '+%d-%m-%y_%H:%M:%S'`
 DIR_COPIES := copies
 DESTI_COPIA := $(DIR_COPIES)/$(DATA)
@@ -15,10 +15,10 @@ DESTI_COPIA := $(DIR_COPIES)/$(DATA)
 # Comandos make:
 #-------------------------------------------------------------------------------
 programa_alumnos.exe : obj/main.o obj/alumnos.o obj/fichero.o obj/buscar.o obj/ver_eliminar.o obj/nodo.o
-	gcc $(CFLAGS) obj/main.o obj/alumnos.o obj/buscar.o obj/nodo.o obj/ver_eliminar.o -o practica_alumnos.exe
+	gcc -o practica_alumnos.exe obj/main.o obj/alumnos.o obj/fichero.o obj/buscar.o obj/ver_eliminar.o obj/nodo.o
 
 obj/main.o : main.c
-	gcc -c $(CFLAGS) -I  main.c -o obj/main.o
+	gcc -c $(CFLAGS) main.c -o obj/main.o
 
 obj/alumnos.o : source/alumnos.c
 	gcc -c $(CFLAGS) source/alumnos.c -o obj/alumnos.o
