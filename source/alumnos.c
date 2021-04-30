@@ -82,7 +82,7 @@ bool agregar_alumno (nodo_t **lista)
         printf (" Ya existe un alumno con ese DNI en la lista: %s %s \n", alumno_dni_rep->alumno.nombre, alumno_dni_rep->alumno.apellido);
       } 
       else { /* DNI fuera de rango */
-        printf (" DNI introducido erroneo");
+        printf (" DNI introducido erroneo.");
       }
       printf(" Vuelva a introducir el DNI \n");
     

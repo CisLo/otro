@@ -117,7 +117,7 @@ int main()
 					}
 					else
 					{
-						printf(" El DNI no coincide con ningun alumno en la lista o esta fuera de rango\n");
+						printf(" El DNI no coincide con ningun alumno en la lista\n");
 					}
 					printf(" Desea volver a buscar? [1: (SI) / Otro numero: (NO)]: ");
 					scanf("%d", &opcion_aux);
