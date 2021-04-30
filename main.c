@@ -1,3 +1,9 @@
+/********************************************************************************
+*                        PRACTICA 1 - LISTA DE ALUMNOS                          *
+* POR CRISTIAN FERNANDEZ LOPEZ, DANIEL CLAVERO LAHERA, MASSIN LAAOUAJ MADROUNI  *
+*                                    FPII                                       *
+********************************************************************************/
+
 #include <stdio.h> /*Libreria para escribir y leer, printf(); - scanf(); */
 #include <stdlib.h> /* Libreria para usar funciones generales como malloc(); y free */
 #include <stdbool.h> /* Libreria booleano, bool */
@@ -168,6 +174,7 @@ int main()
 			
 			/*=== Ver estadisticas de la lista de alumnos ===*/
 			case 10: /* Mostrar estadisticas de los alumnos */
+			
 				mostrar_estadisticas(lista);
 				printf("\n------------------------------------\n");
 				break;

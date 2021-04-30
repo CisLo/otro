@@ -5,21 +5,19 @@
 #-------------------------------------------------------------------------------
 # Declaraciones:
 #-------------------------------------------------------------------------------
-CFLAGS	:= -Wall -g
-DIRECTORI_MAIN := ./
-DIRECTORI_H := ./headers
-DATA := `date '+%d-%m-%y_%H:%M:%S'`
-DIR_COPIES := copies
-DESTI_COPIA := $(DIR_COPIES)/$(DATA)
+CFLAGS	:= -Wall -std=c99 -pedantic -g
+DIRECTORIO_PRINCIPAL := ./
+DIRECTORIO_SOURCE := source
+DIRECTORIO_H := headers
+FECHA := `date '+%d-%m-%y_%H:%M:%S'`
+DIR_COPIAS := copias
+DEST_COPIA := $(DIR_COPIAS)/$(FECHA)
 #-------------------------------------------------------------------------------
 # Comandos make:
 #-------------------------------------------------------------------------------
 programa_alumnos.exe : obj/main.o obj/alumnos.o obj/fichero.o obj/buscar.o obj/ver_eliminar.o obj/nodo.o
-	gcc -o practica_alumnos.exe obj/main.o obj/alumnos.o obj/fichero.o obj/buscar.o obj/ver_eliminar.o obj/nodo.o
-
-obj/main.o : main.c
-	gcc -c $(CFLAGS) main.c -o obj/main.o
-
+	gcc $(CFLAGS) obj/main.o obj/alumnos.o obj/fichero.o obj/buscar.o obj/ver_eliminar.o obj/nodo.o -o practica_alumnos.exe
+ 
 obj/alumnos.o : source/alumnos.c
 	gcc -c $(CFLAGS) source/alumnos.c -o obj/alumnos.o
 
@@ -34,6 +32,9 @@ obj/ver_eliminar.o : source/ver_eliminar.c
 
 obj/nodo.o : source/nodo.c
 	gcc -c $(CFLAGS) source/nodo.c -o obj/nodo.o
+
+obj/main.o : main.c
+	gcc -c $(CFLAGS)  -I $(DIRECTORIO_SOURCE) main.c -o obj/main.o
 #-------------------------------------------------------------------------------
 # Comandos make, de eliminación:
 #-------------------------------------------------------------------------------
@@ -47,11 +48,11 @@ clean :
 	@rm -fv obj/ver_eliminar.o
 	@clear
 
-run :
+run : clean practica.exe
 	@./programa_alumnos.exe
 
 copia : clean
-	@mkdir -p $(DESTI_COPIA)
-	@cp  -r `ls -A | grep -v "$(DIR_COPIES)"` $(DESTI_COPIA)
-	@echo "Copia realitzada a $(DESTI_COPIA). Una copia no es un backup."  
+	@mkdir -p $(DEST_COPIA)
+	@cp  -r `ls -A | grep -v "$(DIR_COPIAS)"` $(DEST_COPIA)
+	@echo "Copia realitzada a $(DEST_COPIA). Una copia no es un backup."  
 
