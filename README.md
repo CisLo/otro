@@ -7,7 +7,7 @@
 
 ## Estructura ficheros:
 
-![Esquema](https://user-images.githubusercontent.com/54553754/115969821-47240e00-a53f-11eb-857f-32a3c53fe98d.png)
+![imagen](https://user-images.githubusercontent.com/54553754/116708462-06f5dd00-a9d0-11eb-9c1b-556671bb6f49.png)
 
 ## Enunciado:
 
