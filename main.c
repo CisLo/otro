@@ -40,7 +40,7 @@ int main()
 				printf(" [6] - Eliminar ultimo alumno buscado\n");
 				printf(" [7] - Guardar lista de alumnos en Fichero\n");
 				printf(" [8] - Ver la lista\n");	/* Extra 1 */
-				printf(" [10] - Estadisticas de los alumnos\n");	/* Extra 2 */
+				printf(" [10]- Estadisticas de los alumnos\n");	/* Extra 2 */
 			}
 			printf(" [0] - Salir\n\n");
 			printf (" Escribe tu eleccion (el numero entre corchetes): ");
@@ -132,10 +132,10 @@ int main()
 					if (opcion_aux == 1) 
 					{
 						eliminar_alumno (&lista, &alumno_buscado);
-						printf (" Se ha borrado el alumno \n");
 					}
-					printf("\n------------------------------------\n");
+					
 				}
+				printf("\n------------------------------------\n");
 				break;
 			
 			/*=== Guardar/añadir la lista enlazada con los datos de los alumnos al fichero ===*/
@@ -147,6 +147,7 @@ int main()
 			/*=== Printar la lista enlazada con los datos de los alumnos añadidos ===*/
 			case 8: /* Ver la lista completa de los alumnos */
 				ver_lista(lista);
+				printf("\n------------------------------------\n");
 				break;
 			
 			/*=== Printar la lista enlazada con los datos de los alumnos añadidos ===*/

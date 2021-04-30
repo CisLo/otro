@@ -37,7 +37,7 @@ bool ver_alumno(nodo_t *p_ultimo_alum)
     case 1: printf(" SEXO: Mujer \n");
       break;
 
-    case 2: printf(" SEXO: No quiero decirlo \n");
+    case 2: printf(" SEXO: No quiero decirlo \n\n");
       break;
     }
   }
@@ -50,13 +50,14 @@ void ver_lista (nodo_t *lista) {
   nodo_t *p_lista;
   int contador = 1;
 
+  printf (" LISTA: \n");
   /* Bucle para hacer el salto de un nodo a otro, para mostrar los datos de los alumnos */
   for (p_lista = lista; p_lista != NULL; p_lista = p_lista->salto)
   {
-    printf(" Alumno n.%d) %d-%c, %s %s\n", contador++, p_lista->alumno.dni.numero, p_lista->alumno.dni.letra, p_lista->alumno.nombre, p_lista->alumno.apellido);
+    printf("  Alumno n.%d) %d-%c, %s %s\n", contador++, p_lista->alumno.dni.numero, p_lista->alumno.dni.letra, p_lista->alumno.nombre, p_lista->alumno.apellido);
   }
 
-  printf("Numero total de alumnos: %d",contador);
+  printf(" Numero total de alumnos: %d",contador-1);
 }
 
 
@@ -85,7 +86,6 @@ void buscar_nodo (nodo_t *lista, nodo_t *nodo_buscar, nodo_t **nodo_previo)
 void eliminar_alumno (nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por referencia ultimo_alum, porque lo modificamos */
 {
   /* Declaracion variables locales*/
-  int borrar_alumno = 0;
   nodo_t *nodo_previo;
 
   /* CASO 1: alumno buscado es tanto el primero como el ultimo de la lista:  (*p_lista == p_ultimo_alum && p_ultimo_alum->salto == NULL)*/
@@ -93,27 +93,20 @@ void eliminar_alumno (nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por r
   /* CASO 3: alumno buscado es el ultimo de la lista                         (*p_lista != p_ultimo_alum && p_ultimo_alum->salto == NULL)*/
   /* CASO 4: alumno buscado esta entre alumnos de la lista                   (*p_lista != p_ultimo_alum && p_ultimo_alum->salto != NULL) */
 
-  /* Pedimos Confirmación */
-	printf(" Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
-	scanf(" %d", &borrar_alumno);
+  /* Buscamos el nodo previo */
+  buscar_nodo (*p_lista, *p_ultimo_alum, &nodo_previo);
 
-  if (borrar_alumno)
+  /* CASO 1 y CASO 2 */
+  if (*p_lista == *p_ultimo_alum)
   {
-    /* Buscamos el nodo previo */
-    buscar_nodo (*p_lista, *p_ultimo_alum, &nodo_previo);
-
-    /* CASO 1 y CASO 2 */
-    if (*p_lista == *p_ultimo_alum)
-    {
-      *p_lista = (*p_ultimo_alum)->salto; /* La cabeza de la lista apunta al siguiente despues del alumno */
-      free(*p_ultimo_alum); /* Liberamos el nodo */
-    }   
-    else /* CASO 3 y CASO 4 */
-    {
-      nodo_previo->salto = (*p_ultimo_alum)->salto; /* El nodo apunta al siguiente despues del alumno */
-      free(*p_ultimo_alum); /* Liberamos el nodo */
-    }
-    *p_ultimo_alum = NULL; /* Evitamos que el puntero apunte a un nodo que ya se ha eliminado*/
-    printf (" Se ha borrado el alumno \n");
-  } 
+    *p_lista = (*p_ultimo_alum)->salto; /* La cabeza de la lista apunta al siguiente despues del alumno */
+    free(*p_ultimo_alum); /* Liberamos el nodo */
+  }   
+  else /* CASO 3 y CASO 4 */
+  {
+    nodo_previo->salto = (*p_ultimo_alum)->salto; /* El nodo apunta al siguiente despues del alumno */
+    free(*p_ultimo_alum); /* Liberamos el nodo */
+  }
+  *p_ultimo_alum = NULL; /* Evitamos que el puntero apunte a un nodo que ya se ha eliminado*/
+  printf (" Se ha borrado el alumno \n");
 }

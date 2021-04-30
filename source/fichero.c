@@ -22,11 +22,11 @@ void abrir_fichero(nodo_t **lista_p)
   }
   else
   {
-    
+    fread(&alumno, sizeof(alumno_t), 1, fit_lista); /* Leemos los datos del primer alumno */
     while (!feof(fit_lista))
     {
-      fread(&alumno, sizeof(alumno_t), 1, fit_lista); /* Leemos los datos de los alumnos */
       agregar_nodo_final(lista_p, alumno); /* Agregamos los alumnos leídos a la lista */
+      fread(&alumno, sizeof(alumno_t), 1, fit_lista); /* Leemos los datos de los alumnos */
     }
     printf("\n Se ha cargado la lista de alumnos\n");
     fclose (fit_lista); /* Cerramos el fichero */
@@ -48,7 +48,7 @@ bool guardar_fichero(nodo_t *lista_p)
   if (fit_lista == NULL)
   {
     guardado_check = false;
-    printf (" No se ha podido guardar el fichero \n");
+    printf ("\n No se ha podido guardar el fichero \n");
   }
   else
   {
@@ -60,7 +60,7 @@ bool guardar_fichero(nodo_t *lista_p)
     }
     fclose (fit_lista); /* Cerramos el fichero */
     guardado_check = true;
-    printf(" Se ha guardado la lista de alumnos \n");
+    printf("\n Se ha guardado la lista de alumnos \n");
   }
   return guardado_check;
 }
