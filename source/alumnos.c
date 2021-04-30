@@ -62,7 +62,7 @@ bool agregar_alumno (nodo_t **lista)
   int intentos = 0;
   alumno_t alumno_aux;
   nodo_t *alumno_dni_rep; /* Almacena el alumno con un dni igual al que se quiere agregar */
-  bool salida_dni;
+  int salida_dni;
 
   /* Introducir datos del alumno a agregar */
   
@@ -74,12 +74,21 @@ bool agregar_alumno (nodo_t **lista)
 
   do { /* Comprobar DNI del alumno */
     salida_dni = buscar_dni (*lista, &alumno_aux.dni.numero, &alumno_aux.dni.letra, &alumno_dni_rep);
-    if (salida_dni)
+    
+    if (salida_dni != 0) /* En caso de que la función retorne un valor diferente a 0 */
     {
-      printf (" Ya existe un alumno con ese DNI en la lista: %s %s \n", alumno_dni_rep->alumno.nombre, alumno_dni_rep->alumno.apellido);
-      printf(" Introduce un DNI distinto \n");
+      if (salida_dni == 1) /* En caso de que coincida con un dni de la lista  */
+      {
+        printf (" Ya existe un alumno con ese DNI en la lista: %s %s \n", alumno_dni_rep->alumno.nombre, alumno_dni_rep->alumno.apellido);
+      } 
+      else { /* DNI fuera de rango */
+        printf (" DNI introducido erroneo");
+      }
+      printf(" Vuelva a introducir el DNI \n");
+    
       intentos++;
-      if (intentos == 3) {
+      if (intentos == 3)
+      {
         printf(" Lo siento, has excedido el numero de intentos \n");
         salir_alumno = true;
       }
@@ -89,7 +98,7 @@ bool agregar_alumno (nodo_t **lista)
       printf(" El DNI se ha guardado correctamente \n");
       salir_alumno = false;
     }
-  } while (salida_dni && !salir_alumno);
+  } while (salida_dni != 0 && !salir_alumno); /* Mientras el dni ya este en la lista, no sea correcto o*/
 
   if (!salir_alumno) 
   {

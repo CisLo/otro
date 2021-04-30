@@ -27,10 +27,11 @@ bool comprobar_letra (int numero_dni, char letra_dni)
 }
 
 /** Funcion buscar por DNI **/
-bool buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultimo_alumno)
+int buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultimo_alumno)
 {
   /* Declaracion de variables */
-  bool check, salida = false;
+  bool check;
+  int salida = 0;
   nodo_t *p;
 
   /* DNI a buscar en la lista*/
@@ -51,14 +52,16 @@ bool buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultim
     {
       if (p->alumno.dni.numero == *numero_dni) /* Si coincide el DNI */
       {
-        salida = true;
+        salida = 1;
         *ultimo_alumno = p; /* Asignamos la dirección del nodo buscado */
       }
     }
   }
+  else {salida = -1;}
   /*
-    true: Si existe
-    false: No existe
+    1: Si existe
+    0: No existe
+    -1: Erroneo
   */
   return salida;
 }

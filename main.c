@@ -111,13 +111,13 @@ int main()
 			case 4: /*=== Función para buscar el alumno en la lista enlazada, por DNI ===*/
 				do { /* Se ejecuta al menos una vez */
 					valido_dni	= buscar_dni(lista, &numero, &letra, &alumno_buscado); /* Comprobamos DNI */
-					if (valido_dni)
+					if (valido_dni == 1)
 					{
 						printf(" El DNI introducido coincide con: %s %s \n", alumno_buscado->alumno.nombre, alumno_buscado->alumno.apellido);
 					}
 					else
 					{
-						printf(" El DNI no coincide con ningun alumno en la lista \n");
+						printf(" El DNI no coincide con ningun alumno en la lista o esta fuera de rango\n");
 					}
 					printf(" Desea volver a buscar? [1: (SI) / Otro numero: (NO)]: ");
 					scanf("%d", &opcion_aux);
