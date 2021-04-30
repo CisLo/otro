@@ -40,11 +40,12 @@ int main()
 			/* Comprobar si la lista no es nula, muestra las siguientes opciones: */
 			if (!comprobar_lista(lista))
 			{
-				printf(" [3] - Buscar por DNI\n");
-				printf(" [4] - Buscar por nombre\n");
-				printf(" [5] - Ver ultimo alumno buscado\n");
-				printf(" [6] - Eliminar ultimo alumno buscado\n");
-				printf(" [7] - Guardar lista de alumnos en Fichero\n");
+				printf(" [3] - Guardar lista de alumnos en Fichero\n");
+				printf(" [4] - Buscar por DNI\n");
+				printf(" [5] - Buscar por nombre\n");
+				printf(" [6] - Ver ultimo alumno buscado\n");
+				printf(" [7] - Eliminar ultimo alumno buscado\n");
+
 				printf(" [8] - Ver la lista\n");	/* Extra 1 */
 				printf(" [9] - Eliminar la lista\n");	/* Extra 2 */
 				printf(" [10]- Estadisticas de los alumnos\n");	/* Extra 3 */
@@ -57,8 +58,8 @@ int main()
 		
 		switch (opcion)
 		{
-			/*=== Salir ===*/
-			case 0: /* Salimos del programa */
+			
+			case 0: /*=== Salir ===*/
 				if (!fit_guardado) {
 					printf (" La lista no esta guardada. Seguro que quieres salir? [1: (SI) / Otro numero: (NO)]: ");
 					scanf("%d", &opcion_aux);
@@ -75,9 +76,8 @@ int main()
 				printf("\n------------------------------------\n");
 				break;
 				
-
-			/*=== Función para añadir alumno ===*/
-			case 1: /* Agregar alumno */
+			
+			case 1: /*=== Función para añadir alumno ===*/
 				no_cambios = agregar_alumno(&lista);
 				if (fit_guardado) /* Actualizamos si se ha guardado los cambios en caso de que se */
 				{
@@ -86,19 +86,29 @@ int main()
 				printf("\n------------------------------------\n");
 				break;
 
-
-			/*=== Funcion para cargar los datos de los alumnos a la lista enlazada ===*/
-			case 2: /* Cargar fichero */
+			
+			case 2: /*=== Funcion para cargar los datos de los alumnos a la lista enlazada ===*/
 				if (lista != NULL)
 				{
 					printf(" Hay una lista abierta, se perderan los datos no guardados.\n Quieres continuar? [1: (SI) / Otro numero: (NO)]: ");
-					eliminar_lista(&lista);
+					scanf("%d", &opcion_aux);
+					if (opcion_aux == 1)
+					{
+						eliminar_lista(&lista); /* Se elimina la lista */
+						abrir_fichero(&lista); /* Se abre el fichero guardado */
+					} 
 				}
-				abrir_fichero(&lista); /* Se crea la lista */
+				else{abrir_fichero(&lista); /* Se crea la lista */}
 				printf("\n------------------------------------\n");
 				break;
-				
-			case 3: /* Buscar alumno por DNI */
+			
+			case 3: /*=== Guardar/añadir la lista enlazada con los datos de los alumnos al fichero ===*/
+				fit_guardado = guardar_fichero(lista);
+				printf("\n------------------------------------\n");
+				break;
+
+			
+			case 4: /*=== Función para buscar el alumno en la lista enlazada, por DNI ===*/
 				do { /* Se ejecuta al menos una vez */
 					valido_dni	= buscar_dni(lista, &numero, &letra, &alumno_buscado); /* Comprobamos DNI */
 					if (valido_dni)
@@ -114,10 +124,8 @@ int main()
 				} while (opcion_aux == 1); 
 				printf("\n------------------------------------\n");
 				break;
-
-
-			/*=== Función para buscar el alumno en la lista enlazada, por nombre ===*/
-			case 4: /* Buscar por nombre */
+			
+			case 5: /*=== Función para buscar el alumno en la lista enlazada, por nombre ===*/
 				do { /* Se ejecuta al menos una vez */
 					buscar_nombre(lista, &alumno_buscado);
 
@@ -126,16 +134,15 @@ int main()
 				} while (opcion_aux == 1); 
 				printf("\n------------------------------------\n");
 				break;
+
+
 			
-			/*=== Función para ver el ultimo alumno buscado ===*/
-			case 5:  /* Ver el ultimo alumno buscado */
+			case 6: /*===  Ver el ultimo alumno buscado ===*/
 				ver_alumno(alumno_buscado);
 				printf("\n------------------------------------\n");
 				break;
-
-
-			/*=== Función para eliminar al ultimo alumno buscado ===*/
-			case 6: /* Eliminar el ultimo alumno buscado */
+			
+			case 7: /*=== Función para eliminar al ultimo alumno buscado ===*/
 				if (ver_alumno(alumno_buscado))
 				{
 					/* Pedimos Confirmación */
@@ -149,19 +156,13 @@ int main()
 				printf("\n------------------------------------\n");
 				break;
 			
-			/*=== Guardar/añadir la lista enlazada con los datos de los alumnos al fichero ===*/
-			case 7:/* Guardar fichero */
-				fit_guardado = guardar_fichero(lista);
-				printf("\n------------------------------------\n");
-				break;
 			
-			/*=== Printar la lista enlazada con los datos de los alumnos añadidos ===*/
-			case 8: /* Ver la lista completa de los alumnos */
+			case 8: /*=== Printar la lista con los nombres y dni de los alumnos añadidos ===*/
 				ver_lista(lista);
 				printf("\n------------------------------------\n");
 				break;
 			
-			case 9:
+			case 9: /*=== Eliminar la lista enlazada y liberar el espacio reservado en memoria ===*/
                 /* Pedimos Confirmación */
                 printf(" Quieres eliminar la lista? [1: (SI) / Otro numero: (NO)]: ");
                 scanf("%d", &opcion_aux);
@@ -172,8 +173,7 @@ int main()
 				printf("\n------------------------------------\n");
                 break;
 			
-			/*=== Ver estadisticas de la lista de alumnos ===*/
-			case 10: /* Mostrar estadisticas de los alumnos */
+			case 10: /*=== Ver estadisticas de la lista de alumnos ===*/
 			
 				mostrar_estadisticas(lista);
 				printf("\n------------------------------------\n");
