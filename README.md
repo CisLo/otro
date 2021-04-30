@@ -9,6 +9,7 @@
 
 ![Esquema](https://user-images.githubusercontent.com/54553754/115969821-47240e00-a53f-11eb-857f-32a3c53fe98d.png)
 
+
 ## Enunciado:
 
 Quan s'inicia el programa, ha d’aparèixer un menú amb les següents opcions:

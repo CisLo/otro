@@ -55,6 +55,8 @@ void ver_lista (nodo_t *lista) {
   {
     printf(" Alumno n.%d) %d-%c, %s %s\n", contador++, p_lista->alumno.dni.numero, p_lista->alumno.dni.letra, p_lista->alumno.nombre, p_lista->alumno.apellido);
   }
+
+  printf("Numero total de alumnos: %d",contador);
 }
 
 
@@ -80,7 +82,7 @@ void buscar_nodo (nodo_t *lista, nodo_t *nodo_buscar, nodo_t **nodo_previo)
 
 
 /** Eliminar ultimo alumno  **/
-void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por referencia ultimo_alum, porque lo modificamos */
+void eliminar_alumno (nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por referencia ultimo_alum, porque lo modificamos */
 {
   /* Declaracion variables locales*/
   int borrar_alumno = 0;
@@ -93,7 +95,7 @@ void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por re
 
   /* Pedimos Confirmación */
 	printf(" Quieres borrar este alumno? [1: (SI) / Otro numero: (NO)]");
-	scanf("%d", &borrar_alumno);
+	scanf(" %d", &borrar_alumno);
 
   if (borrar_alumno)
   {
@@ -111,7 +113,7 @@ void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por re
       nodo_previo->salto = (*p_ultimo_alum)->salto; /* El nodo apunta al siguiente despues del alumno */
       free(*p_ultimo_alum); /* Liberamos el nodo */
     }
-    p_ultimo_alum = NULL; /* Evitamos que el puntero apunte a un nodo que ya se ha eliminado*/
+    *p_ultimo_alum = NULL; /* Evitamos que el puntero apunte a un nodo que ya se ha eliminado*/
     printf (" Se ha borrado el alumno \n");
   } 
 }

@@ -22,6 +22,7 @@ void abrir_fichero(nodo_t **lista_p)
   }
   else
   {
+    
     while (!feof(fit_lista))
     {
       fread(&alumno, sizeof(alumno_t), 1, fit_lista); /* Leemos los datos de los alumnos */

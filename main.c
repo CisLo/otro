@@ -39,7 +39,8 @@ int main()
 				printf(" [5] - Ver ultimo alumno buscado\n");
 				printf(" [6] - Eliminar ultimo alumno buscado\n");
 				printf(" [7] - Guardar lista de alumnos en Fichero\n");
-				printf(" [8] - Ver la lista\n");	/* Extra */
+				printf(" [8] - Ver la lista\n");	/* Extra 1 */
+				printf(" [10] - Estadisticas de los alumnos\n");	/* Extra 2 */
 			}
 			printf(" [0] - Salir\n\n");
 			printf (" Escribe tu eleccion (el numero entre corchetes): ");
@@ -145,6 +146,11 @@ int main()
 			
 			/*=== Printar la lista enlazada con los datos de los alumnos añadidos ===*/
 			case 8: /* Ver la lista completa de los alumnos */
+				ver_lista(lista);
+				break;
+			
+			/*=== Printar la lista enlazada con los datos de los alumnos añadidos ===*/
+			case 10: /* Ver la lista completa de los alumnos */
 				ver_lista(lista);
 				break;
 		}

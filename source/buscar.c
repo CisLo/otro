@@ -107,7 +107,7 @@ void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado)
   /* Comprobar el nombre del alumno en toda la lista */
   printf("\n Coincidencias: \n");
   nodo_actual = lista;
-  while (nodo_actual->salto != NULL) /* Recorrido lista */
+  while (nodo_actual != NULL) /* Recorrido lista */
   {
     if (comparar_strings(string, nodo_actual->alumno.nombre) || comparar_strings(string, nodo_actual->alumno.apellido)) /* Comparamos todos los nombres y apellidos de la lista */
     {
