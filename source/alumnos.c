@@ -161,15 +161,18 @@ void ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
     /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
     while (nodo != NULL && !salir)
     {
+      /* En caso de que el numero del DNI del alumno actual es mayor al pasado por parametro */
       if (alumno_aux.dni.numero > nodo->alumno.dni.numero)
       {
         if (nodo->salto == NULL) /* Si estamos en el ultimo nodo */
         {
+          /* Añade al final del lista de alumnos  */
           agregar_nodo_final(lista_p, alumno_aux);
           salir = true;
         }
-        temp = nodo;
-        nodo = nodo->salto;
+        
+        temp = nodo; /* Guardamos nodo anterior */
+        nodo = nodo->salto; /* Actualizar variable control del bucle al siguiente nodo */
       }
       else
       {

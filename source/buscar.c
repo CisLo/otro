@@ -59,12 +59,14 @@ int buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultimo
   }
   else {salida = -1;}
   /*
+    SALIDAS:
     1: Si existe
     0: No existe
     -1: Erroneo
   */
   return salida;
 }
+
 
 
 /** Función para ignorar en la busqueda del alumno, si es mayuscula o minuscula **/
@@ -77,6 +79,8 @@ bool comparar_letra (char a, char b)
   return (a == b || a == (b + dif) || a == (b - dif));
 }
 
+
+/** Función para comparar el nombre y apellido, introducido en la función"buscar_nombre()" **/
 bool comparar_strings (char string_buscado[], char string_nodo[]) /*Comparamos dos strings */
 {
   /* Variable de control bucle */
@@ -112,10 +116,11 @@ void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado)
   nodo_actual = lista;
   while (nodo_actual != NULL) /* Recorrido lista */
   {
+    /* Comparar dos cadenas, para saber si un alumno tiene el mismo nombre o apellido */
     if (comparar_strings(string, nodo_actual->alumno.nombre) || comparar_strings(string, nodo_actual->alumno.apellido)) /* Comparamos todos los nombres y apellidos de la lista */
     {
       n++;
-      *alumno_buscado = nodo_actual; /* Actualizamos el ultimo alumno buscado */
+      *alumno_buscado = nodo_actual; /* Actualizamos y guardamos el ultimo alumno buscado */
       printf("   %d) %s %s\n", n , nodo_actual->alumno.nombre, nodo_actual->alumno.apellido); /* Se imprime por pantalla la coincidencia */
       printf(" \t%d-%c\n\n", nodo_actual->alumno.dni.numero, nodo_actual->alumno.dni.letra);
     }

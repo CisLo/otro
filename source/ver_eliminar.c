@@ -54,7 +54,7 @@ void ver_lista (nodo_t *lista) {
   /* Bucle para hacer el salto de un nodo a otro, para mostrar los datos de los alumnos */
   for (p_lista = lista; p_lista != NULL; p_lista = p_lista->salto)
   {
-    printf("  Alumno n.%d) %d-%c, %s %s\n", contador++, p_lista->alumno.dni.numero, p_lista->alumno.dni.letra, p_lista->alumno.nombre, p_lista->alumno.apellido);
+    printf("  Alumno n.%d) %d-%c, %s %s, Nota: %.2f\n", contador++, p_lista->alumno.dni.numero, p_lista->alumno.dni.letra, p_lista->alumno.nombre, p_lista->alumno.apellido, p_lista->alumno.nota);
   }
 
   printf("\n Numero total de alumnos: %d\n",contador-1);
@@ -102,6 +102,7 @@ void mostrar_estadisticas (nodo_t *lista) {
   }
 }
 
+
 /** Editar nota alumno **/
 void editar_alumno (nodo_t *ultimo_alum)
 {
@@ -110,16 +111,18 @@ void editar_alumno (nodo_t *ultimo_alum)
   scanf(" %f", &ultimo_alum->alumno.nota);
 }
 
-/** Función buscar nodo **/
+
+/** Función buscar nodo (guarda el nodo previo a este) **/
 void buscar_nodo (nodo_t *lista, nodo_t *nodo_buscar, nodo_t **nodo_previo)
 {
   /* Variables */
   nodo_t *temp = NULL, *p = lista; /* Inicializamos la variable para recorrer la lista */
   bool encontrado = false;
 
-  /* Recorrido lista */
+  /* Recorrido lista de alumnos */
   while (p != NULL && !encontrado)
   {
+    /* En caso que el nodo es igual al nodo pasado por parametro */
     if (p == nodo_buscar)
     {
       *nodo_previo = temp;
@@ -163,30 +166,32 @@ void eliminar_alumno (nodo_t **p_lista, nodo_t **p_ultimo_alum) /* pasamos por r
 /** Función Eliminar la lista **/
 void buscar_nodo_ult (nodo_t *lista, nodo_t **nodo_eliminar, nodo_t **nodo_previo)
 {
-    /* Variables */
-    nodo_t *temp = NULL, *p = lista; /* Inicializamos la variable para recorrer la lista */
+  /* Variables */
+  nodo_t *temp = NULL, *p = lista; /* Inicializamos la variable para recorrer la lista */
 
-    /* Recorrido lista */
-    while (p->salto != NULL)
-    {
-        temp = p;
-        p = p->salto;
-    }
-    *nodo_previo = temp;
-    *nodo_eliminar = p;
+  /* Recorrido lista */
+  while (p->salto != NULL)
+  {
+      temp = p;
+      p = p->salto;
+  }
+  *nodo_previo = temp;
+  *nodo_eliminar = p;
 }
+
+/** Elimina toda la lista **/
 void eliminar_lista (nodo_t **lista)
 {
-    nodo_t *nodo_eliminar, *nodo_previo;
+  nodo_t *nodo_eliminar, *nodo_previo;
 
-    buscar_nodo_ult (*lista, &nodo_eliminar, &nodo_previo); /* Buscamos ultimo nodo */
-    while (*lista != nodo_eliminar) 
-    {
-        nodo_previo->salto = NULL; /* El nodo previo apunta al final */
-        free(nodo_eliminar); /* Liberamos el ultimo nodo */
-        buscar_nodo_ult (*lista, &nodo_eliminar, &nodo_previo); /* Buscamos ultimo nodo */
-    }
+  buscar_nodo_ult (*lista, &nodo_eliminar, &nodo_previo); /* Buscamos ultimo nodo, en caso de que solo haya un unico alumno no salta del bucle */
+  while (*lista != nodo_eliminar) 
+  {
+    nodo_previo->salto = NULL; /* El nodo previo apunta al final */
     free(nodo_eliminar); /* Liberamos el ultimo nodo */
-    *lista = NULL;
-    printf (" Se ha borrado la lista\n");
+    buscar_nodo_ult (*lista, &nodo_eliminar, &nodo_previo); /* Buscamos ultimo nodo */
+  }
+  free(nodo_eliminar); /* Liberamos el ultimo nodo */
+  *lista = NULL;
+  printf (" Se ha borrado la lista\n");
 }
