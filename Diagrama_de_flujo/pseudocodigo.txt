@@ -1,0 +1,115 @@
+
+TIPOS.H:: 
+    const
+        MAX := 100
+    fconst
+
+    tipos
+        fecha_t: registro
+            dia: entero;
+            mes: entero;
+            año: entero;
+        fregistro
+    ftipos
+
+    tipos
+        dni_t: registro
+            numero: entero;
+            letra: caracter;
+        fregistro
+    ftipos
+
+    tipos
+        alumno_t: registro
+            nombre[MAX], apellido[MAX], email[MAX]: caracter;
+            dni: dni_t;
+            nota: real;
+            fecha_nacimiento: fecha_t;
+            letra: caracter;
+            sexo: entero;
+        fregistro
+    ftipos
+
+    tipos
+        nodo_t: registro
+            alumno: alumno_t; // Datos del alumno
+            *salto: struct nodo; // Salto al siguiente nodo
+        fregistro
+    ftipos
+
+FUNCIONES.H::
+    /* Declaración de las funciones */
+
+    /** Funciones NODO **/
+    <Declaraciones de funciones>
+    
+    /** Funciones FICHEROS **/
+    <Declaraciones de funciones>
+    
+    /** Funcion AGREGAR_ALUMNOS **/
+    <Declaraciones de funciones>
+    
+    /** Funciones BUSCAR **/
+    <Declaraciones de funciones>
+
+    /** Funciones VER_ELIMINAR **/
+    <Declaraciones de funciones>
+
+MAIN.C::
+    <incluir librerias>
+
+    var
+        *lista: nodo_t;
+        *alumno_buscado: nodo_t;
+
+        numero, opcion = 0, valido_dni = 0, opcion_aux: entero;
+        letra: caracter;
+        salir,no_cambios, fit_guardado: booleano;
+    fvar
+
+    inicio
+        iniciar_lista(&lista);
+
+        mientras (!salir) entonces
+            hacer
+                escribir("[1] - Introducir nuevo alumno");
+                escribir("[2] - Recuperar lista de alumnos del Fichero");
+
+                si (!comprobar_lista(lista)) entonces
+                    escribir(" [3] - Guardar lista de alumnos en Fichero");
+                    escribir(" [4] - Buscar por DNI");
+                    escribir(" [5] - Buscar por nombre");
+                    escribir(" [6] - Ver ultimo alumno buscado");
+                    escribir(" [7] - Eliminar ultimo alumno buscado");
+
+                    escribir(" [8] - Ver la lista");
+                    escribir(" [9] - Eliminar la lista");
+                    escribir(" [10]- Estadisticas de los alumnos");
+                    escribir(" [11]- Editar nota del ultimo alumno buscado ");
+                fsi
+
+                escribir(" [0] - Salir");
+                leer(opcion);
+            mientras ((comprobar_lista(lista) && (opcion < 0 || opcion > 2)) || (!comprobar_lista(lista) && (opcion < 0 || opcion > 11)));
+
+            opcion (opcion)
+                0: <Salir>
+                1: <Añadir alumno>
+                2: Cargar fichero .out
+                3: Guardar fichero
+                4: Buscar por nombre
+                5: Buscar por DNI
+                6: Ver ultimo alumno alumno_buscado
+                7: Eliminar ultimo alumno
+                8: Ver la lista de alumnos al completo
+                9: Eliminar toda la lista
+                10: Mostrar estadisticas
+                11: Editar nota alumno
+        fmientras
+    fin
+
+
+
+
+
+
