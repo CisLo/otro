@@ -47,8 +47,8 @@ bool comprobar_fecha (fecha_t fecha) {
   {
     fecha_invalido = true;
   }
-
-  if (fecha_invalido) {
+  
+  if (fecha_invalido) { // Se imprime que la fecha es incorrecta 
     printf("\n La fecha no es valida, reintentalo\n\n");
   }
 

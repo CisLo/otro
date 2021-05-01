@@ -172,14 +172,14 @@ void eliminar_lista (nodo_t **lista)
 {
     nodo_t *nodo_eliminar, *nodo_previo;
 
-    while (*lista != nodo_previo)
+    buscar_nodo_ult (*lista, &nodo_eliminar, &nodo_previo); /* Buscamos ultimo nodo */
+    while (*lista != nodo_eliminar) 
     {
-        buscar_nodo_ult (*lista, &nodo_eliminar, &nodo_previo); /* Buscamos ultimo nodo */
-
         nodo_previo->salto = NULL; /* El nodo previo apunta al final */
         free(nodo_eliminar); /* Liberamos el ultimo nodo */
+        buscar_nodo_ult (*lista, &nodo_eliminar, &nodo_previo); /* Buscamos ultimo nodo */
     }
-    free(nodo_previo); /* Liberamos el ultimo nodo */
+    free(nodo_eliminar); /* Liberamos el ultimo nodo */
     *lista = NULL;
     printf (" Se ha borrado la lista\n");
 }
