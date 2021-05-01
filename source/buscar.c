@@ -123,8 +123,11 @@ void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado)
     /* Comparar dos cadenas, para saber si un alumno tiene el mismo nombre o apellido */
     if (comparar_strings(string, nodo_actual->alumno.nombre) || comparar_strings(string, nodo_actual->alumno.apellido)) /* Comparamos todos los nombres y apellidos de la lista */
     {
+      if (n == 0)
+      {
+        *alumno_buscado = nodo_actual; /* Actualizamos y guardamos el ultimo alumno buscado */
+      }
       n++;
-      *alumno_buscado = nodo_actual; /* Actualizamos y guardamos el ultimo alumno buscado */
       printf("   %d) %s %s\n", n , nodo_actual->alumno.nombre, nodo_actual->alumno.apellido); /* Se imprime por pantalla la coincidencia */
       printf(" \t%d-%c\n\n", nodo_actual->alumno.dni.numero, nodo_actual->alumno.dni.letra);
     }
