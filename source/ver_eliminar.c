@@ -15,7 +15,7 @@ bool ver_alumno (nodo_t *p_ultimo_alum)
 
   if (p_ultimo_alum == NULL) /* Comprobamos que se haya buscado un alumno */
   {
-    printf(" No se ha buscado ningun alumno o este ya ha sido borrado\n");
+    printf("\n No se ha buscado ningun alumno o este ya ha sido borrado\n");
     check_alumno_buscado = false; /* No hay alumno buscado */
   }
   else
@@ -57,7 +57,7 @@ void ver_lista (nodo_t *lista) {
     printf("  Alumno n.%d) %d-%c, %s %s\n", contador++, p_lista->alumno.dni.numero, p_lista->alumno.dni.letra, p_lista->alumno.nombre, p_lista->alumno.apellido);
   }
 
-  printf("\n Numero total de alumnos: %d",contador-1);
+  printf("\n Numero total de alumnos: %d\n",contador-1);
 }
 
 
@@ -102,6 +102,16 @@ void mostrar_estadisticas (nodo_t *lista) {
   printf(" Porcentaje de alumnos suspensos: %.2f%%\n", porcentaje);
 }
 
+/** Editar nota alumno **/
+void editar_alumno (nodo_t *ultimo_alum)
+{
+  int opcion; /* Variable de opción */
+
+  /* Cambiamos la nota */
+  printf("\n Introduce la nueva nota: ");
+  scanf("%f", ultimo_alum->alumno.nota);
+
+}
 
 /** Función buscar nodo **/
 void buscar_nodo (nodo_t *lista, nodo_t *nodo_buscar, nodo_t **nodo_previo)

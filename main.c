@@ -49,6 +49,7 @@ int main()
 				printf(" [8] - Ver la lista\n");	/* Extra 1 */
 				printf(" [9] - Eliminar la lista\n");	/* Extra 2 */
 				printf(" [10]- Estadisticas de los alumnos\n");	/* Extra 3 */
+				printf(" [11]- Editar nota del ultimo alumno buscado \n"); /* Extra 4 */
 			}
 			printf(" [0] - Salir\n\n");
 			printf (" Escribe tu eleccion (el numero entre corchetes): ");
@@ -176,6 +177,20 @@ int main()
 			case 10: /*=== Ver estadisticas de la lista de alumnos ===*/
 			
 				mostrar_estadisticas(lista);
+				printf("\n------------------------------------\n");
+				break;
+
+			case 11: /*=== Editar nota del ultimo alumno buscado ===*/
+				if (ver_alumno(alumno_buscado))
+				{
+					/* Pedimos Confirmación */
+					printf(" Quieres editar la nota de este alumno? [1: (SI) / Otro numero: (NO)]: ");
+					scanf("%d", &opcion_aux); 
+					if (opcion_aux == 1) 
+					{
+						editar_alumno(alumno_buscado);
+					}
+				}
 				printf("\n------------------------------------\n");
 				break;
 		}
