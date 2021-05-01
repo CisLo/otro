@@ -126,12 +126,18 @@ void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado)
       if (n == 0)
       {
         *alumno_buscado = nodo_actual; /* Actualizamos y guardamos el ultimo alumno buscado */
+        printf("   1) %s %s\n", nodo_actual->alumno.nombre, nodo_actual->alumno.apellido); /* Se imprime por pantalla la coincidencia */
+        printf(" \t%d-%c\n\n", nodo_actual->alumno.dni.numero, nodo_actual->alumno.dni.letra);
       }
       n++;
-      printf("   %d) %s %s\n", n , nodo_actual->alumno.nombre, nodo_actual->alumno.apellido); /* Se imprime por pantalla la coincidencia */
-      printf(" \t%d-%c\n\n", nodo_actual->alumno.dni.numero, nodo_actual->alumno.dni.letra);
     }
     nodo_actual = nodo_actual->salto; /* Siguiente nodo */
   }
-  if (n==0){printf(" No existen coincidencias en la lista\n");}
+
+  if (n==0){
+    printf(" No existen coincidencias en la lista\n");
+  }
+  else {
+    printf(" Hay: %d coincidencias\n", n); /* Imprimimos numero de coincidencias */
+  }
 }
