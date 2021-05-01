@@ -88,18 +88,18 @@ void mostrar_estadisticas (nodo_t *lista) {
   /* Ponemos la nota más alta*/
   printf("\n La nota mas alta es: %.2f\n", nota_alta);
 
-  /* Imprimimos la nota media*/
   if (contador != 0) {
+    /* Imprimimos la nota media*/
     media /= contador;
     printf(" La nota media de todos los alumnos es: %.2f\n", media);
+  
+    /* Calculamos porcentaje aprobados */
+    porcentaje = (float)contador_aprobado/contador *100;
+    printf(" Porcentaje de alumnos aprobados: %.2f %%\n", porcentaje);
+    /* Calculamos porcentaje suspensos */
+    porcentaje = (float)(contador - contador_aprobado)/contador *100;
+    printf(" Porcentaje de alumnos suspensos: %.2f %%\n", porcentaje);
   }
-
-  /* Calculamos porcentaje aprobados */
-  porcentaje = (contador_aprobado/contador) * 100;
-  printf(" Porcentaje de alumnos aprobados: %.2f%%\n", porcentaje);
-  /* Calculamos porcentaje suspensos */
-  porcentaje = (contador-contador_aprobado)/contador *100;
-  printf(" Porcentaje de alumnos suspensos: %.2f%%\n", porcentaje);
 }
 
 /** Editar nota alumno **/
@@ -109,7 +109,7 @@ void editar_alumno (nodo_t *ultimo_alum)
 
   /* Cambiamos la nota */
   printf("\n Introduce la nueva nota: ");
-  scanf("%f", ultimo_alum->alumno.nota);
+  scanf(" %f", &ultimo_alum->alumno.nota);
 
 }
 

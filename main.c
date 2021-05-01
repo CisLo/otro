@@ -55,7 +55,7 @@ int main()
 			printf (" Escribe tu eleccion (el numero entre corchetes): ");
 			scanf("%d", &opcion);
 			printf("\n------------------------------------\n");
-		} while ((comprobar_lista(lista) && (opcion < 0 || opcion > 2)) || (!comprobar_lista(lista) && (opcion < 0 || opcion > 10)));
+		} while ((comprobar_lista(lista) && (opcion < 0 || opcion > 2)) || (!comprobar_lista(lista) && (opcion < 0 || opcion > 11)));
 		
 		switch (opcion)
 		{
