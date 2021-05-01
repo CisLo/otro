@@ -17,7 +17,7 @@ int main()
 {
 	/* Declaracion de la Estructura */
 	nodo_t *lista;
-	nodo_t *alumno_buscado = NULL; /* Guarda direccion del nodo al buscar un alumno */
+	nodo_t *alumno_buscado = NULL; /* Guarda direccion del ultimo alumno buscado*/
 	
 	/* Declaracion de variables */
 	int numero, opcion = 0, valido_dni = 0, opcion_aux;
@@ -61,7 +61,7 @@ int main()
 		{
 			
 			case 0: /*=== Salir ===*/
-				if (!fit_guardado) {
+				if (!fit_guardado) { /* Si lista esta guardada */
 					printf (" La lista no esta guardada. Seguro que quieres salir? [1: (SI) / Otro numero: (NO)]: ");
 					scanf("%d", &opcion_aux);
 						if (opcion_aux == 1) 
@@ -80,7 +80,7 @@ int main()
 			
 			case 1: /*=== Función para añadir alumno ===*/
 				no_cambios = agregar_alumno(&lista);
-				if (fit_guardado) /* Actualizamos si se ha guardado los cambios en caso de que se */
+				if (fit_guardado) /* En el caso de que la lista este guardad actualizamos si hay cambios */
 				{
 					fit_guardado = no_cambios;
 				}
@@ -116,7 +116,7 @@ int main()
 					{
 						printf(" El DNI introducido coincide con: %s %s \n", alumno_buscado->alumno.nombre, alumno_buscado->alumno.apellido);
 					}
-					else
+					else /* tanto valido_dni 0 o -1*/
 					{
 						printf(" El DNI no coincide con ningun alumno en la lista\n");
 					}
@@ -188,7 +188,7 @@ int main()
 					scanf("%d", &opcion_aux); 
 					if (opcion_aux == 1) 
 					{
-						editar_alumno(alumno_buscado);
+						editar_alumno(alumno_buscado); /* cambio de nota */
 					}
 				}
 				printf("\n------------------------------------\n");

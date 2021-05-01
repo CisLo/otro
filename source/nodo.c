@@ -25,7 +25,7 @@ nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto)
 	/* Crea nuevo nodo */
 	nodo_t *p_nuevo_nodo = (nodo_t *)malloc(sizeof(nodo_t));
 
-	/* Inicializa el nuevo nodo */
+	/* Inicializa el nuevo nodo, asigna los datos y el salto pasado por parametro al nuevo nodo */
 	p_nuevo_nodo->alumno = alumno;
 	p_nuevo_nodo->salto = salto;
 
@@ -37,9 +37,8 @@ nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto)
 /** Agregar nodo al principio de la lista **/
 void agregar_nodo_principio (nodo_t **lista_p, alumno_t alumno)
 {
-  /* Reservamos en memoria */
   nodo_t *nodo;
-  nodo = nuevo_nodo(alumno, *lista_p);
+  nodo = nuevo_nodo(alumno, *lista_p); /* Reservamos en memoria */
 
   /* Crear el salto del nuevo nodo. */
   nodo->salto = (*lista_p);
@@ -54,16 +53,10 @@ void agregar_nodo_entre (nodo_t *nodo_anterior, alumno_t alumno)
 {
 
   /* Tamaño del nuevo nodo a crear: */
-  nodo_t *nuevo_nodo = (nodo_t *)malloc(sizeof(nodo_t));
-
-  /* Asignar los datos del alumno al nuevo nodo a crear */
-  nuevo_nodo->alumno = alumno;
-
-  /* Apuntar el siguiente salto al "nodo_anterior" */
-  nuevo_nodo->salto = nodo_anterior->salto;
+  nodo_t *nodo =  nuevo_nodo(alumno, nodo_anterior->salto);
 
   /* Apuntar al siguiente nodo del "nodo_anterior" el nuevo */
-  nodo_anterior->salto = nuevo_nodo;
+  nodo_anterior->salto = nodo;
 
 }
 

@@ -8,7 +8,7 @@
 
 
 /** Funcion ABRIR fichero **/
-void abrir_fichero(nodo_t **lista_p)
+void abrir_fichero (nodo_t **lista_p)
 {
   /* Variables locales de la funcion */
   FILE *fit_lista;
@@ -35,13 +35,13 @@ void abrir_fichero(nodo_t **lista_p)
 
 
 /** Funcion GUARDAR fichero **/
-bool guardar_fichero(nodo_t *lista_p)
+bool guardar_fichero (nodo_t *lista_p)
 {
   /* Variables locales de la funcion */
   FILE *fit_lista;
   bool guardado_check; /* Si se ha guardado correctamente el fichero */
-  alumno_t alumno_p; /* Variable que guarda el valor alumno_t de cada nodo */
-  nodo_t *nd_actual; /* Variable de control que se desplaza por la lista a guardar */
+  alumno_t alumno; /* Variable que guarda el valor alumno_t de cada nodo */
+  nodo_t *nodo_actual; /* Variable de control que se desplaza por la lista a guardar */
 
   /* Guardamos el fichero */
   fit_lista = fopen ("lista_alumnos.out", "wb");
@@ -53,10 +53,10 @@ bool guardar_fichero(nodo_t *lista_p)
   else
   {
     /* Guardamos en el fichero los datos de los alumnos */
-    for (nd_actual = lista_p; nd_actual != NULL; nd_actual = nd_actual->salto) 
+    for (nodo_actual = lista_p; nodo_actual != NULL; nodo_actual = nodo_actual->salto) 
     {
-      alumno_p = nd_actual->alumno; 
-      fwrite(&alumno_p, sizeof(alumno_t), 1, fit_lista); /* Guardamos los datos de los alumnos en binario */
+      alumno = nodo_actual->alumno; 
+      fwrite(&alumno, sizeof(alumno_t), 1, fit_lista); /* Guardamos los datos de los alumnos en binario */
     }
     fclose (fit_lista); /* Cerramos el fichero */
     guardado_check = true;
