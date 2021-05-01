@@ -35,7 +35,7 @@ int main()
 		do
 		{
 			printf("\n MENU:\n");
-			printf(" [1] - Agregar alumno\n");
+			printf(" [1] - Introducir nuevo alumno\n");
 			printf(" [2] - Recuperar lista de alumnos del Fichero\n");
 			/* Comprobar si la lista no es nula, muestra las siguientes opciones: */
 			if (!comprobar_lista(lista))

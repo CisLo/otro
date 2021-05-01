@@ -8,7 +8,7 @@
 
 
 /** Función ver el ultimo alumno buscado **/
-bool ver_alumno(nodo_t *p_ultimo_alum)
+bool ver_alumno (nodo_t *p_ultimo_alum)
 {
   /* Declaración variable */
   bool check_alumno_buscado;
