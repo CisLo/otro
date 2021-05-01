@@ -13,42 +13,43 @@ bool comprobar_fecha (fecha_t fecha) {
 
   bool fecha_invalido = false;
 
-  if (fecha.any > 1900 && fecha.any < 9999) 
+  if (fecha.any > 1900 && fecha.any < 9999)
   {
     switch (fecha.mes)
     {
     case 1: case 3: case 5: case 7: case 8: case 10: case 12: //Enero, marzo, mayo, julio, agosto, octubre y diciembre. --> 31 días
-      if (fecha.dia > 31 || fecha.dia<0) {
+      if (fecha.dia > 31 || fecha.dia<=0) {
         fecha_invalido = true;
       }
       break;
     case 4: case 6: case 9: case 11: //Abril, junio, septiembre y noviembre. --> 30 días
-      if (fecha.dia > 30 || fecha.dia<0) {
+      if (fecha.dia > 30 || fecha.dia<=0) {
         fecha_invalido = true;
       }
       break;
     case 2: //Frebrero. --> 28/29 días
-        if (fecha.dia > 29 || fecha.dia<0) {
+        if (fecha.dia > 29 || fecha.dia<=0) {
           fecha_invalido = true;
-        } else {
-          if (fecha.dia==29 && (fecha.any%400==0 ||(fecha.any%4==0 && fecha.any%100!=0))) {
-          } else {
+        } 
+        else {
+          if (fecha.dia==29 && !(fecha.any%400==0 ||(fecha.any%4==0 && fecha.any%100!=0))) 
+          {
             fecha_invalido = true;
           }
         }
       break;
-    
+
     default:
       fecha_invalido = true;
       break;
-    }    
-  } 
-  else 
+    }
+  }
+  else
   {
     fecha_invalido = true;
   }
-  
-  if (fecha_invalido) { // Se imprime que la fecha es incorrecta 
+
+  if (fecha_invalido) { // Se imprime que la fecha es incorrecta
     printf("\n La fecha no es valida, reintentalo\n\n");
   }
 
@@ -65,27 +66,27 @@ bool agregar_alumno (nodo_t **lista)
   int salida_dni;
 
   /* Introducir datos del alumno a agregar */
-  
-  printf(" Nombre del alumno: "); /* Pedimos el nombre */
-  scanf(" %s", alumno_aux.nombre);
 
-  printf(" Apellidos: "); /* Pedimos el apellido */
-  scanf(" %s %s", alumno_aux.primer_apellido,alumno_aux.segundo_apellido);
+  printf(" Nombre del alumno: "); /* Pedimos el nombre */
+  scanf(" %[^\n]", alumno_aux.nombre);
+
+  printf(" Apellido: "); /* Pedimos el apellido */
+  scanf(" %[^\n]", alumno_aux.apellido);
 
   do { /* Comprobar DNI del alumno */
     salida_dni = buscar_dni (*lista, &alumno_aux.dni.numero, &alumno_aux.dni.letra, &alumno_dni_rep);
-    
+
     if (salida_dni != 0) /* En caso de que la función retorne un valor diferente a 0 */
     {
       if (salida_dni == 1) /* En caso de que coincida con un dni de la lista  */
       {
-        printf (" Ya existe un alumno con ese DNI en la lista: %s %s %s \n", alumno_dni_rep->alumno.nombre, alumno_dni_rep->alumno.primer_apellido, alumno_dni_rep->alumno.segundo_apellido);
-      } 
+        printf (" Ya existe un alumno con ese DNI en la lista: %s %s \n", alumno_dni_rep->alumno.nombre, alumno_dni_rep->alumno.apellido);
+      }
       else { /* DNI fuera de rango */
         printf (" DNI introducido erroneo.");
       }
       printf(" Vuelva a introducir el DNI \n");
-    
+
       intentos++;
       if (intentos == 3)
       {
@@ -95,12 +96,12 @@ bool agregar_alumno (nodo_t **lista)
     }
     else
     {
-      printf(" El DNI se ha guardado correctamente \n");
+      printf(" El DNI se ha guardado correctamente \n\n");
       salir_alumno = false;
     }
   } while (salida_dni != 0 && !salir_alumno); /* Mientras el dni ya este en la lista, no sea correcto o*/
 
-  if (!salir_alumno) 
+  if (!salir_alumno)
   {
     printf(" Correo electronico: ");
     scanf(" %s", alumno_aux.email);
@@ -109,7 +110,7 @@ bool agregar_alumno (nodo_t **lista)
       printf(" Nota del alumno (por ejemplo, 6.8): ");
       scanf(" %f", &alumno_aux.nota);
     } while (alumno_aux.nota<0 || alumno_aux.nota>10);
-  
+
     do {
       printf(" Fecha de nacimiento: (dia, mes y any): \n");
       printf(" Dia: ");
@@ -122,18 +123,18 @@ bool agregar_alumno (nodo_t **lista)
       fecha_invalido = comprobar_fecha(alumno_aux.fecha_nacimiento);
 
     } while (fecha_invalido);
-      
+
     do { /* Comprobar sexo del alumno */
       printf(" Sexo (hombre [0], mujer [1] o no quiero decirlo [2]): ");
       scanf("%d", &alumno_aux.sexo);
     } while (alumno_aux.sexo<0 || alumno_aux.sexo>2);
 
     /* Llamamos a la función "ordenar alumno", para que agrege al alumno introducido */
-    ordenar_alumno(lista, alumno_aux);    
-  }  
+    ordenar_alumno(lista, alumno_aux);
+  }
 
   return salir_alumno; /* Devolvemos el valor de si no se ha agregado (true) o sí (false) */
-  
+
 }
 
 
@@ -150,15 +151,15 @@ void ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux)
   bool salir = false;
   /* Creación de nodos, para almacenar los datos al ordenar */
   nodo_t *nodo = *lista_p, *temp = NULL;
-  
+
   /* CASO 1 o CASO 2 */
   if (comprobar_lista(*lista_p) || (alumno_aux.dni.numero < nodo->alumno.dni.numero)) {
 		agregar_nodo_principio(lista_p, alumno_aux);
 	}
-  else 
+  else
   {
     /* Recorre la lista enlazada, para comprobar en que posición de la lista a de añadir el alumno */
-    while (nodo != NULL && !salir) 
+    while (nodo != NULL && !salir)
     {
       if (alumno_aux.dni.numero > nodo->alumno.dni.numero)
       {
