@@ -68,20 +68,11 @@ void agregar_nodo_final(nodo_t **lista, alumno_t alumno_datos)
   nodo_t *lista_p_aux = *lista; /* Variable que recorre la lista hasta el ultimo nodo */
 
   /* Reservamos el nodo en la memoria, y añadimos los datos */
-  nodo_t *nd_p; 
-  nd_p = nuevo_nodo(alumno_datos, NULL); /* NULL porque el nodo estara al final de la lista */
+  nodo_t *nodo_p = nuevo_nodo(alumno_datos, NULL); /* NULL porque el nodo estara al final de la lista */
 
-  /* Comprobamos si la lista esta vacia */
-	if (comprobar_lista(lista_p_aux))
+  while (lista_p_aux->salto != NULL) /* Recorremos la lista hasta el ultimo nodo */
   {
-		*lista = nd_p; /* La lista apunta al nuevo nodo como el primero */
+    lista_p_aux = lista_p_aux->salto;
   }
-  else 
-  {
-		while (lista_p_aux->salto != NULL) /* Recorremos la lista hasta el ultimo nodo */
-    {
-      lista_p_aux = lista_p_aux->salto;
-    }
-		lista_p_aux->salto = nd_p; /* El ultimo nodo apunta al nuevo, poniendo al nuevo nodo al final de la lista */
-	}
+  lista_p_aux->salto = nodo_p; /* El ultimo nodo apunta al nuevo, poniendo al nuevo nodo al final de la lista */
 }

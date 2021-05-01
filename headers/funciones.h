@@ -24,7 +24,7 @@ void ordenar_alumno (nodo_t **lista, alumno_t alumno_aux);
 
 
 /** Funciones BUSCAR **/
-bool comprobar_letra (int numero_dni, char letra_dni);
+int comprobar_letra (int numero_dni, char letra_dni);
 int buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultimo_alumno);
 // --------------------------------------
 bool comparar_letra (char a, char b);

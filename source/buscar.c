@@ -8,56 +8,60 @@
 
 
 /** Comprobar si la letra introducida es la correcta **/ 
-bool comprobar_letra (int numero_dni, char letra_dni)
+int comprobar_letra (int numero_dni, char letra_dni)
 {
   int i;
-  bool comprobacion;
+  int comprobacion;
   char letra[] = "TRWAGMYFPDXBNJZSQVHLCKE"; /* */
 
-    i = numero_dni % 23; /* Se asigna la letra del DNI */
-    if (letra[i] == letra_dni)
-    {
-      comprobacion = true; 
-    }
-    else
-    {
-      comprobacion = false;
-    }
-    return comprobacion;
+  i = numero_dni % 23; /* Se asigna la letra del DNI */
+  if (letra[i] == letra_dni)
+  {
+    comprobacion = 0; // Esta bien
+  }
+  else
+  {
+    comprobacion = -1; // Error
+  }
+  return comprobacion;
 }
 
 /** Funcion buscar por DNI **/
 int buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultimo_alumno)
 {
   /* Declaracion de variables */
-  bool check;
-  int salida = 0;
+  int salida;
   nodo_t *p;
 
   /* DNI a buscar en la lista*/
-  do {
-    printf(" Introduce el numero del DNI: ");
-    scanf(" %d", numero_dni);
-    printf(" Introduce la letra del DNI: ");
-    scanf(" %c", letra_dni);
-    printf("\n");
-    check = comprobar_letra(*numero_dni, *letra_dni);
-    if (!check)
-      printf(" El DNI es incorrecto (no corresponde la letra con el numero), vuelve a escribirlo \n");
-  } while (!check);
-  
-  if ((*numero_dni >= 0) && (*numero_dni <= 99999999)) /* Comprobamos que se encuentre en el rango de un dni */
-  {
-    for (p = lista; p != NULL; p = p->salto)
+  printf(" Introduce el numero del DNI: ");
+  scanf(" %d", numero_dni);
+  printf(" Introduce la letra del DNI: ");
+  scanf(" %c", letra_dni);
+  printf("\n");
+
+  /* Realizamos las comprobaciones */
+  salida = comprobar_letra(*numero_dni, *letra_dni);
+  if (salida == -1){
+    printf(" El DNI es incorrecto (no corresponde la letra con el numero) \n");
+  }
+  else{
+    if ((*numero_dni >= 0) && (*numero_dni <= 99999999)) /* Comprobamos que se encuentre en el rango de un dni */
     {
-      if (p->alumno.dni.numero == *numero_dni) /* Si coincide el DNI */
+      for (p = lista; p != NULL; p = p->salto)
       {
-        salida = 1;
-        *ultimo_alumno = p; /* Asignamos la dirección del nodo buscado */
+        if (p->alumno.dni.numero == *numero_dni) /* Si coincide el DNI */
+        {
+          salida = 1;
+          *ultimo_alumno = p; /* Asignamos la dirección del nodo buscado */
+        }
       }
     }
+    else {
+      salida = -1;
+      printf(" El DNI es incorrecto (fuera de rango) \n");
+    }
   }
-  else {salida = -1;}
   /*
     SALIDAS:
     1: Si existe

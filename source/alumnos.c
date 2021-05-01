@@ -67,7 +67,7 @@ bool agregar_alumno (nodo_t **lista)
 
   /* Introducir datos del alumno a agregar */
 
-  printf(" Nombre del alumno: "); /* Pedimos el nombre */
+  printf("\n Nombre del alumno: "); /* Pedimos el nombre */
   scanf(" %[^\n]", alumno_aux.nombre);
 
   printf(" Apellido: "); /* Pedimos el apellido */

@@ -50,11 +50,11 @@ void ver_lista (nodo_t *lista) {
   nodo_t *p_lista;
   int contador = 1;
 
-  printf (" LISTA: \n");
+  printf ("\n LISTA: \n");
   /* Bucle para hacer el salto de un nodo a otro, para mostrar los datos de los alumnos */
   for (p_lista = lista; p_lista != NULL; p_lista = p_lista->salto)
   {
-    printf("  Alumno n.%d) %d-%c, %s %s, Nota: %.2f\n", contador++, p_lista->alumno.dni.numero, p_lista->alumno.dni.letra, p_lista->alumno.nombre, p_lista->alumno.apellido, p_lista->alumno.nota);
+    printf("  Alumno n.%d) %d-%c, Nota: %.2f, %s %s \n", contador++, p_lista->alumno.dni.numero, p_lista->alumno.dni.letra, p_lista->alumno.nota, p_lista->alumno.nombre, p_lista->alumno.apellido);
   }
 
   printf("\n Numero total de alumnos: %d\n",contador-1);

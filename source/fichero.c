@@ -23,6 +23,9 @@ void abrir_fichero (nodo_t **lista_p)
   else
   {
     fread(&alumno, sizeof(alumno_t), 1, fit_lista); /* Leemos los datos del primer alumno */
+    agregar_nodo_principio(lista_p, alumno); /* Agregamos al principio de la lista vacia */
+
+    fread(&alumno, sizeof(alumno_t), 1, fit_lista); /* Leemos los datos del segundo alumno (en el caso de que no exista se salta el bucle) */
     while (!feof(fit_lista))
     {
       agregar_nodo_final(lista_p, alumno); /* Agregamos los alumnos leídos a la lista */

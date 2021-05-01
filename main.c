@@ -23,7 +23,7 @@ int main()
 	int numero, opcion = 0, valido_dni = 0, opcion_aux;
 	char letra;
 	bool salir; /* Booleano para salir del programa principal, y repetir el menu */
-	bool no_cambios, fit_guardado = false; /* Por defecto el fichero no esta guardado ni cargado */
+	bool no_cambios, fit_guardado; /* Por defecto el fichero no esta guardado ni cargado */
 
 	/* Iniciamos la lista enlazada */
 	iniciar_lista(&lista);
@@ -62,17 +62,17 @@ int main()
 			
 			case 0: /*=== Salir ===*/
 				if (!fit_guardado) { /* Si lista esta guardada */
-					printf (" La lista no esta guardada. Seguro que quieres salir? [1: (SI) / Otro numero: (NO)]: ");
+					printf ("\n La lista no esta guardada. Seguro que quieres salir? [1: (SI) / Otro numero: (NO)]: ");
 					scanf("%d", &opcion_aux);
 						if (opcion_aux == 1) 
 						{
 							salir = true;
-							printf(" Gracias por utilizar el programa\n");
+							printf("\n Gracias por utilizar el programa\n");
 						}
 				}
 				else {
 					salir = true;
-					printf(" Gracias por utilizar el programa\n");
+					printf("\n Gracias por utilizar el programa\n");
 				}
 				printf("\n------------------------------------\n");
 				break;
@@ -91,11 +91,12 @@ int main()
 			case 2: /*=== Funcion para cargar los datos de los alumnos a la lista enlazada ===*/
 				if (lista != NULL)
 				{
-					printf(" Hay una lista abierta, se perderan los datos no guardados.\n Quieres continuar? [1: (SI) / Otro numero: (NO)]: ");
+					printf("\n Hay una lista abierta, se perderan los datos no guardados.\n Quieres continuar? [1: (SI) / Otro numero: (NO)]: ");
 					scanf("%d", &opcion_aux);
 					if (opcion_aux == 1)
 					{
 						eliminar_lista(&lista); /* Se elimina la lista */
+						alumno_buscado = NULL; /* Eliminamos la busqueda */
 						abrir_fichero(&lista); /* Se abre el fichero guardado */
 					} 
 				}
@@ -112,17 +113,17 @@ int main()
 			case 4: /*=== Función para buscar el alumno en la lista enlazada, por DNI ===*/
 				do { /* Se ejecuta al menos una vez */
 					valido_dni	= buscar_dni(lista, &numero, &letra, &alumno_buscado); /* Comprobamos DNI */
-					if (valido_dni == 1)
+					if (valido_dni == 1) /* DNI coincide */
 					{
 						printf(" El DNI introducido coincide con: %s %s \n", alumno_buscado->alumno.nombre, alumno_buscado->alumno.apellido);
 					}
-					else /* tanto valido_dni 0 o -1*/
+					else if (valido_dni == 0) /* No hay coincidencias*/
 					{
 						printf(" El DNI no coincide con ningun alumno en la lista\n");
 					}
 					printf(" Desea volver a buscar? [1: (SI) / Otro numero: (NO)]: ");
 					scanf("%d", &opcion_aux);
-				} while (opcion_aux == 1); 
+				} while (opcion_aux == 1);
 				printf("\n------------------------------------\n");
 				break;
 			
@@ -165,7 +166,7 @@ int main()
 			
 			case 9: /*=== Eliminar la lista enlazada y liberar el espacio reservado en memoria ===*/
                 /* Pedimos Confirmación */
-                printf(" Quieres eliminar la lista? [1: (SI) / Otro numero: (NO)]: ");
+                printf("\n Quieres eliminar la lista? [1: (SI) / Otro numero: (NO)]: ");
                 scanf("%d", &opcion_aux);
                 if (opcion_aux == 1)
                 {
@@ -175,7 +176,6 @@ int main()
                 break;
 			
 			case 10: /*=== Ver estadisticas de la lista de alumnos ===*/
-			
 				mostrar_estadisticas(lista);
 				printf("\n------------------------------------\n");
 				break;
