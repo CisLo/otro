@@ -13,14 +13,14 @@ void agregar_nodo_final(nodo_t **lista, alumno_t alumno_datos);
 
 
 /** Funciones FICHEROS **/
-void abrir_fichero(nodo_t **lista_p);
-bool guardar_fichero(nodo_t *lista_p);
+void abrir_fichero(nodo_t **lista);
+bool guardar_fichero(nodo_t *lista);
 
 
 /** Funcion AGREGAR_ALUMNOS **/
 bool comprobar_fecha (fecha_t fecha);
 bool agregar_alumno (nodo_t **lista);
-void ordenar_alumno (nodo_t **lista_p, alumno_t alumno_aux);
+void ordenar_alumno (nodo_t **lista, alumno_t alumno_aux);
 
 
 /** Funciones BUSCAR **/
@@ -33,13 +33,14 @@ void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado);
 
 
 /** Funciones VER_ELIMINAR **/
-bool ver_alumno(nodo_t *p_ultimo_alum);
-void ver_lista (nodo_t *lista);
-void mostrar_estadisticas (nodo_t *lista);
+bool ver_alumno(nodo_t *ultimo_alum);
 //----------------------------------------
-void editar_alumno (nodo_t *p_ultimo_alum);
+void ver_lista (nodo_t *lista); /* EXTRA */
+void mostrar_estadisticas (nodo_t *lista); /* EXTRA */
+void editar_alumno (nodo_t *ultimo_alum); /* EXTRA */
+//----------------------------------------
 void buscar_nodo (nodo_t *lista, nodo_t *nodo_buscar, nodo_t **nodo_previo);
-void eliminar_alumno(nodo_t **p_lista, nodo_t **p_ultimo_alum);
-//----------------------------------------
+void eliminar_alumno(nodo_t **lista, nodo_t **ultimo_alum);
+//----------------------------------------/* EXTRA: eliminar lista */
 void buscar_nodo_ult (nodo_t *lista, nodo_t **nodo_eliminar, nodo_t **nodo_previo);
-void eliminar_lista (nodo_t **lista);
+void eliminar_lista (nodo_t **lista); 

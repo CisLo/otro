@@ -105,12 +105,9 @@ void mostrar_estadisticas (nodo_t *lista) {
 /** Editar nota alumno **/
 void editar_alumno (nodo_t *ultimo_alum)
 {
-  int opcion; /* Variable de opción */
-
   /* Cambiamos la nota */
   printf("\n Introduce la nueva nota: ");
   scanf(" %f", &ultimo_alum->alumno.nota);
-
 }
 
 /** Función buscar nodo **/
