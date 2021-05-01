@@ -23,7 +23,7 @@ typedef struct
 /* Definicion del tipo ALUMNO */
 typedef struct
 {
-    char nombre[MAX], apellido[MAX], email[MAX];
+    char nombre[MAX], primer_apellido[MAX], segundo_apellido[MAX], email[MAX];
     dni_t dni;
     float nota;
     fecha_t fecha_nacimiento;

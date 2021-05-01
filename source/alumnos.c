@@ -69,8 +69,8 @@ bool agregar_alumno (nodo_t **lista)
   printf(" Nombre del alumno: "); /* Pedimos el nombre */
   scanf(" %s", alumno_aux.nombre);
 
-  printf(" Apellido: "); /* Pedimos el apellido */
-  scanf(" %s", alumno_aux.apellido);
+  printf(" Apellidos: "); /* Pedimos el apellido */
+  scanf(" %s %s", alumno_aux.primer_apellido,alumno_aux.segundo_apellido);
 
   do { /* Comprobar DNI del alumno */
     salida_dni = buscar_dni (*lista, &alumno_aux.dni.numero, &alumno_aux.dni.letra, &alumno_dni_rep);
@@ -79,7 +79,7 @@ bool agregar_alumno (nodo_t **lista)
     {
       if (salida_dni == 1) /* En caso de que coincida con un dni de la lista  */
       {
-        printf (" Ya existe un alumno con ese DNI en la lista: %s %s \n", alumno_dni_rep->alumno.nombre, alumno_dni_rep->alumno.apellido);
+        printf (" Ya existe un alumno con ese DNI en la lista: %s %s %s \n", alumno_dni_rep->alumno.nombre, alumno_dni_rep->alumno.primer_apellido, alumno_dni_rep->alumno.segundo_apellido);
       } 
       else { /* DNI fuera de rango */
         printf (" DNI introducido erroneo.");

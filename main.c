@@ -113,7 +113,7 @@ int main()
 					valido_dni	= buscar_dni(lista, &numero, &letra, &alumno_buscado); /* Comprobamos DNI */
 					if (valido_dni == 1)
 					{
-						printf(" El DNI introducido coincide con: %s %s \n", alumno_buscado->alumno.nombre, alumno_buscado->alumno.apellido);
+						printf(" El DNI introducido coincide con: %s %s %s \n", alumno_buscado->alumno.nombre, alumno_buscado->alumno.primer_apellido, alumno_buscado->alumno.segundo_apellido);
 					}
 					else
 					{

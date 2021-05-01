@@ -104,7 +104,7 @@ void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado)
   int n = 0; /* Cuenta el numero de coincidencias */
 
   /* Preguntamos Nombre */
-  printf(" Introduce el nombre o apellido a buscar: ");
+  printf(" Introduce el nombre o el primer apellido para buscar: ");
   scanf("%s", string); /* Guardamos el nombre */
 
   /* Comprobar el nombre del alumno en toda la lista */
@@ -112,11 +112,11 @@ void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado)
   nodo_actual = lista;
   while (nodo_actual != NULL) /* Recorrido lista */
   {
-    if (comparar_strings(string, nodo_actual->alumno.nombre) || comparar_strings(string, nodo_actual->alumno.apellido)) /* Comparamos todos los nombres y apellidos de la lista */
+    if (comparar_strings(string, nodo_actual->alumno.nombre) || comparar_strings(string, nodo_actual->alumno.primer_apellido)) /* Comparamos todos los nombres y apellidos de la lista */
     {
       n++;
       *alumno_buscado = nodo_actual; /* Actualizamos el ultimo alumno buscado */
-      printf("   %d) %s %s\n", n , nodo_actual->alumno.nombre, nodo_actual->alumno.apellido); /* Se imprime por pantalla la coincidencia */
+      printf("   %d) %s %s\n", n , nodo_actual->alumno.nombre, nodo_actual->alumno.primer_apellido); /* Se imprime por pantalla la coincidencia */
       printf(" \t%d-%c\n\n", nodo_actual->alumno.dni.numero, nodo_actual->alumno.dni.letra);
     }
     nodo_actual = nodo_actual->salto; /* Siguiente nodo */

@@ -23,7 +23,7 @@ bool ver_alumno (nodo_t *p_ultimo_alum)
     check_alumno_buscado = true; /* Hay alumno buscado */
 
     /* Imprimimos por pantalla los datos del alumno */
-    printf("\n ALUMNO: %s %s\n", p_ultimo_alum->alumno.nombre, p_ultimo_alum->alumno.apellido); 
+    printf("\n ALUMNO: %s %s %s\n", p_ultimo_alum->alumno.nombre, p_ultimo_alum->alumno.primer_apellido, p_ultimo_alum->alumno.segundo_apellido); 
     printf(" E-MAIL: %s\n", p_ultimo_alum->alumno.email);
     printf(" DNI: %d %c\n",  p_ultimo_alum->alumno.dni.numero, p_ultimo_alum->alumno.dni.letra);
     printf(" NOTA: %.2f\n", p_ultimo_alum->alumno.nota);
@@ -54,7 +54,7 @@ void ver_lista (nodo_t *lista) {
   /* Bucle para hacer el salto de un nodo a otro, para mostrar los datos de los alumnos */
   for (p_lista = lista; p_lista != NULL; p_lista = p_lista->salto)
   {
-    printf("  Alumno n.%d) %d-%c, %s %s\n", contador++, p_lista->alumno.dni.numero, p_lista->alumno.dni.letra, p_lista->alumno.nombre, p_lista->alumno.apellido);
+    printf("  Alumno n.%d) %d-%c, %s %s %s\n", contador++, p_lista->alumno.dni.numero, p_lista->alumno.dni.letra, p_lista->alumno.nombre, p_lista->alumno.primer_apellido,  p_lista->alumno.segundo_apellido);
   }
 
   printf("\n Numero total de alumnos: %d",contador-1);
