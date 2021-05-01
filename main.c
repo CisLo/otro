@@ -176,7 +176,7 @@ int main()
                 break;
 			
 			case 10: /*=== Ver estadisticas de la lista de alumnos ===*/
-				mostrar_estadisticas(lista);
+				ver_estadisticas(lista);
 				printf("\n------------------------------------\n");
 				break;
 

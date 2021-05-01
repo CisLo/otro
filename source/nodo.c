@@ -52,7 +52,7 @@ void agregar_nodo_principio (nodo_t **lista_p, alumno_t alumno)
 void agregar_nodo_entre (nodo_t *nodo_anterior, alumno_t alumno)
 {
 
-  /* Tamaño del nuevo nodo a crear: */
+  /* Asignar el nuevo nodo */
   nodo_t *nodo =  nuevo_nodo(alumno, nodo_anterior->salto);
 
   /* Apuntar al siguiente nodo del "nodo_anterior" el nuevo */
@@ -72,6 +72,7 @@ void agregar_nodo_final(nodo_t **lista, alumno_t alumno_datos)
 
   while (lista_p_aux->salto != NULL) /* Recorremos la lista hasta el ultimo nodo */
   {
+    /* Guarda el salto del utlimo nodo de la lista */
     lista_p_aux = lista_p_aux->salto;
   }
   lista_p_aux->salto = nodo_p; /* El ultimo nodo apunta al nuevo, poniendo al nuevo nodo al final de la lista */

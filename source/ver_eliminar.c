@@ -62,7 +62,7 @@ void ver_lista (nodo_t *lista) {
 
 
 /** Mostrar estadisticas **/
-void mostrar_estadisticas (nodo_t *lista) {
+void ver_estadisticas (nodo_t *lista) {
   nodo_t *p_lista;
   int contador = 0, contador_aprobado = 0;
   float media, nota_alta = 0.0, porcentaje;

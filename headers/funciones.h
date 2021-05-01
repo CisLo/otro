@@ -36,7 +36,7 @@ void buscar_nombre (nodo_t *lista, nodo_t **alumno_buscado);
 bool ver_alumno(nodo_t *ultimo_alum);
 //----------------------------------------
 void ver_lista (nodo_t *lista); /* EXTRA */
-void mostrar_estadisticas (nodo_t *lista); /* EXTRA */
+void ver_estadisticas (nodo_t *lista); /* EXTRA */
 void editar_alumno (nodo_t *ultimo_alum); /* EXTRA */
 //----------------------------------------
 void buscar_nodo (nodo_t *lista, nodo_t *nodo_buscar, nodo_t **nodo_previo);
