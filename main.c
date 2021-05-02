@@ -23,7 +23,7 @@ int main()
 	int numero, opcion = 0, valido_dni = 0, opcion_aux;
 	char letra;
 	bool salir; /* Booleano para salir del programa principal, y repetir el menu */
-	bool no_cambios, fit_guardado; /* Por defecto el fichero no esta guardado ni cargado */
+	bool no_cambios, fit_guardado = true; /* Por defecto el fichero al principio esta guardado */
 
 	/* Iniciamos la lista enlazada */
 	iniciar_lista(&lista);

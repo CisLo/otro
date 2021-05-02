@@ -107,8 +107,11 @@ void ver_estadisticas (nodo_t *lista) {
 void editar_alumno (nodo_t *ultimo_alum)
 {
   /* Cambiamos la nota */
-  printf("\n Introduce la nueva nota: ");
-  scanf(" %f", &ultimo_alum->alumno.nota);
+  do {
+    printf("\n Introduce la nueva nota (entre 0 y 10): ");
+    scanf(" %f", &ultimo_alum->alumno.nota);
+  } while (ultimo_alum->alumno.nota<0 || ultimo_alum->alumno.nota>10);
+
 }
 
 
