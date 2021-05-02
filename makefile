@@ -36,7 +36,7 @@ obj/nodo.o : source/nodo.c
 obj/main.o : main.c
 	gcc -c $(CFLAGS)  -I $(DIRECTORIO_SOURCE) main.c -o obj/main.o
 #-------------------------------------------------------------------------------
-# Comandos make, de eliminación:
+# Comandos make:
 #-------------------------------------------------------------------------------
 clean : 
 	@rm -fv programa_alumnos.exe

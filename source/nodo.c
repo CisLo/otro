@@ -29,7 +29,7 @@ nodo_t *nuevo_nodo (alumno_t alumno, nodo_t *salto)
 	p_nuevo_nodo->alumno = alumno;
 	p_nuevo_nodo->salto = salto;
 
-  /* Retorna el puntero del nuevo nodo */
+  /* Retorna el nuevo nodo, con los datos y el salto pasado por parametro */
 	return p_nuevo_nodo;
 }
 
@@ -40,10 +40,10 @@ void agregar_nodo_principio (nodo_t **lista_p, alumno_t alumno)
   nodo_t *nodo;
   nodo = nuevo_nodo(alumno, *lista_p); /* Reservamos en memoria */
 
-  /* Crear el salto del nuevo nodo. */
+  /* Crear el salto del nuevo nodo */
   nodo->salto = (*lista_p);
 
-  /* Asignar al puntero el nuevo nodo. */
+  /* Asignar al puntero el nuevo nodo */
   (*lista_p) = nodo;
 }
 
@@ -57,7 +57,6 @@ void agregar_nodo_entre (nodo_t *nodo_anterior, alumno_t alumno)
 
   /* Apuntar al siguiente nodo del "nodo_anterior" el nuevo */
   nodo_anterior->salto = nodo;
-
 }
 
 

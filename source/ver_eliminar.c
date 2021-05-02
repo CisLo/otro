@@ -111,6 +111,7 @@ void editar_nota(nodo_t *ultimo_alum)
     printf("\n Introduce la nueva nota (entre 0 y 10): ");
     scanf(" %f", &ultimo_alum->alumno.nota);
   } while (ultimo_alum->alumno.nota<0 || ultimo_alum->alumno.nota>10);
+  printf("\n Se ha modificado correctamente la nota\n");
 
 }
 
