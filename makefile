@@ -5,7 +5,7 @@
 #-------------------------------------------------------------------------------
 # Declaraciones:
 #-------------------------------------------------------------------------------
-CFLAGS	:= -Wall -std=c99 -pedantic -g
+CFLAGS	:= -Wall -g -Wextra -Wall -std=c99 -g
 DIRECTORIO_PRINCIPAL := ./
 DIRECTORIO_SOURCE := source
 DIRECTORIO_HEADERS := headers
@@ -34,7 +34,7 @@ obj/nodo.o : source/nodo.c headers/funciones.h headers/tipos.h
 	gcc -c $(CFLAGS) source/nodo.c -o obj/nodo.o
 
 obj/main.o : main.c headers/funciones.h headers/tipos.h
-	gcc -c $(CFLAGS) -I $(DIRECTORIO_HEADERS) main.c -o obj/main.o
+	gcc -c $(CFLAGS) main.c -o obj/main.o
 #-------------------------------------------------------------------------------
 # Comandos make:
 #-------------------------------------------------------------------------------
