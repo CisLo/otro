@@ -37,7 +37,7 @@ bool ver_alumno(nodo_t *ultimo_alum);
 //----------------------------------------
 void ver_lista (nodo_t *lista); /* EXTRA */
 void ver_estadisticas (nodo_t *lista); /* EXTRA */
-void editar_alumno (nodo_t *ultimo_alum); /* EXTRA */
+void editar_nota (nodo_t *ultimo_alum); /* EXTRA */
 //----------------------------------------
 void buscar_nodo (nodo_t *lista, nodo_t *nodo_buscar, nodo_t **nodo_previo);
 void eliminar_alumno(nodo_t **lista, nodo_t **ultimo_alum);

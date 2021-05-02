@@ -188,7 +188,7 @@ int main()
 					scanf("%d", &opcion_aux); 
 					if (opcion_aux == 1) 
 					{
-						editar_alumno(alumno_buscado); /* cambio de nota */
+						editar_nota(alumno_buscado); /* cambio de nota */
 					}
 				}
 				printf("\n------------------------------------\n");

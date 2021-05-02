@@ -104,7 +104,7 @@ void ver_estadisticas (nodo_t *lista) {
 
 
 /** Editar nota alumno **/
-void editar_alumno (nodo_t *ultimo_alum)
+void editar_nota(nodo_t *ultimo_alum)
 {
   /* Cambiamos la nota */
   do {

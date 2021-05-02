@@ -41,13 +41,14 @@ int buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultimo
   printf("\n");
 
   /* Realizamos las comprobaciones */
-  salida = comprobar_letra(*numero_dni, *letra_dni);
-  if (salida == -1){
-    printf(" El DNI es incorrecto (no corresponde la letra con el numero) \n");
-  }
-  else{
-    if ((*numero_dni > 0) && (*numero_dni <= 99999999)) /* Comprobamos que se encuentre en el rango de un dni */
-    {
+  if ((*numero_dni > 0) && (*numero_dni <= 99999999)) /* Comprobamos que se encuentre en el rango de un dni */
+  {
+    salida = comprobar_letra(*numero_dni, *letra_dni);
+    if (salida == -1){
+      printf(" El DNI es incorrecto (no corresponde la letra con el numero) \n");
+    }
+    else{
+
       for (p = lista; p != NULL; p = p->salto)
       {
         if (p->alumno.dni.numero == *numero_dni) /* Si coincide el DNI */
@@ -57,10 +58,11 @@ int buscar_dni (nodo_t *lista, int *numero_dni, char *letra_dni, nodo_t **ultimo
         }
       }
     }
-    else {
+  }
+  else
+  {
       salida = -1;
       printf(" El DNI es incorrecto (fuera de rango) \n");
-    }
   }
   /*
     SALIDAS:
