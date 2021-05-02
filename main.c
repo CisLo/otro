@@ -153,6 +153,7 @@ int main()
 					if (opcion_aux == 1) 
 					{
 						eliminar_alumno (&lista, &alumno_buscado);
+						fit_guardado = false;
 					}
 				}
 				printf("\n------------------------------------\n");
